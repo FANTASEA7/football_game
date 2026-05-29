@@ -111,6 +111,46 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .transfer-item .team-logo-wrap{display:flex;align-items:center;gap:12px;}
 .transfer-item .team-detail{flex:1;}
 
+/* ========== TACTICS ========== */
+.tactics-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:400px;margin-bottom:16px;}
+.tactic-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.tactic-card:hover{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.05);}
+.tactic-card.selected{border-color:#ffd700;background:rgba(255,215,0,0.1);box-shadow:0 0 12px rgba(255,215,0,0.15);}
+.tactic-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:2px;}
+.tactic-desc{font-size:10px;color:#8a9a8a;line-height:1.3;}
+.tactic-effect{font-size:10px;color:#ffd700;margin-top:2px;}
+
+/* ========== PITCH ========== */
+.pitch-container{width:100%;max-width:400px;margin-bottom:12px;border-radius:8px;overflow:hidden;position:relative;}
+.pitch{width:100%;aspect-ratio:2/1.3;background:linear-gradient(180deg,#2d8a4e 0%,#267a43 50%,#2d8a4e 100%);position:relative;overflow:hidden;}
+.pitch-line{position:absolute;border:1.5px solid rgba(255,255,255,0.35);}
+.pitch-outline{position:absolute;top:4%;left:3%;width:94%;height:92%;border:1.5px solid rgba(255,255,255,0.35);border-radius:2px;}
+.pitch-halfway{position:absolute;top:50%;left:3%;width:94%;height:0;border-top:1.5px solid rgba(255,255,255,0.35);}
+.pitch-circle{position:absolute;top:50%;left:50%;width:24%;height:46%;border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;transform:translate(-50%,-50%);}
+.pitch-centre-dot{position:absolute;top:50%;left:50%;width:6px;height:6px;background:rgba(255,255,255,0.5);border-radius:50%;transform:translate(-50%,-50%);}
+.pitch-pa{position:absolute;width:38%;height:36%;border:1.5px solid rgba(255,255,255,0.35);}
+.pitch-pa.top{top:4%;left:31%;border-bottom:none;border-radius:0 0 4px 4px;}
+.pitch-pa.bottom{bottom:4%;left:31%;border-top:none;border-radius:4px 4px 0 0;}
+.pitch-ga{position:absolute;width:16%;height:10%;border:1.5px solid rgba(255,255,255,0.35);}
+.pitch-ga.top{top:4%;left:42%;border-bottom:none;border-radius:0 0 3px 3px;}
+.pitch-ga.bottom{bottom:4%;left:42%;border-top:none;border-radius:3px 3px 0 0;}
+.pitch-dot{position:absolute;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.5s ease;z-index:2;}
+.pitch-dot.home{background:#ff4757;box-shadow:0 0 6px rgba(255,71,87,0.6);}
+.pitch-dot.away{background:#ffd700;box-shadow:0 0 6px rgba(255,215,0,0.4);}
+.pitch-dot.gk{width:14px;height:14px;border:2px solid rgba(255,255,255,0.5);}
+.pitch-ball{position:absolute;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,0.6);transform:translate(-50%,-50%);z-index:3;transition:all 0.4s ease;}
+.pitch-ball.animate{animation:ballKick 0.6s ease-out;}
+@keyframes ballKick{0%{transform:translate(-50%,-50%) scale(1)}40%{transform:translate(-50%,-50%) scale(1.4)}100%{transform:translate(-50%,-50%) scale(1)}}
+@keyframes goalGlow{0%,100%{box-shadow:0 0 0 rgba(255,215,0,0)}50%{box-shadow:0 0 40px rgba(255,215,0,0.8)}}
+.pitch-goal-flash{animation:goalGlow 1s ease-out 3;}
+
+/* ========== STAT PANEL ========== */
+.stat-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px;color:#b0c0b0;}
+.stat-row:last-child{border-bottom:none;}
+.stat-label{color:#8a9a8a;}
+.stat-value{color:#fff;font-weight:700;}
+.stat-icon{width:20px;text-align:center;margin-right:6px;}
+
 /* Final Result */
 .result-card{background:rgba(255,215,0,0.05);border:2px solid rgba(255,215,0,0.2);border-radius:16px;padding:30px;text-align:center;width:100%;max-width:400px;margin-bottom:20px;animation:glow 2s infinite;}
 .result-icon{font-size:64px;margin-bottom:12px;}
@@ -245,10 +285,11 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
       </div>
     </div>
   </div>
-  <div class="info-card" id="match-pre-info">
-    <div class="card-text" id="match-pre-desc"></div>
-  </div>
-  <button class="btn btn-primary" onclick="startMatch()">⚽ 开球！</button>
+  <div class="screen-subtitle" style="font-size:13px;margin-bottom:8px;">📋 选择阵型</div>
+  <div class="tactics-grid" id="formation-select"></div>
+  <div class="screen-subtitle" style="font-size:13px;margin-bottom:8px;">🎯 选择策略</div>
+  <div class="tactics-grid" id="strategy-select"></div>
+  <button class="btn btn-primary" id="start-match-btn" onclick="startMatch()" style="opacity:0.4;pointer-events:none;">⚽ 确定战术，开球！</button>
 </div>
 
 <!-- ========== MATCH EVENT ========== -->
@@ -259,6 +300,9 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
   </div>
   <div class="match-vs" style="margin-bottom:4px;">
     <span style="font-size:13px;color:#b0c0b0;" id="match-teams-label"></span>
+  </div>
+  <div class="pitch-container" id="pitch-container">
+    <div class="pitch" id="pitch-canvas"></div>
   </div>
   <div class="match-minute" id="event-minute">0'</div>
   <div class="match-desc" id="event-description"></div>
@@ -289,6 +333,10 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
     <div class="rating-number" id="result-rating">0.0</div>
     <div class="rating-label">本场评分</div>
     <div class="rating-bar"><div class="rating-fill" id="result-rating-bar" style="width:0%"></div></div>
+  </div>
+  <div class="info-card" id="result-stats-card" style="display:none;">
+    <div class="card-title">📊 本场数据</div>
+    <div id="result-stats-content"></div>
   </div>
   <div class="info-card" id="result-comment-card">
     <div class="card-text" id="result-comment"></div>
@@ -539,6 +587,55 @@ function getEvents(pos, stageIndex) {
           {text:'下底传中',rating:0,scoreChance:0.2,result:'传中被对方后卫挡出底线，角球。'},
           {text:'回传控球拖延时间',rating:-0.5,scoreChance:0.05,result:'安全但缺乏威胁，对方重新组织好防线。'}
         ]
+      },
+      // 防守型场景 - 前锋压迫
+      {
+        desc:'对方门将持球准备发动反击，你的队友在盯防对方后卫，你需要封堵出球路线！',
+        choices:[
+          {text:'高速冲向门将封堵出球',rating:1.5,scoreChance:-0.15,result:'你的压迫迫使门将仓促大脚！球被队友在中场停下，发动二次进攻！'},
+          {text:'切断门将与后卫的短传路线',rating:1,scoreChance:-0.1,result:'门将找不到短传路线，只能大脚开到前场！你的卡位非常聪明！'},
+          {text:'散步式压迫留力进攻',rating:-1,scoreChance:-0.2,result:'门将轻松将球传给后卫，对方从后场层层推进，你错过了最佳压迫时机。'}
+        ]
+      },
+      {
+        desc:'对方边后卫高速插上助攻，你的边路防守队友需要支援！',
+        choices:[
+          {text:'快速回防到边路协助防守',rating:1.5,scoreChance:-0.15,result:'你及时回防形成二防一！对方边后卫被迫回传！教练在场边为你鼓掌！'},
+          {text:'回撤到中场切断传球路线',rating:0.5,scoreChance:-0.05,result:'你卡住了中场传球路线，对方只能选择回传，成功延缓了反击速度。'},
+          {text:'留在前场等待反击机会',rating:-1,scoreChance:-0.25,result:'对方在边路形成二打一，轻松突破传中！中路头球攻门，好在门将将球扑出！'}
+        ]
+      },
+      {
+        desc:'对方获得角球机会，全队都需要回到禁区参与防守！',
+        choices:[
+          {text:'盯防对方身材最高的中后卫',rating:1.5,scoreChance:-0.2,result:'你死死贴住对方中后卫，他无法舒服争顶！球被门将稳稳摘下！'},
+          {text:'站在前点保护近门柱',rating:0.5,scoreChance:-0.1,result:'对方角球开到中路，好在中后卫头球解围，防守成功！'},
+          {text:'留在禁区外等反击',rating:-1.5,scoreChance:-0.3,result:'对方前点头球后蹭，后点包抄破门！⚽ 你在防守中的失位导致了丢球！'}
+        ]
+      },
+      {
+        desc:'你在前场传球失误被对方后卫断下，对方准备发动快速反击！',
+        choices:[
+          {text:'就地反抢，战术犯规也要阻止反击',rating:1,scoreChance:-0.15,result:'你果断放铲将球破坏出边线！虽然给了界外球，但成功阻止了对方反击！'},
+          {text:'快速回追干扰',rating:0.5,scoreChance:-0.1,result:'你拼命回追，在对方出球瞬间进行了干扰，传球偏出！'},
+          {text:'原地叉腰叹气',rating:-2,scoreChance:-0.35,result:'对方轻松通过你的防区，形成前场多打少！⚽ 最终被对方攻入一球！'}
+        ]
+      },
+      {
+        desc:'对方后卫在后场倒脚传递，等待时机向前传球。',
+        choices:[
+          {text:'带领队友集体前压逼抢',rating:1.5,scoreChance:-0.15,result:'你的逼抢带动了全队！对方后卫慌乱中回传门将，差点造成乌龙！'},
+          {text:'预判传球路线准备拦截',rating:1,scoreChance:-0.1,result:'你成功预判了传球路线！断球后直接发动进攻！可惜最后射门被扑出。'},
+          {text:'保持阵型节省体力',rating:-0.5,scoreChance:-0.05,result:'对方从容从中场组织进攻，你的防线开始承受压力。'}
+        ]
+      },
+      {
+        desc:'对方中场突破了你方中场防守，带球向禁区推进，你需要补防！',
+        choices:[
+          {text:'快速回撤到禁区前沿堵住空当',rating:1.5,scoreChance:-0.2,result:'你及时出现在关键位置！对方不得不放慢节奏，最终远射偏出！'},
+          {text:'上前尝试断球',rating:0.5,scoreChance:-0.1,result:'你上抢被对方一个变向过掉，好在最后射门被门将没收。'},
+          {text:'举手示意队友去防',rating:-1.5,scoreChance:-0.3,result:'没有人去防守！对方在禁区弧顶从容起脚远射！⚽ 皮球直挂死角！'}
+        ]
       }
     ],
     midfielder: [
@@ -588,6 +685,60 @@ function getEvents(pos, stageIndex) {
           {text:'优雅停球后转身推进',rating:1,scoreChance:0.3,result:'完美的停球转身！你甩开防守球员，向前推进！'},
           {text:'头球摆渡给队友',rating:0.5,scoreChance:0.2,result:'队友接球后组织进攻，最终迫使对方犯规，赢得任意球。'},
           {text:'直接大范围转移',rating:-0.5,scoreChance:0.15,result:'转移球力量过大，直接飞出了边线。'}
+        ]
+      },
+      // 防守场景 - 盯人
+      {
+        desc:'对方前腰在你防区拿球，他是一名技术出色的组织核心！',
+        choices:[
+          {text:'紧贴防守，不给他转身空间',rating:1.5,scoreChance:-0.15,result:'你像影子一样贴住对方！他无法转身只能回传！成功限制对方核心！'},
+          {text:'保持距离，防他突破',rating:0,scoreChance:-0.05,result:'你给了对方太大空间，他从容转身送出直塞！好在后卫及时解围。'},
+          {text:'冒险上抢试图断球',rating:-1,scoreChance:-0.2,result:'你被对方轻松过掉！他带球推进到禁区前沿，远射高出横梁！'}
+        ]
+      },
+      // 进攻场景 - 插上
+      {
+        desc:'边路队友传中，后点有空间，你高速插上包抄！',
+        choices:[
+          {text:'插到前点头球攻门',rating:1.5,scoreChance:0.4,result:'⚽ 你抢到前点！一个有力的头球将球砸入网窝！精彩的插上破门！'},
+          {text:'减慢速度等球落到脚下',rating:-0.5,scoreChance:0.1,result:'你犹豫了一下，球被对方后卫解围，错过了一次好机会。'},
+          {text:'假装射门漏给后点队友',rating:1,scoreChance:0.35,result:'你巧妙一漏，后点队友跟上射门！可惜角度太小打在了边网上。'}
+        ]
+      },
+      // 防守场景 - 拦截
+      {
+        desc:'对方在后场组织进攻，一名后卫试图将球传到中场。',
+        choices:[
+          {text:'预判路线突然前压拦截',rating:1.5,scoreChance:-0.15,result:'你突然启动成功拦截了传球！带球推进后送出直塞，前锋射门被扑出！'},
+          {text:'靠近接球球员施加压力',rating:0.5,scoreChance:-0.1,result:'你在接球球员身后施压，对方只能回传，延缓了进攻节奏。'},
+          {text:'跟着球跑但没有实际压迫',rating:-1,scoreChance:-0.2,result:'你只是跟着球跑没有实际干扰，对方轻松推进到前场！'}
+        ]
+      },
+      // 进攻场景 - 远射
+      {
+        desc:'皮球在禁区前沿被解围到你脚下，这是一个远射的好机会！',
+        choices:[
+          {text:'不停球直接凌空抽射',rating:1.5,scoreChance:0.35,result:'⚽ 天外飞仙！你的凌空抽射如炮弹般飞入球门上角！世界波！'},
+          {text:'停球调整一步再射',rating:0.5,scoreChance:0.2,result:'你停球后起脚射门，球打在防守球员身上折射出底线。'},
+          {text:'横传给位置更好的队友',rating:0.5,scoreChance:0.25,result:'队友接球后晃开角度射门，可惜被门将飞身扑出！'}
+        ]
+      },
+      // 攻防转换 - 反击
+      {
+        desc:'你在中场断球成功，对方防线还没回过神！前方有三个队友在跑位！',
+        choices:[
+          {text:'一脚精准直塞找前锋',rating:1.5,scoreChance:0.45,result:'⚽ 手术刀般的直塞撕破防线！前锋单刀破门！完美的攻防转换！'},
+          {text:'带球推进吸引防守后分球',rating:1,scoreChance:0.3,result:'你带球吸引了两名防守球员，分球给边路！队友传中制造了威胁！'},
+          {text:'稳妥回传重新组织',rating:-0.5,scoreChance:0.05,result:'你选择了回传，对方已经回防到位，失去了反击的最佳时机。'}
+        ]
+      },
+      // 防守场景 - 协防边路
+      {
+        desc:'对方在边路发动进攻，你的边后卫被过掉，需要你补防！',
+        choices:[
+          {text:'快速补位到边路封堵传中',rating:1.5,scoreChance:-0.15,result:'你及时补位！用身体将对方的传中挡出边线！关键的边路防守！'},
+          {text:'回收到禁区增加防守人数',rating:0,scoreChance:-0.1,result:'对方轻松传中，禁区内形成头球攻门，好在偏出球门。'},
+          {text:'站在原地指挥队友去补',rating:-1.5,scoreChance:-0.3,result:'队友来不及补防！对方传中到后点，⚽ 包抄球员推射破门！'}
         ]
       }
     ],
@@ -639,6 +790,60 @@ function getEvents(pos, stageIndex) {
           {text:'上前压迫持球人',rating:0.5,scoreChance:-0.1,result:'你果断上抢，虽然被过掉但也延缓了进攻节奏。'},
           {text:'冒险放铲',rating:-2,scoreChance:-0.4,result:'你铲空了！对方直接面对门将... ⚽ 球进了。你和教练都很失望。'}
         ]
+      },
+      // 进攻场景 - 角球争顶
+      {
+        desc:'球队获得角球机会，你作为后卫来到对方禁区争顶！',
+        choices:[
+          {text:'冲到前点头球后蹭',rating:1.5,scoreChance:0.45,result:'⚽ 你抢到前点！头球后蹭直挂远角！带刀后卫！漂亮的角球破门！'},
+          {text:'在禁区弧顶等待第二落点',rating:0.5,scoreChance:0.2,result:'球被解围到你脚下，你迎球怒射！可惜打在了防守球员身上。'},
+          {text:'在禁区中间争顶但不坚决',rating:-1,scoreChance:0.1,result:'你起跳太慢没争到点，球被轻松解围。'}
+        ]
+      },
+      // 进攻场景 - 边路插上
+      {
+        desc:'你作为边后卫插上助攻，在边路拿到球，前方没有防守球员！',
+        choices:[
+          {text:'带球下底传中',rating:1,scoreChance:0.3,result:'你的传中质量很高！中路队友头球攻门，可惜被门将神勇扑出！'},
+          {text:'内切后横传禁区前沿',rating:1.5,scoreChance:0.35,result:'⚽ 你内切后将球传给禁区前沿的队友！队友远射变线入网！助攻+1！'},
+          {text:'直接四十五度角传中',rating:-0.5,scoreChance:0.15,result:'传中被对方后卫轻松顶出，浪费了一次进攻机会。'}
+        ]
+      },
+      // 进攻场景 - 带球推进
+      {
+        desc:'对方全线退防，你后场拿球时身前有大片空当！',
+        choices:[
+          {text:'带球推进到中场吸引防守后分球',rating:1.5,scoreChance:0.3,result:'你带球推进了30米！吸引三名防守球员后分球，队友获得射门空间！'},
+          {text:'长传找前锋',rating:0.5,scoreChance:0.2,result:'你的长传精准找到前锋，但他在对抗中没能控制好球。'},
+          {text:'安全传给最近的后卫',rating:-0.5,scoreChance:0.05,result:'你选择了安全传球，但失去了向前推进的机会。'}
+        ]
+      },
+      // 进攻场景 - 远射
+      {
+        desc:'角球被解围到禁区外，球正好落在你面前！',
+        choices:[
+          {text:'迎球大力远射',rating:1.5,scoreChance:0.3,result:'⚽ 你的远射穿过禁区内的人群！门将视线受阻！球进了！石破天惊！'},
+          {text:'停球后再寻找传球机会',rating:0,scoreChance:0.15,result:'你停球观察后将球传给边路，重新组织进攻。'},
+          {text:'直接吊射',rating:-1,scoreChance:0.05,result:'你的吊射高得离谱，直接飞出了底线。'}
+        ]
+      },
+      // 进攻场景 - 断球推进
+      {
+        desc:'你在中场成功断球，对方防线还没有组织好！',
+        choices:[
+          {text:'带球长驱直入杀向禁区',rating:1.5,scoreChance:0.35,result:'⚽ 你带球连过两人！在禁区弧顶起脚远射！皮球直挂死角！一条龙！'},
+          {text:'迅速传给前插的队友',rating:1,scoreChance:0.3,result:'你的传球找到了空当里的队友！队友射门被扑出，但这次进攻非常有威胁！'},
+          {text:'回传门将重新组织',rating:-1,scoreChance:0.05,result:'你回传后对方已经回防到位，失去了一次很好的进攻机会。'}
+        ]
+      },
+      // 进攻场景 - 任意球进攻
+      {
+        desc:'前场任意球，全队压上，你也来到对方禁区参与进攻。',
+        choices:[
+          {text:'在小禁区争抢前点',rating:1,scoreChance:0.3,result:'你的争顶干扰了门将判断！球落到后点，队友轻松推射破门！助攻+1！'},
+          {text:'在禁区弧顶保护第二落点',rating:0.5,scoreChance:0.2,result:'球被解围到你脚下，你传给队友，但他的远射打偏了。'},
+          {text:'留在中线防止反击',rating:-0.5,scoreChance:0.1,result:'你在中线观望，但球队少了一个进攻点，任意球被轻松解围。'}
+        ]
       }
     ],
     goalkeeper: [
@@ -689,9 +894,64 @@ function getEvents(pos, stageIndex) {
           {text:'集中注意力等待射门',rating:0,scoreChance:-0.1,result:'对方射门角度很刁，你飞身扑出！精彩的扑救！'},
           {text:'提前移动准备扑远角',rating:-1,scoreChance:-0.25,result:'⚽ 对方轻巧地推射近角，你被骗过了方向。'}
         ]
+      },
+      // 发球反击
+      {
+        desc:'你扑住了对方的远射，获得球权，对方还在回防中！',
+        choices:[
+          {text:'手抛球快速发动反击',rating:1.5,scoreChance:0.35,result:'⚽ 你的手抛球精准找到中场队友！队友直塞助攻前锋破门！完美的反击发起！'},
+          {text:'大脚开向前场',rating:0,scoreChance:0.15,result:'大脚开到前场，队友争到落点但没能形成射门。'},
+          {text:'控球稳一下节奏',rating:-0.5,scoreChance:0.05,result:'你放慢了节奏，对方已经回防到位，错失反击良机。'}
+        ]
+      },
+      // 指挥防线
+      {
+        desc:'对方获得前场任意球，你需要指挥你的人墙和防线站位！',
+        choices:[
+          {text:'大声呼喊指挥人墙和盯人',rating:1.5,scoreChance:-0.2,result:'你的人墙站位完美！对方任意球打在人墙上弹回！你稳稳将球没收！'},
+          {text:'集中注意力准备扑救',rating:0.5,scoreChance:-0.1,result:'对方任意球直奔死角！你飞身将球扑出！精彩的扑救！'},
+          {text:'没有指挥全靠队友自觉',rating:-1,scoreChance:-0.25,result:'人墙站位出现漏洞！对方任意球穿过缝隙！⚽ 球进了！你的指挥失误！'}
+        ]
+      },
+      // 出球选择
+      {
+        desc:'后卫回传给你，对方两名前锋正在向你逼近施压！',
+        choices:[
+          {text:'假动作扣过上抢前锋后传球',rating:1,scoreChance:0.2,result:'你冷静地扣过了上抢的前锋！传给空当里的后卫！球迷为你的胆识欢呼！'},
+          {text:'大脚解围出边线',rating:0,scoreChance:-0.05,result:'安全第一！大脚将球踢出边线，防线重新组织。'},
+          {text:'匆忙开大脚结果踢疵',rating:-1.5,scoreChance:-0.2,result:'你的大脚踢疵了！球落在对方前锋脚下！⚽ 对方直接吊射空门得分！'}
+        ]
+      },
+      // 统领后防
+      {
+        desc:'比赛进行中，你的防线出现了沟通失误，你需要重新组织防线。',
+        choices:[
+          {text:'大声提醒队友保持阵型和距离',rating:1.5,scoreChance:-0.15,result:'你及时的提醒让防线恢复了组织！对方很难找到防线缺口！'},
+          {text:'拍手鼓励队友',rating:0.5,scoreChance:-0.05,result:'队友在你的鼓励下稳定了情绪，防守更加专注。'},
+          {text:'沉默不语专注自己的扑救',rating:-1,scoreChance:-0.2,result:'防线的漏洞没有修复！对方通过精妙配合撕破防线！⚽ 球进了！'}
+        ]
+      },
+      // 出击截球
+      {
+        desc:'对方一记过顶长传打向防线身后！你需要判断是否出击！',
+        choices:[
+          {text:'果断冲出禁区头球解围',rating:1.5,scoreChance:-0.2,result:'你像清道夫一样冲出禁区！头球将球顶给队友！完美化解身后威胁！'},
+          {text:'在禁区边缘等待判断落点',rating:0,scoreChance:-0.1,result:'对方前锋率先拿到球，好在你的封堵角度让他只能选择传中。'},
+          {text:'留在门线不出去',rating:-1.5,scoreChance:-0.3,result:'对方前锋轻松停球过掉你！⚽ 推射空门得分！你的犹豫代价惨重！'}
+        ]
+      },
+      // 长传助攻
+      {
+        desc:'对方全线压上进攻，球被你的后卫解围，你需要重新组织出球。',
+        choices:[
+          {text:'观察后直接长传找前锋',rating:1.5,scoreChance:0.3,result:'⚽ 你的长传精准找到前锋！他停球后过掉门将破门！门将助攻！'},
+          {text:'短传给边后卫稳稳推进',rating:0,scoreChance:0.1,result:'边后卫带球推进，经过一系列传递后最终获得一次远射机会。'},
+          {text:'大脚开到中场争顶',rating:-0.5,scoreChance:0.05,result:'球被对方控制，你的球队又开始了新一轮的防守。'}
+        ]
       }
     ]
   };
+
   return all[pos] || all.forward;
 }
 
@@ -719,6 +979,22 @@ const G = {
   currentMatchEvents: 0,
   perfectMatches: 0,
   endedAsStay: false,
+  // Tactics
+  tactic: { formation: null, strategy: null },
+  // Player career stats
+  playerStats: {
+    appearances: 0, manOfMatch: 0, totalRating: 0,
+    goals: 0, assists: 0, shots: 0, shotsOnTarget: 0,
+    passes: 0, tackles: 0, interceptions: 0,
+    clearances: 0, blocks: 0, saves: 0, cleanSheets: 0,
+    dribbles: 0, fouls: 0, motmCount: 0
+  },
+  // Current match stats
+  matchStats: {
+    goals: 0, assists: 0, shots: 0, passes: 0,
+    tackles: 0, interceptions: 0, saves: 0, dribbles: 0
+  },
+  matchTacticsBonus: 0,
 };
 
 const STAGES = [
@@ -726,6 +1002,191 @@ const STAGES = [
   { id:'u15', name:'U15青训阶段', desc:'进入U15阶段，比赛强度明显提升。你将面临更有组织的对手，技术细节和战术意识需要全面进化。', team:'中国青年精英营' },
   { id:'u19', name:'U19青训阶段', desc:'最后的青训考验！U19的赛场上汇集了各俱乐部的年轻才俊。这是你叩开职业大门的最后机会。', team:'中国青年精英营' }
 ];
+
+// ============================================================
+// TACTICS DATA
+// ============================================================
+const FORMATIONS = [
+  { id:'4-3-3', name:'4-3-3', desc:'攻势足球，三前锋施压', effect:'进攻+20%', atkBonus:0.2, defBonus:-0.1, dots:[[25,85],[18,70],[32,70],[40,60],[10,60],[20,45],[30,45],[40,45],[15,28],[30,28],[45,28]] },
+  { id:'4-4-2', name:'4-4-2', desc:'经典平衡，攻守兼备', effect:'无加成', atkBonus:0, defBonus:0, dots:[[25,85],[18,70],[32,70],[40,60],[10,60],[20,48],[35,48],[45,48],[15,28],[35,28],[50,28]] },
+  { id:'5-3-2', name:'5-3-2', desc:'三中卫密集防守', effect:'防守+20%', atkBonus:-0.1, defBonus:0.2, dots:[[25,85],[15,72],[25,72],[35,72],[5,65],[45,65],[20,48],[40,48],[12,28],[25,28],[38,28]] },
+  { id:'3-4-3', name:'3-4-3', desc:'三前锋狂攻阵型', effect:'进攻+30%-10%防', atkBonus:0.3, defBonus:-0.2, dots:[[25,88],[25,72],[12,62],[38,62],[20,52],[30,52],[40,52],[5,35],[15,28],[35,28],[50,28]] }
+];
+
+const STRATEGIES = [
+  { id:'possession', name:'控球进攻', desc:'耐心传导，控制节奏', s:'传球+20%', mods:{pass:1.2} },
+  { id:'counter', name:'防守反击', desc:'稳固防守，快速出击', s:'防守+15%', mods:{def:1.15} },
+  { id:'highpress', name:'高位压迫', desc:'前场逼抢，就地反抢', s:'抢断+25%', mods:{tackle:1.25} },
+  { id:'parkbus', name:'全线退守', desc:'密集防守，保住比分', s:'防守+30%，进攻-20%', mods:{def:1.3,atk:0.8} }
+];
+
+// ============================================================
+// PITCH RENDERING
+// ============================================================
+function renderPitch(highlightGoal) {
+  const pitch = document.getElementById('pitch-canvas');
+  if(!pitch) return;
+  pitch.innerHTML = '';
+
+  // Pitch lines
+  pitch.innerHTML =
+    '<div class="pitch-outline"></div>' +
+    '<div class="pitch-halfway"></div>' +
+    '<div class="pitch-circle"></div>' +
+    '<div class="pitch-centre-dot"></div>' +
+    '<div class="pitch-pa bottom"></div>' +
+    '<div class="pitch-ga bottom"></div>' +
+    '<div class="pitch-pa top"></div>' +
+    '<div class="pitch-ga top"></div>';
+
+  // Player dots from selected formation
+  const formation = FORMATIONS.find(f => f.id === G.tactic.formation) || FORMATIONS[1];
+  const dots = formation.dots || [];
+
+  // Home team (player's team) - red dots, attacking right to left
+  dots.forEach((pos, i) => {
+    if(i === 0) return; // skip gk spot, add manually
+    const dot = document.createElement('div');
+    dot.className = 'pitch-dot home';
+    if(i === 1) dot.className += ' gk';
+    dot.style.left = (100 - pos[1]) + '%';
+    dot.style.top = pos[0] + '%';
+    pitch.appendChild(dot);
+  });
+
+  // Away team - yellow dots
+  const awayPositions = [[25,85],[15,72],[25,72],[35,72],[5,60],[45,60],[20,50],[40,50],[12,30],[25,30],[38,30]];
+  awayPositions.forEach((pos, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'pitch-dot away';
+    if(i === 0) dot.className += ' gk';
+    dot.style.left = pos[1] + '%';
+    dot.style.top = (100 - pos[0]) + '%';
+    pitch.appendChild(dot);
+  });
+
+  // Ball at center
+  const ball = document.createElement('div');
+  ball.className = 'pitch-ball';
+  ball.id = 'pitch-ball';
+  ball.style.left = '50%';
+  ball.style.top = '50%';
+  pitch.appendChild(ball);
+
+  if(highlightGoal) {
+    pitch.classList.add('pitch-goal-flash');
+    setTimeout(() => pitch.classList.remove('pitch-goal-flash'), 1200);
+  }
+}
+
+function animateBall(targetX, targetY, isGoal) {
+  const ball = document.getElementById('pitch-ball');
+  if(!ball) return;
+  ball.style.left = targetX + '%';
+  ball.style.top = targetY + '%';
+  ball.classList.add('animate');
+  if(isGoal) {
+    setTimeout(() => {
+      const pitch = document.getElementById('pitch-canvas');
+      if(pitch) pitch.classList.add('pitch-goal-flash');
+    }, 200);
+  }
+  setTimeout(() => ball.classList.remove('animate'), 700);
+}
+
+// ============================================================
+// TACTICS RENDERING
+// ============================================================
+function renderTactics() {
+  G.tactic = { formation: null, strategy: null };
+  const btn = document.getElementById('start-match-btn');
+  btn.style.opacity = '0.4';
+  btn.style.pointerEvents = 'none';
+
+  // Formations
+  const fContainer = document.getElementById('formation-select');
+  fContainer.innerHTML = '';
+  FORMATIONS.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'tactic-card';
+    card.innerHTML = '<div class="tactic-name">' + f.name + '</div><div class="tactic-desc">' + f.desc + '</div><div class="tactic-effect">' + f.effect + '</div>';
+    card.onclick = () => {
+      fContainer.querySelectorAll('.tactic-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      G.tactic.formation = f.id;
+      checkTacticsReady();
+    };
+    fContainer.appendChild(card);
+  });
+
+  // Strategies
+  const sContainer = document.getElementById('strategy-select');
+  sContainer.innerHTML = '';
+  STRATEGIES.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'tactic-card';
+    card.innerHTML = '<div class="tactic-name">' + s.name + '</div><div class="tactic-desc">' + s.desc + '</div><div class="tactic-effect">' + s.s + '</div>';
+    card.onclick = () => {
+      sContainer.querySelectorAll('.tactic-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      G.tactic.strategy = s.id;
+      checkTacticsReady();
+    };
+    sContainer.appendChild(card);
+  });
+}
+
+function checkTacticsReady() {
+  if(G.tactic.formation && G.tactic.strategy) {
+    const btn = document.getElementById('start-match-btn');
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+  }
+}
+
+// ============================================================
+// STATS
+// ============================================================
+function getStatsForPosition(pos) {
+  const map = {
+    forward: [
+      {icon:'⚽',label:'进球',key:'goals'},{icon:'🎯',label:'射门',key:'shots'},{icon:'👟',label:'助攻',key:'assists'},{icon:'💨',label:'过人',key:'dribbles'},
+      {icon:'📊',label:'传球',key:'passes'},{icon:'🛡️',label:'抢断',key:'tackles'} ],
+    midfielder: [
+      {icon:'📊',label:'传球',key:'passes'},{icon:'👟',label:'助攻',key:'assists'},{icon:'⚽',label:'进球',key:'goals'},{icon:'🎯',label:'射门',key:'shots'},
+      {icon:'🛡️',label:'抢断',key:'tackles'},{icon:'✋',label:'拦截',key:'interceptions'} ],
+    defender: [
+      {icon:'🛡️',label:'抢断',key:'tackles'},{icon:'✋',label:'拦截',key:'interceptions'},{icon:'🧹',label:'解围',key:'clearances'},{icon:'🚧',label:'封堵',key:'blocks'},
+      {icon:'📊',label:'传球',key:'passes'},{icon:'⚽',label:'进球',key:'goals'} ],
+    goalkeeper: [
+      {icon:'🧤',label:'扑救',key:'saves'},{icon:'🧹',label:'零封',key:'cleanSheets'},{icon:'📊',label:'传球',key:'passes'},{icon:'🛡️',label:'抢断',key:'tackles'},
+      {icon:'✋',label:'拦截',key:'interceptions'},{icon:'⚽',label:'进球',key:'goals'} ]
+  };
+  return map[pos] || map.forward;
+}
+
+function showMatchStats() {
+  const card = document.getElementById('result-stats-card');
+  const content = document.getElementById('result-stats-content');
+  if(!card || !content) return;
+
+  const statDefs = getStatsForPosition(G.position);
+  const ms = G.matchStats;
+  let html = '';
+  statDefs.forEach(s => {
+    const val = ms[s.key] || 0;
+    if(val > 0 || s.key === 'passes') {
+      html += '<div class="stat-row"><span><span class="stat-icon">' + s.icon + '</span>' + s.label + '</span><span class="stat-value">' + val + '</span></div>';
+    }
+  });
+
+  if(html) {
+    content.innerHTML = html;
+    card.style.display = 'block';
+  } else {
+    card.style.display = 'none';
+  }
+}
 
 // ============================================================
 // SCREEN MANAGEMENT
@@ -809,7 +1270,7 @@ function showMatchPre() {
   document.getElementById('match-number-label').textContent = '第 ' + (G.match+1) + ' / 3 场比赛';
   document.getElementById('pre-home-name').textContent = G.currentTeam;
   document.getElementById('pre-away-name').textContent = G.opponent.n;
-  document.getElementById('match-pre-desc').innerHTML = '主队：<b>' + G.currentTeam + '</b><br>客队：<b>' + G.opponent.n + '</b>（' + G.opponent.l + '）<br><br>⚽ 这将是一场艰苦的比赛，你需要全力以赴！';
+  renderTactics();
   showScreen('match-pre-screen');
 }
 
@@ -817,6 +1278,12 @@ function startMatch() {
   G.score = {home:0, away:0};
   G.currentRatingMod = 0;
   G.currentMatchEvents = 0;
+  // Reset match stats
+  G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
+  // Calculate tactic bonuses
+  const f = FORMATIONS.find(f => f.id === G.tactic.formation);
+  const s = STRATEGIES.find(s => s.id === G.tactic.strategy);
+  G.matchTacticsBonus = (f ? f.atkBonus : 0) + (s ? (s.mods.atk ? s.mods.atk - 1 : 0) : 0);
   showMatchEvent();
 }
 
@@ -841,6 +1308,9 @@ function showMatchEvent() {
   document.getElementById('match-teams-label').textContent = G.currentTeam + ' vs ' + G.opponent.n;
   document.getElementById('event-minute').textContent = (15 + G.eventIndex * 15) + "'";
   document.getElementById('event-description').textContent = evt.desc;
+
+  // Render pitch
+  renderPitch(false);
 
   const container = document.getElementById('choices-container');
   container.innerHTML = '';
@@ -869,26 +1339,50 @@ function makeChoice(index) {
   // Disable all buttons
   document.querySelectorAll('.choice-btn').forEach(b=>b.style.pointerEvents='none');
 
-  // Determine if goal happens
+  // Determine if goal happens, with tactic bonus
+  const tacticAtkBonus = G.matchTacticsBonus || 0;
+  const adjustedChance = choice.scoreChance * (choice.scoreChance > 0 ? (1 + tacticAtkBonus) : 1);
   const rand = Math.random();
-  const goalScored = rand < choice.scoreChance;
+  const goalScored = rand < adjustedChance;
+  let conceded = false;
 
   if(goalScored) {
     G.score.home++;
-    G.currentRatingMod += choice.rating + 1;
+    G.currentRatingMod += choice.rating + 1 + tacticAtkBonus;
+    G.matchStats.goals++;
+    G.matchStats.shots++;
+    // Ball animation toward goal
+    animateBall(50 + (Math.random()*20-10), 8, true);
   } else {
-    // Check if concede
     if(choice.scoreChance < -0.1) {
       const concedeChance = Math.abs(choice.scoreChance);
       if(Math.random() < concedeChance * 0.5) {
         G.score.away++;
         G.currentRatingMod += choice.rating - 1;
+        conceded = true;
+        animateBall(50 + (Math.random()*20-10), 92, false);
       } else {
         G.currentRatingMod += choice.rating;
+        // Defensive action succeeded
+        G.matchStats.tackles += choice.scoreChance < -0.1 ? 1 : 0;
+        animateBall(40 + Math.random()*20, 40 + Math.random()*20, false);
       }
     } else {
       G.currentRatingMod += choice.rating;
+      // Neutral play - pass/dribble
+      G.matchStats.passes += choice.rating > 0 ? 1 : 0;
+      G.matchStats.dribbles += choice.rating > 0 && G.position === 'forward' ? 1 : 0;
+      animateBall(30 + Math.random()*40, 30 + Math.random()*40, false);
     }
+  }
+
+  // Track position-specific stats
+  if(goalScored) {
+    G.playerStats.goals++;
+    if(G.position === 'midfielder') G.playerStats.assists += Math.random() > 0.5 ? 1 : 0;
+  }
+  if(conceded && (G.position === 'goalkeeper' || G.position === 'defender')) {
+    G.matchStats.saves += G.position === 'goalkeeper' ? 1 : 0;
   }
 
   G.currentMatchEvents++;
@@ -975,6 +1469,23 @@ function showMatchResult() {
   G.matchRatings.push(rating);
   G.matchScores.push({home:G.score.home, away:G.score.away});
   if(rating >= 8.5) G.perfectMatches++;
+
+  // Update career stats
+  G.playerStats.appearances++;
+  G.playerStats.totalRating += rating;
+  G.playerStats.goals += G.matchStats.goals;
+  G.playerStats.assists += G.matchStats.assists;
+  G.playerStats.shots += G.matchStats.shots;
+  G.playerStats.passes += G.matchStats.passes;
+  G.playerStats.tackles += G.matchStats.tackles;
+  G.playerStats.interceptions += G.matchStats.interceptions;
+  G.playerStats.saves += G.matchStats.saves;
+  G.playerStats.dribbles += G.matchStats.dribbles;
+  if(G.matchStats.goals > 0 && G.matchStats.goals >= 2) G.playerStats.motmCount++;
+  if(G.score.away === 0 && (G.position === 'defender' || G.position === 'goalkeeper')) G.playerStats.cleanSheets++;
+
+  // Show match stats
+  showMatchStats();
 
   document.getElementById('result-title').textContent = win ? '🎉 比赛胜利！' : draw ? '🤝 平局' : '😔 比赛失利';
   document.getElementById('result-score').textContent = G.score.home + ' : ' + G.score.away;
@@ -1347,6 +1858,22 @@ function showFinalResult() {
 
   // Best rating
   document.getElementById('final-best-rating').textContent = best.toFixed(1);
+
+  // Career stats
+  const ps = G.playerStats;
+  const statLines = [];
+  if(ps.goals > 0) statLines.push('⚽' + ps.goals + '球');
+  if(ps.assists > 0) statLines.push('👟' + ps.assists + '助');
+  if(ps.saves > 0) statLines.push('🧤' + ps.saves + '扑救');
+  if(ps.tackles > 0) statLines.push('🛡️' + ps.tackles + '抢断');
+  if(ps.dribbles > 0) statLines.push('💨' + ps.dribbles + '过人');
+  if(ps.cleanSheets > 0) statLines.push('🧹' + ps.cleanSheets + '零封');
+  if(ps.motmCount > 0) statLines.push('🌟' + ps.motmCount + '次最佳');
+
+  const statDisplay = document.createElement('div');
+  statDisplay.style.cssText = 'text-align:center;margin:8px 0;font-size:13px;color:#b0c0b0;width:100%;max-width:400px;';
+  statDisplay.textContent = statLines.join(' | ');
+  document.getElementById('final-team-card').after(statDisplay);
 
   // Timeline
   const timeline = document.getElementById('final-timeline');
