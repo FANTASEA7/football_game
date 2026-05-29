@@ -2521,6 +2521,9 @@ function acceptSeasonTransfer(index) {
   if(!offers || !offers[index]) return;
   const offer = offers[index];
 
+  // Clear season-ending injury when entering new season
+  G.seasonEnded = false;
+
   if(offer.isStay) {
     showNotification('📋 你选择留在 ' + G.currentTeam + '！');
     G._seasonOffers = null;
@@ -3524,6 +3527,12 @@ function onUCLMatchEnd() {
   const currentMatches = u.bracket[roundKeys[u.roundIndex]];
   const userMatch = currentMatches.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
   if(!userMatch) return;
+
+  // UCL cannot end in a draw — extra time/penalties winner
+  if(G.score.home === G.score.away) {
+    G.score.home += 1;
+    showNotification('⚽ 加时赛绝杀！你帮助球队 ' + G.currentTeam + ' 晋级下一轮！');
+  }
 
   const userWon = G.score.home > G.score.away;
   userMatch.played = true;
