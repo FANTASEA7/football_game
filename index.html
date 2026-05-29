@@ -107,6 +107,9 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .transfer-item .league-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-bottom:6px;}
 .transfer-item .team-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
 .transfer-item .team-info{font-size:13px;color:#8a9a8a;}
+.team-logo{width:40px;height:40px;border-radius:8px;background-size:contain;background-position:center;background-repeat:no-repeat;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;background-color:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+.transfer-item .team-logo-wrap{display:flex;align-items:center;gap:12px;}
+.transfer-item .team-detail{flex:1;}
 
 /* Final Result */
 .result-card{background:rgba(255,215,0,0.05);border:2px solid rgba(255,215,0,0.2);border-radius:16px;padding:30px;text-align:center;width:100%;max-width:400px;margin-bottom:20px;animation:glow 2s infinite;}
@@ -363,47 +366,122 @@ const POSITIONS = {
 };
 
 const LEAGUES = {
-  cs1:{name:'中甲',color:'#8a9a8a',level:1},
-  cs2:{name:'中超中下游',color:'#95a5a6',level:2},
-  cs3:{name:'中超中上游',color:'#2ecc71',level:3},
-  cs4:{name:'中超豪门',color:'#f39c12',level:4},
-  eu1:{name:'法甲中游',color:'#0055a4',level:5},
-  eu2:{name:'德甲中游',color:'#d10000',level:5},
-  eu3:{name:'意甲中游',color:'#008fd5',level:5},
-  eu4:{name:'西甲中游',color:'#db8a00',level:5},
-  eu5:{name:'英超中游',color:'#e90052',level:6},
-  eu6:{name:'法甲强队',color:'#0055a4',level:6},
-  eu7:{name:'德甲强队',color:'#d10000',level:7},
-  eu8:{name:'意甲强队',color:'#008fd5',level:7},
-  eu9:{name:'西甲强队',color:'#db8a00',level:7},
-  eu10:{name:'英超强队',color:'#e90052',level:8},
-  top:{name:'世界顶级豪门',color:'#ffd700',level:9}
+  l1:{name:'中甲',color:'#8a9a8a',level:1,logo:'championship'},
+  l2:{name:'中超',color:'#95a5a6',level:2,logo:'csl'},
+  l3:{name:'中超中上游',color:'#2ecc71',level:3,logo:'csl'},
+  l4:{name:'中超顶级',color:'#f39c12',level:4,logo:'csl'},
+  l5:{name:'五大联赛中游',color:'#6c5ce7',level:5,logo:'europe'},
+  l6:{name:'五大联赛劲旅',color:'#e17055',level:6,logo:'europe'},
+  l7:{name:'五大联赛顶级',color:'#d63031',level:7,logo:'europe'},
+  l8:{name:'世界豪门',color:'#ffd700',level:8,logo:'elite'}
 };
 
 const TEAMS = {
   // Level 1 - 中甲
-  l1:[{n:'四川九牛',l:'中甲'},{n:'石家庄功夫',l:'中甲'},{n:'南京城市',l:'中甲'},{n:'青岛西海岸',l:'中甲'}],
+  l1:[
+    {n:'重庆铜梁龙',en:'chongqing-tonglianglong',l:'中甲'},
+    {n:'广西平果哈嘹',en:'guangxi-pingguo-haliao',l:'中甲'},
+    {n:'石家庄功夫',en:'shijiazhuang-gongfu',l:'中甲'},
+    {n:'南京城市',en:'nanjing-city',l:'中甲'},
+    {n:'黑龙江冰城',en:'heilongjiang-iceland',l:'中甲'},
+    {n:'延边龙鼎',en:'yanbian-longding',l:'中甲'},
+    {n:'辽宁铁人',en:'liaoning-tieren',l:'中甲'},
+    {n:'上海嘉定汇龙',en:'shanghai-jiading',l:'中甲'},
+    {n:'无锡吴钩',en:'wuxi-wugou',l:'中甲'},
+    {n:'江西庐山',en:'jiangxi-lushan',l:'中甲'}
+  ],
   // Level 2 - 中超中下游
-  l2:[{n:'青岛海牛',l:'中超'},{n:'南通支云',l:'中超'},{n:'深圳队',l:'中超'},{n:'河南队',l:'中超'},{n:'长春亚泰',l:'中超'},{n:'天津津门虎',l:'中超'}],
+  l2:[
+    {n:'青岛海牛',en:'qingdao-hainiu',l:'中超'},
+    {n:'南通支云',en:'nantong-zhiyun',l:'中超'},
+    {n:'深圳新鹏城',en:'shenzhen-peng-city',l:'中超'},
+    {n:'梅州客家',en:'meizhou-hakka',l:'中超'},
+    {n:'沧州雄狮',en:'cangzhou-mighty-lions',l:'中超'},
+    {n:'长春亚泰',en:'changchun-yatai',l:'中超'},
+    {n:'青岛西海岸',en:'qingdao-west-coast',l:'中超'},
+    {n:'河南俱乐部',en:'henan-fc',l:'中超'}
+  ],
   // Level 3 - 中超中上游
-  l3:[{n:'浙江队',l:'中超'},{n:'武汉三镇',l:'中超'},{n:'北京国安',l:'中超'},{n:'成都蓉城',l:'中超'},{n:'山东泰山',l:'中超'},{n:'上海申花',l:'中超'}],
+  l3:[
+    {n:'天津津门虎',en:'tianjin-jinmen-tiger',l:'中超'},
+    {n:'武汉三镇',en:'wuhan-three-towns',l:'中超'},
+    {n:'浙江队',en:'zhejiang-professional',l:'中超'},
+    {n:'成都蓉城',en:'chengdu-rongcheng',l:'中超'},
+    {n:'山东泰山',en:'shandong-taishan',l:'中超'},
+    {n:'上海申花',en:'shanghai-shenhua',l:'中超'},
+    {n:'北京国安',en:'beijing-guoan',l:'中超'},
+    {n:'深圳队',en:'shenzhen-fc',l:'中超'}
+  ],
   // Level 4 - 中超豪门
-  l4:[{n:'上海海港',l:'中超'},{n:'上海申花',l:'中超'},{n:'山东泰山',l:'中超'}],
+  l4:[
+    {n:'上海海港',en:'shanghai-port',l:'中超'},
+    {n:'山东泰山',en:'shandong-taishan',l:'中超'},
+    {n:'北京国安',en:'beijing-guoan',l:'中超'},
+    {n:'上海申花',en:'shanghai-shenhua',l:'中超'}
+  ],
   // Level 5 - 五大联赛中游
-  l5:[{n:'尼斯',l:'法甲'},{n:'朗斯',l:'法甲'},{n:'沃尔夫斯堡',l:'德甲'},{n:'门兴',l:'德甲'},{n:'佛罗伦萨',l:'意甲'},{n:'拉齐奥',l:'意甲'},{n:'皇家社会',l:'西甲'},{n:'毕尔巴鄂竞技',l:'西甲'},{n:'阿斯顿维拉',l:'英超'},{n:'布莱顿',l:'英超'}],
-  // Level 6 - 五大联赛强队
-  l6:[{n:'马赛',l:'法甲'},{n:'摩纳哥',l:'法甲'},{n:'RB莱比锡',l:'德甲'},{n:'多特蒙德',l:'德甲'},{n:'那不勒斯',l:'意甲'},{n:'AC米兰',l:'意甲'},{n:'马德里竞技',l:'西甲'},{n:'热刺',l:'英超'},{n:'切尔西',l:'英超'},{n:'纽卡斯尔',l:'英超'}],
+  l5:[
+    {n:'尼斯',en:'nice',l:'法甲'},
+    {n:'朗斯',en:'lens',l:'法甲'},
+    {n:'沃尔夫斯堡',en:'wolfsburg',l:'德甲'},
+    {n:'门兴格拉德巴赫',en:'borussia-mg',l:'德甲'},
+    {n:'佛罗伦萨',en:'fiorentina',l:'意甲'},
+    {n:'拉齐奥',en:'lazio',l:'意甲'},
+    {n:'皇家社会',en:'real-sociedad',l:'西甲'},
+    {n:'毕尔巴鄂竞技',en:'athletic-club',l:'西甲'},
+    {n:'阿斯顿维拉',en:'aston-villa',l:'英超'},
+    {n:'布莱顿',en:'brighton',l:'英超'},
+    {n:'富勒姆',en:'fulham',l:'英超'},
+    {n:'塞维利亚',en:'sevilla',l:'西甲'}
+  ],
+  // Level 6 - 五大联赛劲旅
+  l6:[
+    {n:'马赛',en:'marseille',l:'法甲'},
+    {n:'摩纳哥',en:'monaco',l:'法甲'},
+    {n:'RB莱比锡',en:'rb-leipzig',l:'德甲'},
+    {n:'多特蒙德',en:'borussia-dortmund',l:'德甲'},
+    {n:'那不勒斯',en:'napoli',l:'意甲'},
+    {n:'AC米兰',en:'ac-milan',l:'意甲'},
+    {n:'罗马',en:'roma',l:'意甲'},
+    {n:'马德里竞技',en:'atletico-madrid',l:'西甲'},
+    {n:'热刺',en:'tottenham',l:'英超'},
+    {n:'切尔西',en:'chelsea',l:'英超'},
+    {n:'纽卡斯尔联',en:'newcastle',l:'英超'},
+    {n:'亚特兰大',en:'atalanta',l:'意甲'}
+  ],
   // Level 7 - 五大联赛顶级
-  l7:[{n:'巴黎圣日耳曼',l:'法甲'},{n:'拜仁慕尼黑',l:'德甲'},{n:'勒沃库森',l:'德甲'},{n:'国际米兰',l:'意甲'},{n:'尤文图斯',l:'意甲'},{n:'巴塞罗那',l:'西甲'},{n:'阿森纳',l:'英超'},{n:'利物浦',l:'英超'},{n:'曼联',l:'英超'}],
+  l7:[
+    {n:'巴黎圣日耳曼',en:'paris-saint-germain',l:'法甲'},
+    {n:'国际米兰',en:'inter-milan',l:'意甲'},
+    {n:'尤文图斯',en:'juventus',l:'意甲'},
+    {n:'巴塞罗那',en:'barcelona',l:'西甲'},
+    {n:'阿森纳',en:'arsenal',l:'英超'},
+    {n:'利物浦',en:'liverpool',l:'英超'},
+    {n:'曼联',en:'manchester-united',l:'英超'},
+    {n:'勒沃库森',en:'bayer-leverkusen',l:'德甲'},
+    {n:'比利亚雷亚尔',en:'villarreal',l:'西甲'},
+    {n:'皇家贝蒂斯',en:'real-betis',l:'西甲'},
+    {n:'西汉姆联',en:'west-ham',l:'英超'},
+    {n:'里昂',en:'lyon',l:'法甲'}
+  ],
   // Level 8 - 世界顶级豪门
-  l8:[{n:'皇家马德里',l:'西甲'},{n:'曼城',l:'英超'},{n:'拜仁慕尼黑',l:'德甲'},{n:'巴黎圣日耳曼',l:'法甲'}]
+  l8:[
+    {n:'皇家马德里',en:'real-madrid',l:'西甲'},
+    {n:'曼城',en:'manchester-city',l:'英超'},
+    {n:'拜仁慕尼黑',en:'bayern-munich',l:'德甲'},
+    {n:'巴黎圣日耳曼',en:'paris-saint-germain',l:'法甲'},
+    {n:'巴塞罗那',en:'barcelona',l:'西甲'},
+    {n:'阿森纳',en:'arsenal',l:'英超'},
+    {n:'利物浦',en:'liverpool',l:'英超'},
+    {n:'国际米兰',en:'inter-milan',l:'意甲'}
+  ]
 };
 
 // Opponent teams per stage (youth teams)
 const YOUTH_TEAMS = {
-  u12:[{n:'清水心跳U12',l:'日本青训'},{n:'蔚山现代U12',l:'韩国青训'},{n:'本菲卡U12',l:'葡萄牙青训'},{n:'阿贾克斯U12',l:'荷兰青训'}],
-  u15:[{n:'清水心跳U15',l:'日本青训'},{n:'蔚山现代U15',l:'韩国青训'},{n:'本菲卡U15',l:'葡萄牙青训'},{n:'阿贾克斯U15',l:'荷兰青训'}],
-  u19:[{n:'清水心跳U19',l:'日本青训'},{n:'蔚山现代U19',l:'韩国青训'},{n:'本菲卡U19',l:'葡萄牙青训'},{n:'阿贾克斯U19',l:'荷兰青训'}]
+  u12:[{n:'清水心跳U12',l:'日本青训'},{n:'蔚山现代U12',l:'韩国青训'},{n:'本菲卡U12',l:'葡萄牙青训'},{n:'阿贾克斯U12',l:'荷兰青训'},{n:'萨尔茨堡U12',l:'奥地利青训'}],
+  u15:[{n:'清水心跳U15',l:'日本青训'},{n:'蔚山现代U15',l:'韩国青训'},{n:'本菲卡U15',l:'葡萄牙青训'},{n:'阿贾克斯U15',l:'荷兰青训'},{n:'萨尔茨堡U15',l:'奥地利青训'}],
+  u19:[{n:'清水心跳U19',l:'日本青训'},{n:'蔚山现代U19',l:'韩国青训'},{n:'本菲卡U19',l:'葡萄牙青训'},{n:'阿贾克斯U19',l:'荷兰青训'},{n:'萨尔茨堡U19',l:'奥地利青训'}]
 };
 
 // ============================================================
@@ -640,6 +718,7 @@ const G = {
   currentRatingMod: 0,
   currentMatchEvents: 0,
   perfectMatches: 0,
+  endedAsStay: false,
 };
 
 const STAGES = [
@@ -671,6 +750,7 @@ function startGame() {
   G.teamHistory = ['中国少年青训营'];
   G.currentTeam = '中国少年青训营';
   G.perfectMatches = 0;
+  G.endedAsStay = false;
   showScreen('position-screen');
   document.querySelectorAll('.pos-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('confirm-pos-btn').style.opacity='0.4';
@@ -982,19 +1062,12 @@ function showStageSummary() {
   const nextContainer = document.getElementById('summary-next-container');
   nextContainer.innerHTML = '';
 
-  if(G.stage < 2) {
-    // Go to transfer market
+  if(G.stage <= 2) {
+    // Go to transfer market (including after U19 for final career decision)
     const btn = document.createElement('button');
     btn.className = 'btn btn-primary';
-    btn.textContent = '🏷️ 进入转会市场';
+    btn.textContent = G.stage < 2 ? '🏷️ 进入转会市场' : '🏆 进入职业转会市场';
     btn.onclick = showTransferMarket;
-    nextContainer.appendChild(btn);
-  } else {
-    // Final result
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-success';
-    btn.textContent = '🏆 查看最终职业生涯';
-    btn.onclick = showFinalResult;
     nextContainer.appendChild(btn);
   }
 
@@ -1027,77 +1100,172 @@ function showTransferMarket() {
   showScreen('transfer-screen');
 }
 
-function generateOffers(rating, stage) {
-  let offers = [];
-  const basePool = [];
-
-  if(stage === 0) { // After U12
-    if(rating < 5) {
-      // Stay or lower teams
-      basePool.push({team:'中国少年青训营',league:'继续留队',color:'#8a9a8a',desc:'留队继续训练',chance:'100%'});
-      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '替补起步', '70%');
-    } else if(rating < 6.5) {
-      basePool.push({team:'中国少年青训营',league:'继续留队',color:'#8a9a8a',desc:'留队继续训练',chance:'100%'});
-      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '轮换球员', '75%');
-    } else if(rating < 8) {
-      pushTeams(basePool, TEAMS.l2, 2, '中超中下游', '#95a5a6', '轮换球员', '70%');
-      pushTeams(basePool, TEAMS.l1, 1, '中甲', '#8a9a8a', '主力球员', '85%');
-    } else {
-      pushTeams(basePool, TEAMS.l3, 2, '中超中上游', '#2ecc71', '轮换球员', '65%');
-      pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '主力球员', '75%');
-    }
-  } else if(stage === 1) { // After U15
-    if(rating < 5) {
-      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '轮换球员', '70%');
-      pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '替补起步', '50%');
-    } else if(rating < 6.5) {
-      pushTeams(basePool, TEAMS.l2, 2, '中超中下游', '#95a5a6', '轮换球员', '70%');
-      pushTeams(basePool, TEAMS.l3, 1, '中超中上游', '#2ecc71', '替补起步', '55%');
-    } else if(rating < 8) {
-      pushTeams(basePool, TEAMS.l3, 2, '中超中上游', '#2ecc71', '轮换球员', '65%');
-      pushTeams(basePool, TEAMS.l4, 1, '中超豪门', '#f39c12', '替补起步', '50%');
-    } else {
-      pushTeams(basePool, TEAMS.l4, 2, '中超豪门', '#f39c12', '轮换球员', '60%');
-      pushTeams(basePool, TEAMS.l5, 1, '五大联赛中游', '#0055a4', '青年队起步', '45%');
-    }
-  } else if(stage === 2) { // After U19 - final decision made elsewhere, but for show
-    pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '轮换球员', '70%');
-    pushTeams(basePool, TEAMS.l3, 1, '中超中上游', '#2ecc71', '轮换球员', '60%');
-  }
-
-  // Shuffle and pick 3-4
-  basePool.sort(()=>Math.random()-0.5);
-  offers = basePool.slice(0, 3);
-  if(offers.length < 2) offers = basePool.slice(0, 2);
-
-  // Ensure at least 2 offers
-  if(offers.length < 2) {
-    offers.push({team:'中国青年精英营',league:'继续留队',color:'#8a9a8a',desc:'留队等待机会',chance:'100%'});
-  }
-
-  return offers;
+function getTeamLogo(team) {
+  if(!team || !team.en) return '⚽';
+  return 'images/teams/' + team.en + '.svg';
 }
 
-function pushTeams(arr, teams, count, league, color, desc, chance) {
-  const shuffled = [...teams].sort(()=>Math.random()-0.5);
-  shuffled.slice(0, count).forEach(t => {
-    arr.push({team:t.n, league:league, leagueColor:color, desc:desc, chance:chance});
+function showTransferMarket() {
+  const stageAvg = G.stageRatings[G.stage];
+  document.getElementById('transfer-rating').textContent = stageAvg.toFixed(1);
+
+  const stageNames = ['U12','U15','U19'];
+  const stageLabel = stageNames[G.stage];
+  const isLastStage = G.stage === 2;
+  document.getElementById('transfer-subtitle').textContent = stageLabel + '阶段结束' + (isLastStage ? '，这是你最后的青训转会机会！' : '，你的表现引起了多家俱乐部的关注！');
+
+  // Generate offers based on rating
+  const offers = generateOffers(stageAvg, G.stage);
+  const list = document.getElementById('transfer-list');
+  list.innerHTML = '';
+
+  offers.forEach((offer, idx) => {
+    const div = document.createElement('div');
+    div.className = 'transfer-item';
+    const leagueColor = offer.leagueColor || '#8a9a8a';
+
+    // Logo or icon
+    const logoHtml = offer.isStay
+      ? '<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📋</div>'
+      : '<div class="team-logo" style="background-image:url(' + offer.logo + ');background-size:contain;background-position:center;background-repeat:no-repeat;width:40px;height:40px;border-radius:8px;flex-shrink:0;font-size:0;" onerror="this.style.fontSize=\'24px\';this.style.backgroundImage=\'none\';this.textContent=\'⚽\'"></div>';
+
+    div.innerHTML = '<div style="display:flex;align-items:center;gap:12px;">' + logoHtml +
+      '<div style="flex:1;"><div class="league-tag" style="background:' + leagueColor + '20;color:' + leagueColor + ';border:1px solid ' + leagueColor + '40;">' +
+      offer.league + '</div><div class="team-name">' + offer.team + '</div>' +
+      '<div class="team-info">' + (offer.desc || '') + (offer.chance ? ' | ' + offer.chance : '') + '</div></div></div>';
+    div.onclick = () => acceptTransfer(idx);
+    list.appendChild(div);
   });
+
+  showScreen('transfer-screen');
+}
+
+function generateOffers(rating, stage) {
+  const basePool = [];
+  const stayName = stage === 0 ? '中国少年青训营' : (stage === 1 ? '中国青年精英营' : '中国青年精英营');
+  const stayDesc = stage === 2 ? '放弃职业签约，留队担任教练' : '留队继续训练，等待下期选拔';
+
+  // Always add "留队" as first option
+  basePool.push({
+    team: stayName,
+    league: stage === 2 ? '🏁 结束青训生涯' : '📋 继续留队',
+    leagueColor: '#8a9a8a',
+    desc: stayDesc,
+    chance: '',
+    isStay: true,
+    logo: ''
+  });
+
+  // Determine number of offers based on rating
+  // rating 1-10, higher = more offers and better teams
+  let offerCount, tierMin, tierMax;
+
+  if(stage === 0) { // After U12
+    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=1; }
+    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=1; }
+    else if(rating < 7)   { offerCount=3; tierMin=1; tierMax=2; }
+    else if(rating < 8.5) { offerCount=4; tierMin=2; tierMax=3; }
+    else                  { offerCount=5; tierMin=2; tierMax=4; }
+  } else if(stage === 1) { // After U15
+    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=2; }
+    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=2; }
+    else if(rating < 7)   { offerCount=3; tierMin=2; tierMax=3; }
+    else if(rating < 8.5) { offerCount=4; tierMin=3; tierMax=5; }
+    else                  { offerCount=5; tierMin=4; tierMax=6; }
+  } else { // After U19 - final career decision
+    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=1; }
+    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=2; }
+    else if(rating < 7)   { offerCount=3; tierMin=2; tierMax=4; }
+    else if(rating < 8.5) { offerCount=4; tierMin=3; tierMax=6; }
+    else                  { offerCount=5; tierMin=5; tierMax=8; }
+  }
+
+  // Collect eligible teams
+  const pool = [];
+  for(let lvl = tierMin; lvl <= tierMax; lvl++) {
+    const key = 'l' + lvl;
+    if(TEAMS[key]) {
+      TEAMS[key].forEach(t => {
+        const exist = pool.some(p => p.n === t.n);
+        if(!exist) pool.push(t);
+      });
+    }
+  }
+
+  // Shuffle and pick
+  pool.sort(() => Math.random() - 0.5);
+  const selected = pool.slice(0, offerCount);
+  const leagueMap = {
+    1:'中甲',2:'中超',3:'中超中上游',4:'中超顶级',
+    5:'五大联赛中游',6:'五大联赛劲旅',7:'五大联赛顶级',8:'世界豪门'
+  };
+  const leagueColorMap = {
+    1:'#8a9a8a',2:'#95a5a6',3:'#2ecc71',4:'#f39c12',
+    5:'#6c5ce7',6:'#e17055',7:'#d63031',8:'#ffd700'
+  };
+
+  // For U19 final stage, add role description
+  const roleDesc = stage === 2
+    ? ['替补合同', '轮换球员', '主力球员', '核心球员', '球队领袖']
+    : ['青年队试训', '青年队签约', '预备队机会', '一线队机会'];
+
+  selected.forEach((t, i) => {
+    let tLevel = tierMin;
+    for(let lvl = tierMin; lvl <= tierMax; lvl++) {
+      if(TEAMS['l'+lvl] && TEAMS['l'+lvl].some(x => x.n === t.n)) {
+        tLevel = lvl; break;
+      }
+    }
+    const roleIdx = Math.min(i, roleDesc.length-1);
+    basePool.push({
+      team: t.n,
+      en: t.en || '',
+      league: leagueMap[tLevel] || t.l,
+      leagueColor: leagueColorMap[tLevel] || '#8a9a8a',
+      desc: stage === 2 ? roleDesc[roleIdx] : roleDesc[roleIdx],
+      chance: stage === 2 ? '' : (60 + Math.floor(Math.random() * 30) + '%'),
+      isStay: false,
+      logo: 'images/teams/' + (t.en || '') + '.svg'
+    });
+  });
+
+  return basePool;
 }
 
 function acceptTransfer(index) {
-  const list = document.getElementById('transfer-list');
-  const items = list.children;
+  const items = document.querySelectorAll('#transfer-list .transfer-item');
   if(!items[index]) return;
 
   const teamName = items[index].querySelector('.team-name').textContent;
+
+  // Check if it's the "留队" option
+  const isStay = items[index].querySelector('.league-tag') &&
+    (items[index].querySelector('.league-tag').textContent.includes('留队') ||
+     items[index].querySelector('.league-tag').textContent.includes('结束'));
+
+  if(isStay) {
+    if(G.stage === 2) {
+      // End game - stay at youth (didn't go pro)
+      G.endedAsStay = true;
+      showFinalResult();
+      return;
+    }
+    showNotification('📋 你选择留在 ' + teamName + ' 继续训练！');
+    G.stage++;
+    G.teamHistory.push(teamName);
+    if(G.stage >= 3) {
+      showFinalResult();
+    } else {
+      showStageIntro();
+    }
+    return;
+  }
+
+  // Transfer to new club
   G.currentTeam = teamName;
   G.teamHistory.push(teamName);
-
-  // Show notification
   showNotification('✅ 你已加盟 ' + teamName + '！');
 
-  // Next stage
   G.stage++;
   if(G.stage >= 3) {
     showFinalResult();
@@ -1120,7 +1288,13 @@ function showFinalResult() {
 
   let finalTeam, finalLeague, finalIcon, finalDesc;
 
-  if(weighted >= 9) {
+  // Special ending: stayed at youth
+  if(G.endedAsStay) {
+    finalTeam = '中国青年青训营';
+    finalLeague = '青训教练';
+    finalIcon = '📋';
+    finalDesc = '你选择了留在青训营担任教练，将自己的经验传授给下一代年轻球员。虽然没能登上职业赛场，但你为中国足球的未来播下了种子。';
+  } else if(weighted >= 9) {
     const t = pickRandom(TEAMS.l8);
     finalTeam = t.n;
     finalLeague = t.l;
