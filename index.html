@@ -2033,16 +2033,6 @@ function showMatchResult() {
   if(G.matchStats.goals > 0 && G.matchStats.goals >= 2) G.playerStats.motmCount++;
   if(G.score.away === 0 && (G.position === 'defender' || G.position === 'goalkeeper')) G.playerStats.cleanSheets++;
 
-  // Red card → suspension for next league match
-  if(G.matchCards.red > 0) {
-    G.suspended = true;
-  }
-  // Accumulated 3 season yellows → suspension
-  if(G.seasonYellows >= 3 && !G.suspended) {
-    G.suspended = true;
-    G.seasonYellows = 0;
-  }
-
   // Attribute growth based on match stats
   applyAttributeGrowth();
 
@@ -3047,20 +3037,6 @@ function playLeagueMatch() {
   const round = l.fixtures[l.currentRound];
   const myMatch = round.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
   const opponent = myMatch ? (myMatch.home === G.currentTeam ? myMatch.away : myMatch.home) : round[0].away;
-
-  // Suspension check
-  if(G.suspended) {
-    G.suspended = false;
-    // Auto-simulate: concede a goal, player is out
-    G.score = {home: 0, away: 1};
-    G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
-    G.matchRatings = G.matchRatings || [];
-    G.matchScores = G.matchScores || [];
-    G.currentRatingMod = -3;
-    showNotification('🛑 你因红牌/累计黄牌停赛，本场无法出战！球队 ' + G.currentTeam + ' 0:1 告负。');
-    showMatchResult();
-    return;
-  }
 
   G.opponent = { n: opponent, l: l.leagueName };
   G.opponentTier = findTeamTier(opponent);
