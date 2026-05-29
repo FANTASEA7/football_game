@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚽ 足球生涯 - 第一人称足球模拟</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(255,215,0,0.3)}50%{box-shadow:0 0 20px rgba(255,215,0,0.6)}}
+@keyframes goalFlash{0%{background:rgba(255,215,0,0.8)}100%{background:transparent}}
+@keyframes confetti{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(400px) rotate(720deg);opacity:0}}
+
+body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:#0a0e0a;color:#e0e0e0;min-height:100vh;display:flex;justify-content:center;align-items:center;overflow-x:hidden;}
+#game{width:100%;max-width:500px;min-height:100vh;background:linear-gradient(135deg,#0d1f0d 0%,#1a2e1a 50%,#0d1f0d 100%);position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,0.8);}
+#game::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none;}
+
+.screen{display:none;flex-direction:column;align-items:center;padding:30px 20px;min-height:100vh;position:relative;z-index:1;animation:fadeIn 0.5s ease-out;}
+.screen.active{display:flex;}
+
+/* Title Screen */
+#title-screen{justify-content:center;text-align:center;}
+.title-badge{background:linear-gradient(135deg,#ffd700,#ffaa00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:14px;font-weight:700;letter-spacing:6px;margin-bottom:10px;}
+.title-icon{font-size:80px;margin-bottom:10px;animation:pulse 2s infinite;}
+.title-main{font-size:42px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;text-shadow:0 2px 20px rgba(255,215,0,0.3);}
+.title-sub{font-size:16px;color:#8a9a8a;margin-bottom:40px;letter-spacing:2px;}
+.title-desc{font-size:14px;color:#6a7a6a;line-height:1.8;margin-bottom:40px;max-width:320px;}
+
+.btn{display:inline-block;padding:14px 40px;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.3s;text-align:center;font-family:inherit;}
+.btn:active{transform:scale(0.97);}
+.btn.disabled{opacity:0.4;cursor:not-allowed;pointer-events:none;}
+.btn-primary{background:linear-gradient(135deg,#ffd700,#ffaa00);color:#1a2e1a;box-shadow:0 4px 15px rgba(255,215,0,0.3);}
+.btn-primary:hover{box-shadow:0 6px 25px rgba(255,215,0,0.5);transform:translateY(-2px);}
+.btn-secondary{background:rgba(255,255,255,0.1);color:#e0e0e0;border:1px solid rgba(255,255,255,0.2);}
+.btn-secondary:hover{background:rgba(255,255,255,0.2);}
+.btn-success{background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff;box-shadow:0 4px 15px rgba(46,204,113,0.3);}
+.btn-success:hover{box-shadow:0 6px 25px rgba(46,204,113,0.5);transform:translateY(-2px);}
+.btn-danger{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 4px 15px rgba(231,76,60,0.3);}
+.btn-danger:hover{box-shadow:0 6px 25px rgba(231,76,60,0.5);transform:translateY(-2px);}
+
+/* Position Selection */
+.screen-title{font-size:28px;font-weight:800;color:#fff;margin-bottom:8px;text-align:center;}
+.screen-subtitle{font-size:14px;color:#8a9a8a;margin-bottom:30px;text-align:center;}
+.pos-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:400px;margin-bottom:20px;}
+.pos-card{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px 16px;text-align:center;cursor:pointer;transition:all 0.3s;}
+.pos-card:hover{border-color:rgba(255,215,0,0.4);background:rgba(255,215,0,0.05);transform:translateY(-3px);}
+.pos-card.selected{border-color:#ffd700;background:rgba(255,215,0,0.1);box-shadow:0 0 20px rgba(255,215,0,0.15);animation:glow 1.5s infinite;}
+.pos-icon{font-size:40px;margin-bottom:8px;}
+.pos-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;}
+.pos-desc{font-size:12px;color:#8a9a8a;}
+
+/* Progress Bar */
+.progress-bar{width:100%;max-width:400px;margin-bottom:24px;}
+.progress-steps{display:flex;justify-content:space-between;align-items:center;position:relative;padding:0 10px;}
+.progress-step{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;}
+.progress-dot{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#8a9a8a;transition:all 0.5s;}
+.progress-step.active .progress-dot{background:#ffd700;border-color:#ffd700;color:#1a2e1a;box-shadow:0 0 15px rgba(255,215,0,0.3);}
+.progress-step.done .progress-dot{background:#2ecc71;border-color:#2ecc71;color:#fff;}
+.progress-label{font-size:10px;color:#8a9a8a;margin-top:4px;white-space:nowrap;}
+.progress-step.active .progress-label{color:#ffd700;}
+.progress-line{flex:1;height:2px;background:rgba(255,255,255,0.1);margin:0 -4px;margin-bottom:24px;z-index:1;position:relative;top:-16px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffd700,#ffaa00);transition:width 0.8s ease;border-radius:2px;}
+
+/* Cards */
+.info-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;width:100%;max-width:400px;margin-bottom:16px;}
+.card-title{font-size:16px;font-weight:700;color:#ffd700;margin-bottom:8px;}
+.card-text{font-size:14px;color:#b0c0b0;line-height:1.7;}
+.card-label{font-size:12px;color:#8a9a8a;margin-bottom:4px;}
+.card-value{font-size:24px;font-weight:800;color:#fff;}
+
+/* Match Styles */
+.match-header{text-align:center;margin-bottom:20px;}
+.match-vs{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;}
+.match-team{text-align:center;}
+.match-team-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px;}
+.match-team-label{font-size:11px;color:#8a9a8a;}
+.match-vs-text{font-size:20px;font-weight:900;color:#ffd700;}
+.match-score-display{font-size:48px;font-weight:900;color:#fff;text-align:center;margin:10px 0;}
+.match-minute{font-size:13px;color:#ffaa00;font-weight:700;margin-bottom:6px;}
+.match-desc{font-size:15px;color:#e0e0e0;line-height:1.8;margin-bottom:20px;padding:16px;background:rgba(0,0,0,0.3);border-radius:8px;border-left:3px solid #ffd700;width:100%;max-width:400px;}
+.choice-btn{width:100%;max-width:400px;padding:14px 20px;margin-bottom:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#e0e0e0;font-size:14px;cursor:pointer;transition:all 0.3s;text-align:left;font-family:inherit;line-height:1.5;}
+.choice-btn:hover{background:rgba(255,215,0,0.1);border-color:#ffd700;transform:translateX(5px);}
+.choice-btn.selected-correct{border-color:#2ecc71;background:rgba(46,204,113,0.15);}
+.choice-btn.selected-wrong{border-color:#e74c3c;background:rgba(231,76,60,0.15);}
+
+/* Outcome */
+.outcome-box{padding:20px;border-radius:10px;margin-bottom:16px;width:100%;max-width:400px;text-align:center;animation:slideUp 0.4s ease-out;}
+.outcome-positive{background:rgba(46,204,113,0.15);border:1px solid rgba(46,204,113,0.3);}
+.outcome-neutral{background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);}
+.outcome-negative{background:rgba(231,76,60,0.15);border:1px solid rgba(231,76,60,0.3);}
+.outcome-icon{font-size:36px;margin-bottom:8px;}
+.outcome-text{font-size:14px;color:#e0e0e0;line-height:1.7;}
+
+/* Rating */
+.rating-display{text-align:center;margin:20px 0;}
+.rating-number{font-size:64px;font-weight:900;color:#ffd700;line-height:1;}
+.rating-label{font-size:14px;color:#8a9a8a;margin-top:4px;}
+.rating-bar{width:100%;max-width:300px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin:10px auto;overflow:hidden;}
+.rating-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f39c12,#ffd700,#2ecc71);border-radius:3px;transition:width 1s ease;}
+
+/* Transfer */
+.transfer-list{width:100%;max-width:400px;}
+.transfer-item{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;}
+.transfer-item:hover{border-color:#ffd700;background:rgba(255,215,0,0.05);transform:translateY(-2px);}
+.transfer-item .league-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-bottom:6px;}
+.transfer-item .team-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px;}
+.transfer-item .team-info{font-size:13px;color:#8a9a8a;}
+
+/* Final Result */
+.result-card{background:rgba(255,215,0,0.05);border:2px solid rgba(255,215,0,0.2);border-radius:16px;padding:30px;text-align:center;width:100%;max-width:400px;margin-bottom:20px;animation:glow 2s infinite;}
+.result-icon{font-size:64px;margin-bottom:12px;}
+.result-team-name{font-size:24px;font-weight:800;color:#ffd700;margin-bottom:4px;}
+.result-league{font-size:14px;color:#8a9a8a;margin-bottom:16px;}
+.result-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0;}
+.result-stat{text-align:center;}
+.result-stat-value{font-size:28px;font-weight:800;color:#fff;}
+.result-stat-label{font-size:11px;color:#8a9a8a;}
+
+/* Timeline */
+.timeline{width:100%;max-width:400px;margin-bottom:20px;}
+.timeline-item{display:flex;align-items:flex-start;margin-bottom:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;border-left:3px solid rgba(255,255,255,0.1);}
+.timeline-stage{font-size:12px;font-weight:700;color:#ffd700;min-width:40px;}
+.timeline-detail{flex:1;font-size:13px;color:#b0c0b0;line-height:1.5;}
+.timeline-rating{font-size:14px;font-weight:700;color:#fff;min-width:30px;text-align:right;}
+
+/* Nav */
+.top-bar{width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 0;margin-bottom:10px;}
+.top-bar .player-info{font-size:13px;color:#8a9a8a;}
+.top-bar .stage-info{font-size:13px;font-weight:700;color:#ffd700;}
+
+/* Half time */
+.halftime-card{text-align:center;padding:30px;width:100%;max-width:400px;}
+.halftime-score{font-size:56px;font-weight:900;color:#fff;margin:10px 0;}
+.halftime-label{font-size:16px;color:#8a9a8a;letter-spacing:4px;margin-bottom:20px;}
+.halftime-advice{font-size:14px;color:#b0c0b0;margin-bottom:16px;}
+
+/* Scrollable */
+.scroll-area{max-height:calc(100vh - 100px);overflow-y:auto;width:100%;display:flex;flex-direction:column;align-items:center;padding-right:4px;}
+.scroll-area::-webkit-scrollbar{width:4px;}
+.scroll-area::-webkit-scrollbar-track{background:transparent;}
+.scroll-area::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+
+/* Confetti */
+.confetti-piece{position:fixed;width:10px;height:10px;top:-10px;z-index:100;animation:confetti 3s ease-out forwards;pointer-events:none;}
+
+/* Responsive */
+@media(max-width:520px){#game{max-width:100%;border-radius:0;}
+.screen{padding:20px 16px;}
+.title-main{font-size:32px;}
+.title-icon{font-size:60px;}
+.pos-grid{gap:8px;}
+.pos-card{padding:14px 10px;}
+.match-score-display{font-size:36px;}
+.rating-number{font-size:48px;}
+.result-stats{gap:8px;}
+}
+
+/* Notification bar */
+.notification{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.9);border:1px solid rgba(255,215,0,0.3);color:#ffd700;padding:12px 24px;border-radius:8px;font-size:14px;z-index:200;animation:slideUp 0.3s ease-out;max-width:90%;text-align:center;}
+</style>
+</head>
+<body>
+<div id="game">
+
+<!-- ========== TITLE SCREEN ========== -->
+<div id="title-screen" class="screen active">
+  <div class="title-badge">⚽ FIRST-PERSON SIM</div>
+  <div class="title-icon">⚽</div>
+  <div class="title-main">足球生涯</div>
+  <div class="title-sub">从青训到巨星</div>
+  <div class="title-desc">
+    选择你的场上位置，从U12青训营出发<br>
+    每一场比赛都是你命运的转折点<br>
+    用你的选择，书写属于自己的传奇
+  </div>
+  <button class="btn btn-primary" onclick="startGame()" style="font-size:18px;padding:16px 50px;">⚽ 开始新赛季</button>
+  <div style="margin-top:30px;font-size:12px;color:#5a6a5a;">v1.0 | 支持中超/英超/西甲/德甲/意甲/法甲</div>
+</div>
+
+<!-- ========== POSITION SELECTION ========== -->
+<div id="position-screen" class="screen">
+  <div class="screen-title">选择你的场上位置</div>
+  <div class="screen-subtitle">这将决定你在比赛中的角色和场景</div>
+  <div class="pos-grid">
+    <div class="pos-card" onclick="selectPosition('forward')" id="pos-forward">
+      <div class="pos-icon">🥾</div>
+      <div class="pos-name">前锋</div>
+      <div class="pos-desc">进球机器 · 终结者</div>
+    </div>
+    <div class="pos-card" onclick="selectPosition('midfielder')" id="pos-midfielder">
+      <div class="pos-icon">🎯</div>
+      <div class="pos-name">中场</div>
+      <div class="pos-desc">组织核心 · 节拍器</div>
+    </div>
+    <div class="pos-card" onclick="selectPosition('defender')" id="pos-defender">
+      <div class="pos-icon">🛡️</div>
+      <div class="pos-name">后卫</div>
+      <div class="pos-desc">钢铁防线 · 守护者</div>
+    </div>
+    <div class="pos-card" onclick="selectPosition('goalkeeper')" id="pos-goalkeeper">
+      <div class="pos-icon">🧤</div>
+      <div class="pos-name">守门员</div>
+      <div class="pos-desc">最后一道防线 · 门神</div>
+    </div>
+  </div>
+  <button class="btn btn-primary" id="confirm-pos-btn" onclick="confirmPosition()" style="opacity:0.4;pointer-events:none;">确认选择</button>
+</div>
+
+<!-- ========== STAGE INTRO ========== -->
+<div id="stage-intro-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="stage-player-name"></div>
+    <div class="stage-info" id="stage-current-team"></div>
+  </div>
+  <div class="screen-title" id="stage-title"></div>
+  <div class="screen-subtitle" id="stage-subtitle"></div>
+  <div class="info-card" id="stage-desc-card">
+    <div class="card-text" id="stage-description"></div>
+  </div>
+  <button class="btn btn-primary" onclick="startNextMatch()">开始第一场比赛</button>
+</div>
+
+<!-- ========== MATCH PRE ========== -->
+<div id="match-pre-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="match-pre-player"></div>
+    <div class="stage-info" id="match-pre-stage"></div>
+  </div>
+  <div class="match-header">
+    <div class="match-minute" id="match-number-label"></div>
+    <div class="match-vs">
+      <div class="match-team">
+        <div class="match-team-name" id="pre-home-name"></div>
+        <div class="match-team-label">主队</div>
+      </div>
+      <div class="match-vs-text">VS</div>
+      <div class="match-team">
+        <div class="match-team-name" id="pre-away-name"></div>
+        <div class="match-team-label">客队</div>
+      </div>
+    </div>
+  </div>
+  <div class="info-card" id="match-pre-info">
+    <div class="card-text" id="match-pre-desc"></div>
+  </div>
+  <button class="btn btn-primary" onclick="startMatch()">⚽ 开球！</button>
+</div>
+
+<!-- ========== MATCH EVENT ========== -->
+<div id="match-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="match-player-pos"></div>
+    <div class="stage-info" id="match-score-label">0 : 0</div>
+  </div>
+  <div class="match-vs" style="margin-bottom:4px;">
+    <span style="font-size:13px;color:#b0c0b0;" id="match-teams-label"></span>
+  </div>
+  <div class="match-minute" id="event-minute">0'</div>
+  <div class="match-desc" id="event-description"></div>
+  <div id="choices-container"></div>
+  <div id="outcome-container"></div>
+</div>
+
+<!-- ========== HALF TIME ========== -->
+<div id="halftime-screen" class="screen">
+  <div class="halftime-card">
+    <div class="halftime-label">— 中场休息 —</div>
+    <div class="halftime-score" id="halftime-score">0 : 0</div>
+    <div class="screen-subtitle" id="halftime-teams"></div>
+    <div class="halftime-advice">教练对你的表现进行了点评，你需要做出调整：</div>
+    <div class="info-card" id="halftime-feedback">
+      <div class="card-text" id="halftime-feedback-text"></div>
+    </div>
+    <div id="halftime-choices" style="width:100%;max-width:400px;"></div>
+  </div>
+</div>
+
+<!-- ========== MATCH RESULT ========== -->
+<div id="match-result-screen" class="screen">
+  <div class="screen-title" id="result-title">比赛结束</div>
+  <div class="match-score-display" id="result-score">0 : 0</div>
+  <div class="screen-subtitle" id="result-teams"></div>
+  <div class="rating-display">
+    <div class="rating-number" id="result-rating">0.0</div>
+    <div class="rating-label">本场评分</div>
+    <div class="rating-bar"><div class="rating-fill" id="result-rating-bar" style="width:0%"></div></div>
+  </div>
+  <div class="info-card" id="result-comment-card">
+    <div class="card-text" id="result-comment"></div>
+  </div>
+  <div id="result-next-container"></div>
+</div>
+
+<!-- ========== STAGE SUMMARY ========== -->
+<div id="stage-summary-screen" class="screen">
+  <div class="screen-title" id="summary-title"></div>
+  <div class="screen-subtitle" id="summary-subtitle"></div>
+  <div class="info-card" style="text-align:center;">
+    <div class="rating-number" id="summary-rating" style="font-size:48px;">0.0</div>
+    <div class="rating-label">阶段综合评分</div>
+    <div class="rating-bar"><div class="rating-fill" id="summary-rating-bar" style="width:0%"></div></div>
+  </div>
+  <div class="timeline" id="summary-matches"></div>
+  <div id="summary-next-container"></div>
+</div>
+
+<!-- ========== TRANSFER MARKET ========== -->
+<div id="transfer-screen" class="screen">
+  <div class="screen-title">🏷️ 转会市场</div>
+  <div class="screen-subtitle" id="transfer-subtitle"></div>
+  <div class="info-card">
+    <div class="card-label">你的当前评分</div>
+    <div class="card-value" id="transfer-rating" style="color:#ffd700;">0.0</div>
+  </div>
+  <div class="screen-subtitle" style="margin-top:8px;font-size:13px;">选择你的下一站：</div>
+  <div class="transfer-list scroll-area" id="transfer-list"></div>
+</div>
+
+<!-- ========== FINAL RESULT ========== -->
+<div id="final-screen" class="screen">
+  <div style="text-align:center;margin-bottom:16px;">
+    <div style="font-size:13px;color:#8a9a8a;letter-spacing:4px;margin-bottom:4px;">🏆 职业生涯</div>
+    <div class="screen-title">你的足球之路</div>
+  </div>
+  <div class="result-card" id="final-team-card">
+    <div class="result-icon" id="final-icon"></div>
+    <div class="result-team-name" id="final-team-name"></div>
+    <div class="result-league" id="final-league"></div>
+    <div id="final-desc" style="font-size:14px;color:#b0c0b0;line-height:1.7;margin:12px 0;"></div>
+  </div>
+  <div class="result-stats" style="width:100%;max-width:400px;">
+    <div class="result-stat">
+      <div class="result-stat-value" id="final-pos">前锋</div>
+      <div class="result-stat-label">场上位置</div>
+    </div>
+    <div class="result-stat">
+      <div class="result-stat-value" id="final-avg-rating">0.0</div>
+      <div class="result-stat-label">生涯均分</div>
+    </div>
+    <div class="result-stat">
+      <div class="result-stat-value" id="final-best-rating">0.0</div>
+      <div class="result-stat-label">最高评分</div>
+    </div>
+  </div>
+  <div class="timeline" id="final-timeline"></div>
+  <button class="btn btn-primary" onclick="resetGame()" style="margin-top:10px;">🔄 重新开始</button>
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+
+const POSITIONS = {
+  forward: { name:'前锋', icon:'🥾', intro:'你是球队的箭头人物，进球是你唯一的目标。每一次触球都可能改变比赛，冷静和果断是你最好的武器。' },
+  midfielder: { name:'中场', icon:'🎯', intro:'你是球队的大脑，掌控比赛节奏。传球、视野、大局观——球场上的每一寸土地都是你的战场。' },
+  defender: { name:'后卫', icon:'🛡️', intro:'你是防线的基石，守护着球队的最后尊严。凶狠的抢断、精准的卡位、无畏的封堵是你的信条。' },
+  goalkeeper: { name:'守门员', icon:'🧤', intro:'你是门线上的守护神，球队的最后一道防线。反应、勇气、指挥——一个人撑起整条防线。' }
+};
+
+const LEAGUES = {
+  cs1:{name:'中甲',color:'#8a9a8a',level:1},
+  cs2:{name:'中超中下游',color:'#95a5a6',level:2},
+  cs3:{name:'中超中上游',color:'#2ecc71',level:3},
+  cs4:{name:'中超豪门',color:'#f39c12',level:4},
+  eu1:{name:'法甲中游',color:'#0055a4',level:5},
+  eu2:{name:'德甲中游',color:'#d10000',level:5},
+  eu3:{name:'意甲中游',color:'#008fd5',level:5},
+  eu4:{name:'西甲中游',color:'#db8a00',level:5},
+  eu5:{name:'英超中游',color:'#e90052',level:6},
+  eu6:{name:'法甲强队',color:'#0055a4',level:6},
+  eu7:{name:'德甲强队',color:'#d10000',level:7},
+  eu8:{name:'意甲强队',color:'#008fd5',level:7},
+  eu9:{name:'西甲强队',color:'#db8a00',level:7},
+  eu10:{name:'英超强队',color:'#e90052',level:8},
+  top:{name:'世界顶级豪门',color:'#ffd700',level:9}
+};
+
+const TEAMS = {
+  // Level 1 - 中甲
+  l1:[{n:'四川九牛',l:'中甲'},{n:'石家庄功夫',l:'中甲'},{n:'南京城市',l:'中甲'},{n:'青岛西海岸',l:'中甲'}],
+  // Level 2 - 中超中下游
+  l2:[{n:'青岛海牛',l:'中超'},{n:'南通支云',l:'中超'},{n:'深圳队',l:'中超'},{n:'河南队',l:'中超'},{n:'长春亚泰',l:'中超'},{n:'天津津门虎',l:'中超'}],
+  // Level 3 - 中超中上游
+  l3:[{n:'浙江队',l:'中超'},{n:'武汉三镇',l:'中超'},{n:'北京国安',l:'中超'},{n:'成都蓉城',l:'中超'},{n:'山东泰山',l:'中超'},{n:'上海申花',l:'中超'}],
+  // Level 4 - 中超豪门
+  l4:[{n:'上海海港',l:'中超'},{n:'上海申花',l:'中超'},{n:'山东泰山',l:'中超'}],
+  // Level 5 - 五大联赛中游
+  l5:[{n:'尼斯',l:'法甲'},{n:'朗斯',l:'法甲'},{n:'沃尔夫斯堡',l:'德甲'},{n:'门兴',l:'德甲'},{n:'佛罗伦萨',l:'意甲'},{n:'拉齐奥',l:'意甲'},{n:'皇家社会',l:'西甲'},{n:'毕尔巴鄂竞技',l:'西甲'},{n:'阿斯顿维拉',l:'英超'},{n:'布莱顿',l:'英超'}],
+  // Level 6 - 五大联赛强队
+  l6:[{n:'马赛',l:'法甲'},{n:'摩纳哥',l:'法甲'},{n:'RB莱比锡',l:'德甲'},{n:'多特蒙德',l:'德甲'},{n:'那不勒斯',l:'意甲'},{n:'AC米兰',l:'意甲'},{n:'马德里竞技',l:'西甲'},{n:'热刺',l:'英超'},{n:'切尔西',l:'英超'},{n:'纽卡斯尔',l:'英超'}],
+  // Level 7 - 五大联赛顶级
+  l7:[{n:'巴黎圣日耳曼',l:'法甲'},{n:'拜仁慕尼黑',l:'德甲'},{n:'勒沃库森',l:'德甲'},{n:'国际米兰',l:'意甲'},{n:'尤文图斯',l:'意甲'},{n:'巴塞罗那',l:'西甲'},{n:'阿森纳',l:'英超'},{n:'利物浦',l:'英超'},{n:'曼联',l:'英超'}],
+  // Level 8 - 世界顶级豪门
+  l8:[{n:'皇家马德里',l:'西甲'},{n:'曼城',l:'英超'},{n:'拜仁慕尼黑',l:'德甲'},{n:'巴黎圣日耳曼',l:'法甲'}]
+};
+
+// Opponent teams per stage (youth teams)
+const YOUTH_TEAMS = {
+  u12:[{n:'清水心跳U12',l:'日本青训'},{n:'蔚山现代U12',l:'韩国青训'},{n:'本菲卡U12',l:'葡萄牙青训'},{n:'阿贾克斯U12',l:'荷兰青训'}],
+  u15:[{n:'清水心跳U15',l:'日本青训'},{n:'蔚山现代U15',l:'韩国青训'},{n:'本菲卡U15',l:'葡萄牙青训'},{n:'阿贾克斯U15',l:'荷兰青训'}],
+  u19:[{n:'清水心跳U19',l:'日本青训'},{n:'蔚山现代U19',l:'韩国青训'},{n:'本菲卡U19',l:'葡萄牙青训'},{n:'阿贾克斯U19',l:'荷兰青训'}]
+};
+
+// ============================================================
+// EVENTS per position
+// ============================================================
+
+function getEvents(pos, stageIndex) {
+  const diff = stageIndex + 1; // 1,2,3
+  const all = {
+    forward: [
+      {
+        desc:'你接到边路低平传中，球速很快，后卫正在向你逼近！',
+        choices:[
+          {text:'不停球直接推射近角',rating:1.5,scoreChance:0.5,result:'⚽ 射门！皮球贴着草皮飞速窜入近角！GOAL！完美的射门选择！'},
+          {text:'停球后调整再射门',rating:-1,scoreChance:0.1,result:'对方后卫抢先一脚将球破坏，你错失了最佳射门时机。'},
+          {text:'回做给插上的队友',rating:0.5,scoreChance:0.25,result:'队友迎球怒射，可惜被对方门将神勇扑出！'}
+        ]
+      },
+      {
+        desc:'你反越位成功，形成了单刀之势！门将已经出击，全场球迷屏住呼吸！',
+        choices:[
+          {text:'冷静推射远角',rating:1.5,scoreChance:0.55,result:'⚽ 皮球划过一道弧线，绕过了门将的手指，稳稳滚入网窝！漂亮的射门！'},
+          {text:'过掉门将后打空门',rating:0.5,scoreChance:0.35,result:'你试图过掉门将，但对方的手指碰到了皮球，球速减缓，后卫回追解围！'},
+          {text:'大力抽射上角',rating:-0.5,scoreChance:0.2,result:'你发力过猛，皮球高高飞出了横梁，错失了一次绝佳机会！'}
+        ]
+      },
+      {
+        desc:'你在禁区弧顶接到传球，面前有两名防守球员封堵。',
+        choices:[
+          {text:'横向盘带拉开角度后远射',rating:1,scoreChance:0.35,result:'⚽ 你的射门打在防守球员身上发生折射！门将反应不及，球进了！'},
+          {text:'传给左边插上的队友',rating:1,scoreChance:0.4,result:'队友接球后一脚传中，后点包抄的队友头球攻门！可惜稍稍偏出。'},
+          {text:'尝试强行突破两名后卫',rating:-1.5,scoreChance:0.1,result:'你陷入了对方防守球员的包夹，球被断下，对方发动快速反击！'}
+        ]
+      },
+      {
+        desc:'角球进攻，皮球飞到你的头顶上方！',
+        choices:[
+          {text:'全力起跳头球攻门',rating:1.5,scoreChance:0.5,result:'⚽ 狮子甩头！皮球狠狠砸进网窝！门将毫无反应！'},
+          {text:'摆渡到后点',rating:0.5,scoreChance:0.3,result:'后点队友跟上射门，但在对方干扰下打高了。'},
+          {text:'假动作吸引防守',rating:-1,scoreChance:0.05,result:'你虚晃一枪，但没人领会你的意图，球被解围。'}
+        ]
+      },
+      {
+        desc:'队友后场长传，你要背身倚住后卫接球！',
+        choices:[
+          {text:'胸部停球后转身抽射',rating:1,scoreChance:0.35,result:'漂亮的停球转身！射门力量十足，可惜被对方门将飞身扑出！'},
+          {text:'做球给插上的中场队友',rating:0.5,scoreChance:0.3,result:'队友远射造成门将脱手，可惜无人跟进补射。'},
+          {text:'试图挑球过人',rating:-1.5,scoreChance:0.1,result:'挑球过高，被对方后卫卡住身位，球权丢失。'}
+        ]
+      },
+      {
+        desc:'比赛末段，双方体力都有所下降，你在大禁区左侧拿球。',
+        choices:[
+          {text:'内切后用右脚射远角',rating:1,scoreChance:0.3,result:'⚽ 你的射门划出美妙弧线，直挂死角！世界波！'},
+          {text:'下底传中',rating:0,scoreChance:0.2,result:'传中被对方后卫挡出底线，角球。'},
+          {text:'回传控球拖延时间',rating:-0.5,scoreChance:0.05,result:'安全但缺乏威胁，对方重新组织好防线。'}
+        ]
+      }
+    ],
+    midfielder: [
+      {
+        desc:'你中场拿球，对方两名球员上前逼抢，空间被压缩。',
+        choices:[
+          {text:'一脚出球直塞防线身后',rating:1.5,scoreChance:0.45,result:'⚽ 手术刀般的直塞！前锋插上单刀破门！精妙的助攻！'},
+          {text:'横向转移给边路',rating:0.5,scoreChance:0.25,result:'边路球员传中制造了混乱，但对方后卫将球解围。'},
+          {text:'护球转身尝试过人',rating:-1,scoreChance:0.1,result:'被对方夹击断球，中场丢球非常危险！'}
+        ]
+      },
+      {
+        desc:'对方发动快速反击，你作为中场第一道屏障需要做出反应。',
+        choices:[
+          {text:'快速回追卡住传球路线',rating:1.5,scoreChance:-0.1,result:'你成功预判了传球路线，将球拦截下来！一次关键的回防！'},
+          {text:'战术犯规延缓进攻',rating:-1,scoreChance:-0.2,result:'你拉倒了对方球员，吃到一张黄牌。但确实延缓了反击。'},
+          {text:'指挥队友布防',rating:0,scoreChance:0,result:'队友按照你的指挥站位，对方最终只能远射，被门将轻松没收。'}
+        ]
+      },
+      {
+        desc:'前场任意球机会，距离球门约28米。',
+        choices:[
+          {text:'直接射门',rating:1,scoreChance:0.3,result:'⚽ 你的任意球越过人墙，直挂死角！精彩的直接任意球破门！'},
+          {text:'吊入禁区找队友',rating:0.5,scoreChance:0.25,result:'队友争到落点，头球攻门稍稍高出横梁。'},
+          {text:'战术短传',rating:-0.5,scoreChance:0.1,result:'短传配合后射门被挡出，浪费了定位球机会。'}
+        ]
+      },
+      {
+        desc:'你在对方禁区前沿控球，对方防线收缩得很紧。',
+        choices:[
+          {text:'尝试远射',rating:0.5,scoreChance:0.2,result:'远射势大力沉！对方门将不敢怠慢，双拳击出！'},
+          {text:'挑传禁区内插上的队友',rating:1.5,scoreChance:0.4,result:'⚽ 精妙挑传！队友反越位成功，凌空抽射破门！'},
+          {text:'回传重新组织',rating:0,scoreChance:0.1,result:'回传后重新组织，对方已经全员退防。'}
+        ]
+      },
+      {
+        desc:'边路球员下底传中，你在禁区弧顶无人盯防！',
+        choices:[
+          {text:'迎球凌空抽射',rating:1.5,scoreChance:0.45,result:'⚽ 天外飞仙！完美的凌空抽射！皮如炮弹般飞入网窝！'},
+          {text:'停球后再射门',rating:-0.5,scoreChance:0.15,result:'停球稍大，被对方后卫迅速封堵了射门角度。'},
+          {text:'漏给后点队友',rating:0.5,scoreChance:0.3,result:'后点队友准备不足，射门打在了边网上。'}
+        ]
+      },
+      {
+        desc:'后场长传找到你，你需要稳稳控制住球权。',
+        choices:[
+          {text:'优雅停球后转身推进',rating:1,scoreChance:0.3,result:'完美的停球转身！你甩开防守球员，向前推进！'},
+          {text:'头球摆渡给队友',rating:0.5,scoreChance:0.2,result:'队友接球后组织进攻，最终迫使对方犯规，赢得任意球。'},
+          {text:'直接大范围转移',rating:-0.5,scoreChance:0.15,result:'转移球力量过大，直接飞出了边线。'}
+        ]
+      }
+    ],
+    defender: [
+      {
+        desc:'对方边锋拿球向你冲来，速度非常快！',
+        choices:[
+          {text:'卡住内线，逼他走外线',rating:1.5,scoreChance:-0.15,result:'你的站位非常老道！对方只能走外线传中，被中后卫头球解围！'},
+          {text:'上前贴身逼抢',rating:0,scoreChance:0,result:'你成功贴上对方，但被他一个转身抹过，好在队友补防及时。'},
+          {text:'直接放铲',rating:-1.5,scoreChance:-0.25,result:'你铲到了对方的脚，裁判出示黄牌！给了对方一个危险位置的任意球。'}
+        ]
+      },
+      {
+        desc:'对方一脚长传打向你的身后，对方前锋正在启动！',
+        choices:[
+          {text:'造越位，集体前压',rating:1.5,scoreChance:-0.2,result:'越位！对方前锋落入越位陷阱！你的防线指挥非常出色！'},
+          {text:'快速回追',rating:0.5,scoreChance:-0.1,result:'你的速度不占优势，但在干扰下对方前锋的射门偏出了球门！'},
+          {text:'举手示意对方越位',rating:-1,scoreChance:-0.3,result:'对方没有越位！单刀！好在门将出击将球扑出！好险！'}
+        ]
+      },
+      {
+        desc:'对方在禁区角附近传中，禁区内有三名进攻球员包抄。',
+        choices:[
+          {text:'紧贴对方最有威胁的前锋',rating:1,scoreChance:-0.15,result:'你的贴防让对方无法舒服地头球，皮球高出横梁！'},
+          {text:'冲到前点解围',rating:1.5,scoreChance:-0.2,result:'⚽ 你抢在所有人之前将球顶出底线！关键的解围！'},
+          {text:'只是举手示意',rating:-1.5,scoreChance:-0.35,result:'对方前锋在你身边头球攻门！⚽ 球进了...你的防守漏人了。'}
+        ]
+      },
+      {
+        desc:'对方前锋背身拿球，在你面前护住球寻找传球路线。',
+        choices:[
+          {text:'绕前防守，切断传球路线',rating:1.5,scoreChance:-0.15,result:'你成功绕前将球断下！从防守到反击的转换！'},
+          {text:'在身后顶住，不让他转身',rating:0.5,scoreChance:-0.05,result:'对方无法转身，只能回传。防守成功！'},
+          {text:'试图从身后捅球',rating:-1,scoreChance:-0.2,result:'你捅到了对方的后脚跟，裁判吹罚犯规！给了任意球机会。'}
+        ]
+      },
+      {
+        desc:'对方在禁区外远射，皮球打在防守球员身上发生折射飞向球门！',
+        choices:[
+          {text:'飞身堵枪眼',rating:2,scoreChance:-0.3,result:'你用身体挡出了这脚射门！真正的勇士！球迷为你欢呼！'},
+          {text:'观察门将位置后做判断',rating:0.5,scoreChance:-0.1,result:'门将将球没收，你保持了冷静的防守站位。'},
+          {text:'躲球保护自己',rating:-2,scoreChance:-0.45,result:'你侧身躲开，皮球折射入网... ⚽ 教练对你的躲球很不满。'}
+        ]
+      },
+      {
+        desc:'对方反击三打三，你是最后一名后卫！',
+        choices:[
+          {text:'且战且退，等待队友回防',rating:1,scoreChance:-0.15,result:'你边退边防，为队友赢得了回防时间，最终化解了这次反击！'},
+          {text:'上前压迫持球人',rating:0.5,scoreChance:-0.1,result:'你果断上抢，虽然被过掉但也延缓了进攻节奏。'},
+          {text:'冒险放铲',rating:-2,scoreChance:-0.4,result:'你铲空了！对方直接面对门将... ⚽ 球进了。你和教练都很失望。'}
+        ]
+      }
+    ],
+    goalkeeper: [
+      {
+        desc:'对方球员在禁区外突施冷箭，皮球带着弧线飞向球门！',
+        choices:[
+          {text:'稳稳将球抱住',rating:1.5,scoreChance:-0.2,result:'漂亮的扑救！你将球稳稳抱在怀中，化解了这次远射威胁！'},
+          {text:'双拳击出',rating:-0.5,scoreChance:-0.1,result:'球被击出不远，落在对方球员脚下，好在对方远射偏出。'},
+          {text:'托出横梁',rating:0.5,scoreChance:-0.15,result:'你指尖碰了一下皮球，球擦着横梁飞出底线！好险！'}
+        ]
+      },
+      {
+        desc:'对方形成单刀！你果断选择出击！',
+        choices:[
+          {text:'张开身体封堵角度',rating:1.5,scoreChance:-0.25,result:'你展开身体像一堵墙！对方射门打在你身上弹出！精彩的扑救！'},
+          {text:'直接扑向对方脚下',rating:0.5,scoreChance:-0.15,result:'你扑到了皮球！虽然给了对方一个角球，但成功化解了单刀！'},
+          {text:'犹豫没有出击',rating:-2,scoreChance:-0.45,result:'⚽ 对方轻松将球推入空门...你的犹豫代价惨重。'}
+        ]
+      },
+      {
+        desc:'对方开出角球，禁区内一片混战，皮球向你飞来！',
+        choices:[
+          {text:'出击将球摘下',rating:1.5,scoreChance:-0.2,result:'你高高跃起，在人群中把球摘下！霸气十足！'},
+          {text:'一拳将球击出禁区',rating:0.5,scoreChance:-0.1,result:'你将球击出禁区，队友接球发动反击！'},
+          {text:'守住门线',rating:-1,scoreChance:-0.3,result:'对方球员头球攻门！好在你反应迅速将球扑出！但太被动了！'}
+        ]
+      },
+      {
+        desc:'对方获得点球！全场压力都在你肩上。',
+        choices:[
+          {text:'提前研究过对方罚球习惯，扑向预定方向',rating:2,scoreChance:-0.3,result:'🛑 你扑出了点球！你猜对了方向！英雄！'},
+          {text:'等待对方射门后再做出反应',rating:0.5,scoreChance:-0.15,result:'对方射门角度太刁，你指尖碰到了但没能阻止皮球入网。'},
+          {text:'在门线上跳舞干扰对方',rating:-1,scoreChance:-0.2,result:'⚽ 对方没有被干扰，将球稳稳罚进。'}
+        ]
+      },
+      {
+        desc:'后卫回传给你，对方前锋在逼抢你的出球。',
+        choices:[
+          {text:'大脚开出',rating:0,scoreChance:0,result:'大脚开到前场，重新组织进攻。稳妥的选择。'},
+          {text:'短传给边后卫发动快速反击',rating:1.5,scoreChance:0.3,result:'⚽ 你的精准短传发动了反击！边后卫传中助攻队友破门！'},
+          {text:'试图盘带过掉对方前锋',rating:-2,scoreChance:-0.3,result:'⚽ 你被对方前锋断球打空门！致命失误！'}
+        ]
+      },
+      {
+        desc:'对方在禁区前沿打出精妙配合，一名球员已经形成半单刀！',
+        choices:[
+          {text:'果断出击封堵角度',rating:1.5,scoreChance:-0.2,result:'你及时出击，在对方射门前封堵了角度！射门打在你身上弹出！'},
+          {text:'集中注意力等待射门',rating:0,scoreChance:-0.1,result:'对方射门角度很刁，你飞身扑出！精彩的扑救！'},
+          {text:'提前移动准备扑远角',rating:-1,scoreChance:-0.25,result:'⚽ 对方轻巧地推射近角，你被骗过了方向。'}
+        ]
+      }
+    ]
+  };
+  return all[pos] || all.forward;
+}
+
+// ============================================================
+// GAME STATE
+// ============================================================
+
+const G = {
+  position: null,
+  stage: 0, // 0=U12, 1=U15, 2=U19
+  match: 0, // 0,1,2 within stage
+  matchRatings: [], // flat array of 9 match ratings
+  matchScores: [], // [{home,away}]
+  teamHistory: [],
+  currentTeam: '中国少年青训营',
+  events: [],
+  eventIndex: 0,
+  score: {home:0, away:0},
+  opponent: null,
+  stageRating: 0,
+  halftimeChosen: false,
+  matchStarted: false,
+  currentOutcome: null, // track if choice made
+  currentRatingMod: 0,
+  currentMatchEvents: 0,
+  perfectMatches: 0,
+};
+
+const STAGES = [
+  { id:'u12', name:'U12青训阶段', desc:'你的足球生涯从U12青训营开始。在这里，你将与来自全国各地的同龄人一起训练比赛，奠定基础。', team:'中国少年青训营' },
+  { id:'u15', name:'U15青训阶段', desc:'进入U15阶段，比赛强度明显提升。你将面临更有组织的对手，技术细节和战术意识需要全面进化。', team:'中国青年精英营' },
+  { id:'u19', name:'U19青训阶段', desc:'最后的青训考验！U19的赛场上汇集了各俱乐部的年轻才俊。这是你叩开职业大门的最后机会。', team:'中国青年精英营' }
+];
+
+// ============================================================
+// SCREEN MANAGEMENT
+// ============================================================
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ============================================================
+// GAME FUNCTIONS
+// ============================================================
+
+function startGame() {
+  G.position = null;
+  G.stage = 0;
+  G.match = 0;
+  G.matchRatings = [];
+  G.matchScores = [];
+  G.teamHistory = [];
+  G.currentTeam = '中国少年青训营';
+  G.perfectMatches = 0;
+  showScreen('position-screen');
+  document.querySelectorAll('.pos-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('confirm-pos-btn').style.opacity='0.4';
+  document.getElementById('confirm-pos-btn').style.pointerEvents='none';
+}
+
+function selectPosition(pos) {
+  document.querySelectorAll('.pos-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('pos-'+pos).classList.add('selected');
+  G.position = pos;
+  document.getElementById('confirm-pos-btn').style.opacity='1';
+  document.getElementById('confirm-pos-btn').style.pointerEvents='auto';
+}
+
+function confirmPosition() {
+  if(!G.position) return;
+  showStageIntro();
+}
+
+function showStageIntro() {
+  const s = STAGES[G.stage];
+  document.getElementById('stage-player-name').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('stage-current-team').textContent = '🏠 ' + G.currentTeam;
+  document.getElementById('stage-title').textContent = '第' + (G.stage+1) + '阶段：' + s.name;
+  document.getElementById('stage-subtitle').textContent = '3场比赛决定你的未来';
+  document.getElementById('stage-description').textContent = s.desc + '\n\n你现在效力于：' + G.currentTeam;
+  showScreen('stage-intro-screen');
+}
+
+function startNextMatch() {
+  G.match = G.matchRatings.length % 3;
+  G.matchStarted = false;
+  G.currentOutcome = null;
+  G.currentRatingMod = 0;
+  G.currentMatchEvents = 0;
+  G.halftimeChosen = false;
+  G.events = [];
+
+  // Set opponent
+  const stageKey = STAGES[G.stage].id;
+  const pool = YOUTH_TEAMS[stageKey];
+  G.opponent = pool[G.match % pool.length];
+
+  // Load events
+  const allEvents = getEvents(G.position, G.stage);
+  G.events = [...allEvents].sort(()=>Math.random()-0.5).slice(0, 5);
+  G.eventIndex = 0;
+
+  showMatchPre();
+}
+
+function showMatchPre() {
+  const s = STAGES[G.stage];
+  document.getElementById('match-pre-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('match-pre-stage').textContent = s.name;
+  document.getElementById('match-number-label').textContent = '第 ' + (G.match+1) + ' / 3 场比赛';
+  document.getElementById('pre-home-name').textContent = G.currentTeam;
+  document.getElementById('pre-away-name').textContent = G.opponent.n;
+  document.getElementById('match-pre-desc').innerHTML = '主队：<b>' + G.currentTeam + '</b><br>客队：<b>' + G.opponent.n + '</b>（' + G.opponent.l + '）<br><br>⚽ 这将是一场艰苦的比赛，你需要全力以赴！';
+  showScreen('match-pre-screen');
+}
+
+function startMatch() {
+  G.score = {home:0, away:0};
+  G.currentRatingMod = 0;
+  G.currentMatchEvents = 0;
+  showMatchEvent();
+}
+
+function showMatchEvent() {
+  if(G.eventIndex >= G.events.length) {
+    // Match over - show result
+    showMatchResult();
+    return;
+  }
+
+  const evt = G.events[G.eventIndex];
+  const isHalftime = G.eventIndex === Math.floor(G.events.length/2) && !G.halftimeChosen;
+
+  if(isHalftime) {
+    showHalftime();
+    return;
+  }
+
+  G.currentOutcome = null;
+  document.getElementById('match-player-pos').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('match-score-label').textContent = G.score.home + ' : ' + G.score.away;
+  document.getElementById('match-teams-label').textContent = G.currentTeam + ' vs ' + G.opponent.n;
+  document.getElementById('event-minute').textContent = (15 + G.eventIndex * 15) + "'";
+  document.getElementById('event-description').textContent = evt.desc;
+
+  const container = document.getElementById('choices-container');
+  container.innerHTML = '';
+  container.style.display = 'block';
+  document.getElementById('outcome-container').innerHTML = '';
+  document.getElementById('outcome-container').style.display = 'none';
+
+  evt.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = ['A','B','C'][i] + '. ' + c.text;
+    btn.onclick = () => makeChoice(i);
+    container.appendChild(btn);
+  });
+
+  showScreen('match-screen');
+}
+
+function makeChoice(index) {
+  if(G.currentOutcome) return;
+  G.currentOutcome = true;
+
+  const evt = G.events[G.eventIndex];
+  const choice = evt.choices[index];
+
+  // Disable all buttons
+  document.querySelectorAll('.choice-btn').forEach(b=>b.style.pointerEvents='none');
+
+  // Determine if goal happens
+  const rand = Math.random();
+  const goalScored = rand < choice.scoreChance;
+
+  if(goalScored) {
+    G.score.home++;
+    G.currentRatingMod += choice.rating + 1;
+  } else {
+    // Check if concede
+    if(choice.scoreChance < -0.1) {
+      const concedeChance = Math.abs(choice.scoreChance);
+      if(Math.random() < concedeChance * 0.5) {
+        G.score.away++;
+        G.currentRatingMod += choice.rating - 1;
+      } else {
+        G.currentRatingMod += choice.rating;
+      }
+    } else {
+      G.currentRatingMod += choice.rating;
+    }
+  }
+
+  G.currentMatchEvents++;
+
+  // Show outcome
+  const container = document.getElementById('outcome-container');
+  container.style.display = 'block';
+  container.innerHTML = '';
+  const box = document.createElement('div');
+  const isPositive = choice.rating >= 1;
+  const isNegative = choice.rating < -0.5;
+  box.className = 'outcome-box ' + (isPositive ? 'outcome-positive' : isNegative ? 'outcome-negative' : 'outcome-neutral');
+  box.innerHTML = '<div class="outcome-icon">' + (goalScored ? '⚽' : isPositive ? '👍' : isNegative ? '😟' : '🤷') +
+    '</div><div class="outcome-text">' + choice.result + '</div>';
+  container.appendChild(box);
+
+  // Update score display
+  document.getElementById('match-score-label').textContent = G.score.home + ' : ' + G.score.away;
+
+  // Next event button
+  setTimeout(() => {
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn btn-primary';
+    nextBtn.textContent = '继续比赛 →';
+    nextBtn.onclick = () => {
+      G.eventIndex++;
+      G.currentOutcome = null;
+      showMatchEvent();
+    };
+    container.appendChild(nextBtn);
+  }, 600);
+}
+
+function showHalftime() {
+  G.halftimeChosen = true;
+  document.getElementById('halftime-score').textContent = G.score.home + ' : ' + G.score.away;
+  document.getElementById('halftime-teams').textContent = G.currentTeam + ' vs ' + G.opponent.n;
+
+  // Generate feedback based on current performance
+  const feedbacks = [
+    '上半场你的表现还算稳健，但球队需要更多的创造力。',
+    '节奏有些被动，我们需要在进攻端更加果断！',
+    '球队整体发挥不错，保持住这个势头！',
+    '防守端需要更专注，对手的进攻很有针对性。',
+    '干得不错！继续给对方施加压力！',
+    '我们需要改变战术，试试从边路打开突破口。',
+    '你的表现中规中矩，下半场需要站出来！'
+  ];
+  document.getElementById('halftime-feedback-text').textContent = feedbacks[Math.floor(Math.random()*feedbacks.length)];
+
+  const container = document.getElementById('halftime-choices');
+  container.innerHTML = '';
+  const halfOptions = [
+    {text:'💪 加强进攻，全力争胜', mod:1.5},
+    {text:'⚖️ 保持现有战术', mod:0.5},
+    {text:'🛡️ 稳固防守，保住比分', mod:-0.5}
+  ];
+  halfOptions.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => {
+      G.currentRatingMod += opt.mod;
+      G.eventIndex++;
+      G.currentOutcome = null;
+      document.querySelectorAll('#halftime-choices .choice-btn').forEach(b=>b.style.pointerEvents='none');
+      showMatchEvent();
+    };
+    container.appendChild(btn);
+  });
+  showScreen('halftime-screen');
+}
+
+function showMatchResult() {
+  // Calculate rating
+  const win = G.score.home > G.score.away;
+  const draw = G.score.home === G.score.away;
+  const base = win ? 6.5 : draw ? 5.5 : 4.5;
+  const decisionBonus = G.currentRatingMod * 0.35;
+  let rating = Math.min(10, Math.max(1, base + decisionBonus));
+  // Round to 1 decimal
+  rating = Math.round(rating * 10) / 10;
+
+  G.matchRatings.push(rating);
+  G.matchScores.push({home:G.score.home, away:G.score.away});
+  if(rating >= 8.5) G.perfectMatches++;
+
+  document.getElementById('result-title').textContent = win ? '🎉 比赛胜利！' : draw ? '🤝 平局' : '😔 比赛失利';
+  document.getElementById('result-score').textContent = G.score.home + ' : ' + G.score.away;
+  document.getElementById('result-teams').textContent = G.currentTeam + ' vs ' + G.opponent.n;
+  document.getElementById('result-rating').textContent = rating.toFixed(1);
+  document.getElementById('result-rating-bar').style.width = (rating * 10) + '%';
+
+  const pos = POSITIONS[G.position].name;
+  const comments = {
+    excellent: ['完美的表现！你是球场上最闪耀的明星！','统治级的发挥，教练都看呆了！','世界级的表现！继续这样下去前途无量！'],
+    good: ['表现不错，继续保持！','稳健的发挥，为球队做出了重要贡献。','可圈可点，还有提升空间。'],
+    average: ['中规中矩，需要更努力。','表现平平，下次要拿出更好的状态。','没有犯错，但也没有亮点。'],
+    poor: ['状态不佳，需要好好调整。','今天不是你的日子，忘掉它继续前进。','表现令人失望，你必须做得更好。']
+  };
+
+  let comment;
+  if(rating >= 8) comment = comments.excellent[Math.floor(Math.random()*comments.excellent.length)];
+  else if(rating >= 6.5) comment = comments.good[Math.floor(Math.random()*comments.good.length)];
+  else if(rating >= 5) comment = comments.average[Math.floor(Math.random()*comments.average.length)];
+  else comment = comments.poor[Math.floor(Math.random()*comments.poor.length)];
+
+  // Add position-specific info
+  const posComments = {
+    forward: rating >= 7 ? ' 作为前锋，你在进攻端制造了巨大威胁。' : ' 作为前锋，你需要提高射门的效率。',
+    midfielder: rating >= 7 ? ' 作为中场，你很好地盘活了球队的进攻。' : ' 作为中场，你需要提高传球成功率。',
+    defender: rating >= 7 ? ' 作为后卫，你筑起了坚固的防线。' : ' 作为后卫，你的防守位置感需要加强。',
+    goalkeeper: rating >= 7 ? ' 作为门将，你给了球队极大的安全感。' : ' 作为门将，你的出击时机需要把握得更好。'
+  };
+  comment += posComments[G.position];
+
+  document.getElementById('result-comment').textContent = comment;
+
+  const nextContainer = document.getElementById('result-next-container');
+  nextContainer.innerHTML = '';
+  const matchesInStage = G.matchRatings.length % 3;
+
+  if(matchesInStage === 0 && G.matchRatings.length > 0) {
+    // Stage complete (3 matches played)
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '📊 查看阶段总结';
+    btn.onclick = showStageSummary;
+    nextContainer.appendChild(btn);
+  } else {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '⚽ 下一场比赛';
+    btn.onclick = startNextMatch;
+    nextContainer.appendChild(btn);
+  }
+
+  showScreen('match-result-screen');
+}
+
+function showStageSummary() {
+  const startIdx = Math.max(0, G.matchRatings.length - 3);
+  const stageMatches = G.matchRatings.slice(startIdx);
+  const stageAvg = Math.round(stageMatches.reduce((a,b)=>a+b,0) / stageMatches.length * 10) / 10;
+  const stageScores = G.matchScores.slice(startIdx);
+
+  // Store stage rating for final calculation
+  if(!G.stageRatings) G.stageRatings = [];
+  G.stageRatings[G.stage] = stageAvg;
+
+  const s = STAGES[G.stage];
+  document.getElementById('summary-title').textContent = '📋 ' + s.name + ' 总结';
+  document.getElementById('summary-subtitle').textContent = G.currentTeam;
+
+  document.getElementById('summary-rating').textContent = stageAvg.toFixed(1);
+  document.getElementById('summary-rating-bar').style.width = (stageAvg * 10) + '%';
+
+  const timeline = document.getElementById('summary-matches');
+  timeline.innerHTML = '';
+  stageMatches.forEach((r, i) => {
+    const sc = stageScores[i] || {home:0, away:0};
+    const div = document.createElement('div');
+    div.className = 'timeline-item';
+    div.style.borderLeftColor = r >= 7 ? '#2ecc71' : r >= 5 ? '#ffd700' : '#e74c3c';
+    div.innerHTML = '<div class="timeline-stage">第' + (i+1) + '场</div>' +
+      '<div class="timeline-detail">' + sc.home + ' : ' + sc.away + ' ' + (sc.home > sc.away ? '✅' : sc.home === sc.away ? '➖' : '❌') + '</div>' +
+      '<div class="timeline-rating" style="color:' + (r>=7?'#2ecc71':r>=5?'#ffd700':'#e74c3c') + '">' + r.toFixed(1) + '</div>';
+    timeline.appendChild(div);
+  });
+
+  const nextContainer = document.getElementById('summary-next-container');
+  nextContainer.innerHTML = '';
+
+  if(G.stage < 2) {
+    // Go to transfer market
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '🏷️ 进入转会市场';
+    btn.onclick = showTransferMarket;
+    nextContainer.appendChild(btn);
+  } else {
+    // Final result
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-success';
+    btn.textContent = '🏆 查看最终职业生涯';
+    btn.onclick = showFinalResult;
+    nextContainer.appendChild(btn);
+  }
+
+  showScreen('stage-summary-screen');
+}
+
+function showTransferMarket() {
+  const stageAvg = G.stageRatings[G.stage];
+  document.getElementById('transfer-rating').textContent = stageAvg.toFixed(1);
+
+  const stageNames = ['U12','U15','U19'];
+  document.getElementById('transfer-subtitle').textContent = stageNames[G.stage] + '阶段结束，你的表现引起了多家俱乐部的关注！';
+
+  // Generate offers based on rating
+  const offers = generateOffers(stageAvg, G.stage);
+  const list = document.getElementById('transfer-list');
+  list.innerHTML = '';
+
+  offers.forEach((offer, idx) => {
+    const div = document.createElement('div');
+    div.className = 'transfer-item';
+    const leagueColor = offer.leagueColor || '#8a9a8a';
+    div.innerHTML = '<div class="league-tag" style="background:' + leagueColor + '20;color:' + leagueColor + ';border:1px solid ' + leagueColor + '40;">' +
+      offer.league + '</div><div class="team-name">' + offer.team + '</div>' +
+      '<div class="team-info">' + (offer.desc || '') + ' | 预估出场机会：' + offer.chance + '</div>';
+    div.onclick = () => acceptTransfer(idx);
+    list.appendChild(div);
+  });
+
+  showScreen('transfer-screen');
+}
+
+function generateOffers(rating, stage) {
+  let offers = [];
+  const basePool = [];
+
+  if(stage === 0) { // After U12
+    if(rating < 5) {
+      // Stay or lower teams
+      basePool.push({team:'中国少年青训营',league:'继续留队',color:'#8a9a8a',desc:'留队继续训练',chance:'100%'});
+      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '替补起步', '70%');
+    } else if(rating < 6.5) {
+      basePool.push({team:'中国少年青训营',league:'继续留队',color:'#8a9a8a',desc:'留队继续训练',chance:'100%'});
+      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '轮换球员', '75%');
+    } else if(rating < 8) {
+      pushTeams(basePool, TEAMS.l2, 2, '中超中下游', '#95a5a6', '轮换球员', '70%');
+      pushTeams(basePool, TEAMS.l1, 1, '中甲', '#8a9a8a', '主力球员', '85%');
+    } else {
+      pushTeams(basePool, TEAMS.l3, 2, '中超中上游', '#2ecc71', '轮换球员', '65%');
+      pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '主力球员', '75%');
+    }
+  } else if(stage === 1) { // After U15
+    if(rating < 5) {
+      pushTeams(basePool, TEAMS.l1, 2, '中甲', '#8a9a8a', '轮换球员', '70%');
+      pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '替补起步', '50%');
+    } else if(rating < 6.5) {
+      pushTeams(basePool, TEAMS.l2, 2, '中超中下游', '#95a5a6', '轮换球员', '70%');
+      pushTeams(basePool, TEAMS.l3, 1, '中超中上游', '#2ecc71', '替补起步', '55%');
+    } else if(rating < 8) {
+      pushTeams(basePool, TEAMS.l3, 2, '中超中上游', '#2ecc71', '轮换球员', '65%');
+      pushTeams(basePool, TEAMS.l4, 1, '中超豪门', '#f39c12', '替补起步', '50%');
+    } else {
+      pushTeams(basePool, TEAMS.l4, 2, '中超豪门', '#f39c12', '轮换球员', '60%');
+      pushTeams(basePool, TEAMS.l5, 1, '五大联赛中游', '#0055a4', '青年队起步', '45%');
+    }
+  } else if(stage === 2) { // After U19 - final decision made elsewhere, but for show
+    pushTeams(basePool, TEAMS.l2, 1, '中超中下游', '#95a5a6', '轮换球员', '70%');
+    pushTeams(basePool, TEAMS.l3, 1, '中超中上游', '#2ecc71', '轮换球员', '60%');
+  }
+
+  // Shuffle and pick 3-4
+  basePool.sort(()=>Math.random()-0.5);
+  offers = basePool.slice(0, 3);
+  if(offers.length < 2) offers = basePool.slice(0, 2);
+
+  // Ensure at least 2 offers
+  if(offers.length < 2) {
+    offers.push({team:'中国青年精英营',league:'继续留队',color:'#8a9a8a',desc:'留队等待机会',chance:'100%'});
+  }
+
+  return offers;
+}
+
+function pushTeams(arr, teams, count, league, color, desc, chance) {
+  const shuffled = [...teams].sort(()=>Math.random()-0.5);
+  shuffled.slice(0, count).forEach(t => {
+    arr.push({team:t.n, league:league, leagueColor:color, desc:desc, chance:chance});
+  });
+}
+
+function acceptTransfer(index) {
+  const list = document.getElementById('transfer-list');
+  const items = list.children;
+  if(!items[index]) return;
+
+  const teamName = items[index].querySelector('.team-name').textContent;
+  G.currentTeam = teamName;
+  G.teamHistory.push(teamName);
+
+  // Show notification
+  showNotification('✅ 你已加盟 ' + teamName + '！');
+
+  // Next stage
+  G.stage++;
+  if(G.stage >= 3) {
+    showFinalResult();
+  } else {
+    showStageIntro();
+  }
+}
+
+function showFinalResult() {
+  // Calculate career avg
+  const total = G.matchRatings.reduce((a,b)=>a+b, 0);
+  const avg = Math.round(total / G.matchRatings.length * 10) / 10;
+  const best = Math.round(Math.max(...G.matchRatings) * 10) / 10;
+
+  // Determine final team based on weighted ratings
+  const u12r = G.stageRatings[0] || 0;
+  const u15r = G.stageRatings[1] || 0;
+  const u19r = G.stageRatings[2] || 0;
+  const weighted = Math.round((u12r * 0.15 + u15r * 0.35 + u19r * 0.5) * 10) / 10;
+
+  let finalTeam, finalLeague, finalIcon, finalDesc;
+
+  if(weighted >= 9) {
+    const t = pickRandom(TEAMS.l8);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '🏆';
+    finalDesc = '世界级球星！你以绝对的实力征服了世界足坛，加盟了顶级豪门！你的名字将载入足球史册！';
+  } else if(weighted >= 8) {
+    const t = pickRandom(TEAMS.l7);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '🌟';
+    finalDesc = '超级球星！你引起了欧洲顶级俱乐部的关注，成功登陆五大联赛豪门！前途无量！';
+  } else if(weighted >= 7) {
+    const t = pickRandom([...TEAMS.l6, ...TEAMS.l5]);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '⭐';
+    finalDesc = '优秀的球员！你在欧洲五大联赛找到了自己的位置，继续努力可以更进一步！';
+  } else if(weighted >= 6.5) {
+    const t = pickRandom([...TEAMS.l5, ...TEAMS.l4]);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '💪';
+    finalDesc = '实力派球员！你成为了中超豪门/五大联赛的一员，是一支不可忽视的力量。';
+  } else if(weighted >= 6) {
+    const t = pickRandom(TEAMS.l3);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '👍';
+    finalDesc = '中超主力！你成为了中超中上游球队的主力球员，过着安稳的职业生涯。';
+  } else if(weighted >= 5) {
+    const t = pickRandom(TEAMS.l2);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '🙂';
+    finalDesc = '职业球员！你加盟了中超球队，虽然在保级区挣扎，但你实现职业梦想。';
+  } else {
+    const t = pickRandom(TEAMS.l1);
+    finalTeam = t.n;
+    finalLeague = t.l;
+    finalIcon = '😅';
+    finalDesc = '遗憾未能登陆中超，你加盟了一支中甲球队。虽然道路曲折，但足球的梦想仍在继续。';
+  }
+
+  document.getElementById('final-icon').textContent = finalIcon;
+  document.getElementById('final-team-name').textContent = finalTeam;
+  document.getElementById('final-league').textContent = finalLeague;
+  document.getElementById('final-desc').textContent = finalDesc;
+  document.getElementById('final-pos').textContent = POSITIONS[G.position].name;
+  document.getElementById('final-avg-rating').textContent = weighted.toFixed(1);
+
+  // Best rating
+  document.getElementById('final-best-rating').textContent = best.toFixed(1);
+
+  // Timeline
+  const timeline = document.getElementById('final-timeline');
+  timeline.innerHTML = '';
+  timeline.innerHTML = '<div class="timeline-item"><div class="timeline-stage">开始</div><div class="timeline-detail">选择位置：' + POSITIONS[G.position].name + '</div><div class="timeline-rating">⚽</div></div>';
+
+  const stageNames = ['U12','U15','U19'];
+  G.stageRatings.forEach((r, i) => {
+    if(!r) return;
+    const div = document.createElement('div');
+    div.className = 'timeline-item';
+    div.style.borderLeftColor = r >= 7 ? '#2ecc71' : r >= 5 ? '#ffd700' : '#e74c3c';
+    div.innerHTML = '<div class="timeline-stage">' + stageNames[i] + '</div><div class="timeline-detail">' + G.teamHistory[i] || '' + '</div><div class="timeline-rating">' + r.toFixed(1) + '</div>';
+    timeline.appendChild(div);
+  });
+
+  const finalDiv = document.createElement('div');
+  finalDiv.className = 'timeline-item';
+  finalDiv.style.borderLeftColor = '#ffd700';
+  finalDiv.innerHTML = '<div class="timeline-stage">🏆</div><div class="timeline-detail"><b>' + finalTeam + '</b>（' + finalLeague + '）</div><div class="timeline-rating">' + weighted.toFixed(1) + '</div>';
+  timeline.appendChild(finalDiv);
+
+  // Confetti for high ratings
+  if(weighted >= 7) {
+    launchConfetti();
+  }
+
+  showScreen('final-screen');
+}
+
+function resetGame() {
+  G.stageRatings = [];
+  startGame();
+}
+
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function showNotification(text) {
+  const div = document.createElement('div');
+  div.className = 'notification';
+  div.textContent = text;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 2500);
+}
+
+function launchConfetti() {
+  const colors = ['#ffd700','#ff6b6b','#2ecc71','#3498db','#f39c12','#e74c3c','#9b59b6'];
+  for(let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.width = (Math.random() * 8 + 4) + 'px';
+      el.style.height = (Math.random() * 8 + 4) + 'px';
+      el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      el.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }, i * 80);
+  }
+}
+
+// ============================================================
+// KEYBOARD SUPPORT
+// ============================================================
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Enter') {
+    const activeBtn = document.querySelector('.screen.active .btn-primary:not(.disabled)');
+    if(activeBtn) activeBtn.click();
+  }
+});
+
+</script>
+</body>
+</html>
