@@ -1895,7 +1895,7 @@ function makeChoice(index) {
   }
 
   // ⚠️ Season-ending injury risk (from 坚持比赛 choices)
-  if(choice.risky && !G.seasonEnded && Math.random() < 0.25) {
+  if(choice.risky && !G.seasonEnded && Math.random() < 0.08) {
     G.seasonEnded = true;
     G.seasonEndedRound = G.league ? G.league.currentRound : -1;
     G.isInjured = true;
@@ -2404,7 +2404,7 @@ function generateSeasonOffers(rating, leagueId) {
     if(rating < 6) {
       jiaTeams.sort(() => Math.random() - 0.5);
       pool = jiaTeams.slice(0, 2).map(t => ({ ...t, from: 'jia' }));
-    } else if(rating < 7.5) {
+    } else if(rating < 6.5) {
       cslTeams.sort(() => Math.random() - 0.5);
       pool = cslTeams.slice(0, 3).filter(t => t.n !== G.currentTeam).map(t => ({ ...t, from: 'csl' }));
     } else {
@@ -2434,12 +2434,12 @@ function generateSeasonOffers(rating, leagueId) {
       });
     });
 
-    if(rating >= 6 && rating < 7.5) {
+    if(rating >= 6 && rating < 6.5) {
       offers.push({
         team: '⭐ 欧洲梦想',
         league: '💭 需要更高评分',
         leagueColor: '#ffd700',
-        desc: '评分 7.5+ 才能吸引欧洲球队关注！',
+        desc: '评分 6.5+ 才能吸引欧洲球队关注！',
         chance: '',
         isStay: false,
         isDisabled: true,
