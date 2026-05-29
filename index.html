@@ -72,8 +72,8 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 
 /* Match Styles */
 .match-header{text-align:center;margin-bottom:20px;}
-.match-vs{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:10px;}
-.match-team{text-align:center;}
+.match-vs{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:10px;}
+.match-team{display:flex;align-items:center;gap:8px;text-align:left;}
 .match-team-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px;}
 .match-team-label{font-size:11px;color:#8a9a8a;}
 .match-vs-text{font-size:20px;font-weight:900;color:#ffd700;}
@@ -100,6 +100,20 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .rating-bar{width:100%;max-width:300px;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin:10px auto;overflow:hidden;}
 .rating-fill{height:100%;background:linear-gradient(90deg,#e74c3c,#f39c12,#ffd700,#2ecc71);border-radius:3px;transition:width 1s ease;}
 
+/* Attributes */
+.attr-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;max-width:400px;}
+.attr-row{display:flex;align-items:center;gap:8px;padding:4px 8px;background:rgba(255,255,255,0.03);border-radius:6px;border:1px solid rgba(255,255,255,0.06);}
+.attr-icon{font-size:14px;width:20px;text-align:center;}
+.attr-name{font-size:11px;color:#8a9a8a;width:28px;flex-shrink:0;}
+.attr-bar-wrap{flex:1;height:6px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;}
+.attr-bar{height:100%;border-radius:3px;transition:width 0.5s ease;background:linear-gradient(90deg,#4a7a4a,#6abf6a);}
+.attr-bar.high{background:linear-gradient(90deg,#6abf6a,#2ecc71);}
+.attr-bar.elite{background:linear-gradient(90deg,#f1c40f,#ffd700);}
+.attr-val{font-size:10px;font-weight:700;color:#b0c0b0;width:22px;text-align:right;}
+.attr-change{font-size:10px;color:#2ecc71;width:14px;}
+.attr-toggle{background:none;border:1px solid rgba(255,255,255,0.15);color:#8a9a8a;border-radius:6px;padding:6px 14px;font-size:12px;cursor:pointer;font-family:inherit;margin-bottom:10px;}
+.attr-toggle:hover{border-color:#ffd700;color:#ffd700;}
+
 /* Transfer */
 .transfer-list{width:100%;max-width:400px;}
 .transfer-item{background:rgba(255,255,255,0.05);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px;margin-bottom:12px;cursor:pointer;transition:all 0.3s;}
@@ -120,20 +134,37 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 .tactic-desc{font-size:10px;color:#8a9a8a;line-height:1.3;}
 .tactic-effect{font-size:10px;color:#ffd700;margin-top:2px;}
 
+/* League */
+.league-table{width:100%;max-width:400px;border-collapse:collapse;font-size:13px;}
+.league-table th{padding:6px 4px;text-align:center;color:#8a9a8a;font-weight:600;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.league-table td{padding:5px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.05);}
+.league-table tr:hover td{background:rgba(255,255,255,0.03);}
+.league-table .user-row td{color:#ffd700;font-weight:700;}
+.league-table .user-row{background:rgba(255,215,0,0.06);}
+.league-pos{width:24px;font-weight:700;}
+.league-pos.top{color:#2ecc71;}
+.league-pos.mid{color:#b0c0b0;}
+.league-pos.bot{color:#e74c3c;}
+.league-team-name{text-align:left!important;padding-left:8px!important;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.league-matchup{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;background:rgba(255,255,255,0.05);border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin-bottom:16px;}
+.league-matchup .lm-team{text-align:center;}
+.league-matchup .lm-name{font-size:14px;font-weight:700;color:#fff;}
+.league-matchup .lm-label{font-size:10px;color:#8a9a8a;}
+.league-matchup .lm-vs{font-size:18px;font-weight:900;color:#ffd700;}
+
 /* ========== PITCH ========== */
-.pitch-container{width:100%;max-width:400px;margin-bottom:12px;border-radius:8px;overflow:hidden;position:relative;}
-.pitch{width:100%;aspect-ratio:2/1.3;background:linear-gradient(180deg,#2d8a4e 0%,#267a43 50%,#2d8a4e 100%);position:relative;overflow:hidden;}
-.pitch-line{position:absolute;border:1.5px solid rgba(255,255,255,0.35);}
-.pitch-outline{position:absolute;top:4%;left:3%;width:94%;height:92%;border:1.5px solid rgba(255,255,255,0.35);border-radius:2px;}
-.pitch-halfway{position:absolute;top:50%;left:3%;width:94%;height:0;border-top:1.5px solid rgba(255,255,255,0.35);}
-.pitch-circle{position:absolute;top:50%;left:50%;width:24%;height:46%;border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;transform:translate(-50%,-50%);}
+.pitch-container{width:100%;max-width:320px;margin-bottom:12px;border-radius:8px;overflow:hidden;position:relative;}
+.pitch{width:100%;aspect-ratio:3/4;background:linear-gradient(180deg,#2d8a4e 0%,#267a43 50%,#2d8a4e 100%);position:relative;overflow:hidden;}
+.pitch-outline{position:absolute;top:2%;left:4%;width:92%;height:96%;border:1.5px solid rgba(255,255,255,0.35);border-radius:2px;}
+.pitch-halfway{position:absolute;top:50%;left:4%;width:92%;height:0;border-top:1.5px solid rgba(255,255,255,0.35);}
+.pitch-circle{position:absolute;top:50%;left:50%;width:26%;height:19.5%;border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;transform:translate(-50%,-50%);}
 .pitch-centre-dot{position:absolute;top:50%;left:50%;width:6px;height:6px;background:rgba(255,255,255,0.5);border-radius:50%;transform:translate(-50%,-50%);}
-.pitch-pa{position:absolute;width:38%;height:36%;border:1.5px solid rgba(255,255,255,0.35);}
-.pitch-pa.top{top:4%;left:31%;border-bottom:none;border-radius:0 0 4px 4px;}
-.pitch-pa.bottom{bottom:4%;left:31%;border-top:none;border-radius:4px 4px 0 0;}
-.pitch-ga{position:absolute;width:16%;height:10%;border:1.5px solid rgba(255,255,255,0.35);}
-.pitch-ga.top{top:4%;left:42%;border-bottom:none;border-radius:0 0 3px 3px;}
-.pitch-ga.bottom{bottom:4%;left:42%;border-top:none;border-radius:3px 3px 0 0;}
+.pitch-pa{position:absolute;width:58%;height:16%;border:1.5px solid rgba(255,255,255,0.35);}
+.pitch-pa.top{top:2%;left:21%;border-top:none;}
+.pitch-pa.bottom{bottom:2%;left:21%;border-bottom:none;}
+.pitch-ga{position:absolute;width:26%;height:5%;border:1.5px solid rgba(255,255,255,0.35);}
+.pitch-ga.top{top:2%;left:37%;border-top:none;}
+.pitch-ga.bottom{bottom:2%;left:37%;border-bottom:none;}
 .pitch-dot{position:absolute;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);transition:all 0.5s ease;z-index:2;}
 .pitch-dot.home{background:#ff4757;box-shadow:0 0 6px rgba(255,71,87,0.6);}
 .pitch-dot.away{background:#ffd700;box-shadow:0 0 6px rgba(255,215,0,0.4);}
@@ -188,6 +219,20 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 /* Confetti */
 .confetti-piece{position:fixed;width:10px;height:10px;top:-10px;z-index:100;animation:confetti 3s ease-out forwards;pointer-events:none;}
 
+/* Ballon d'Or glow */
+@keyframes bdGlow{from{filter:drop-shadow(0 0 10px #ffd700);}to{filter:drop-shadow(0 0 30px #ffd700)drop-shadow(0 0 60px #daa520);}}
+
+/* UCL bracket styles */
+.ucl-round{display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.ucl-round-title{font-size:13px;font-weight:700;color:#ffd700;margin-bottom:6px;text-align:center;}
+.ucl-match{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,0.05);border-radius:8px;border:1px solid rgba(255,255,255,0.08);font-size:13px;}
+.ucl-team{flex:1;text-align:center;padding:4px 8px;border-radius:4px;color:#b0c0b0;}
+.ucl-team.user{color:#ffd700;font-weight:700;background:rgba(255,215,0,0.1);}
+.ucl-team.winner{color:#2ecc71;font-weight:700;}
+.ucl-team.loser{color:#666;text-decoration:line-through;}
+.ucl-vs{color:#555;font-size:12px;margin:0 8px;flex-shrink:0;}
+.ucl-score-tag{font-weight:700;color:#fff;font-size:13px;margin-left:6px;}
+
 /* Responsive */
 @media(max-width:520px){#game{max-width:100%;border-radius:0;}
 .screen{padding:20px 16px;}
@@ -220,6 +265,25 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
   </div>
   <button class="btn btn-primary" onclick="startGame()" style="font-size:18px;padding:16px 50px;">⚽ 开始新赛季</button>
   <div style="margin-top:30px;font-size:12px;color:#5a6a5a;">v1.0 | 支持中超/英超/西甲/德甲/意甲/法甲</div>
+</div>
+
+<!-- ========== PLAYER REGISTRATION ========== -->
+<div id="register-screen" class="screen">
+  <div class="screen-title">创建你的球员</div>
+  <div class="screen-subtitle">输入你的信息，开启足球生涯</div>
+  <div class="info-card" style="text-align:left;">
+    <div class="card-label">👤 球员姓名</div>
+    <input id="player-name-input" type="text" placeholder="输入你的名字" maxlength="10"
+      style="width:100%;padding:12px;border:2px solid rgba(255,255,255,0.15);border-radius:8px;background:rgba(255,255,255,0.05);color:#fff;font-size:18px;font-weight:700;outline:none;transition:border-color 0.3s;font-family:inherit;box-sizing:border-box;"
+      onfocus="this.style.borderColor='#ffd700'" onblur="this.style.borderColor='rgba(255,255,255,0.15)'">
+    <div style="margin-top:16px;">
+      <div class="card-label">🔢 球衣号码</div>
+      <select id="player-number-select"
+        style="width:100%;padding:12px;border:2px solid rgba(255,255,255,0.15);border-radius:8px;background:rgba(255,255,255,0.05);color:#fff;font-size:16px;font-weight:700;outline:none;font-family:inherit;box-sizing:border-box;appearance:auto;">
+      </select>
+    </div>
+  </div>
+  <button class="btn btn-primary" onclick="confirmPlayerInfo()">✅ 确认，选择位置</button>
 </div>
 
 <!-- ========== POSITION SELECTION ========== -->
@@ -255,13 +319,14 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 <div id="stage-intro-screen" class="screen">
   <div class="top-bar">
     <div class="player-info" id="stage-player-name"></div>
-    <div class="stage-info" id="stage-current-team"></div>
+    <div class="stage-info" id="stage-current-team" style="display:flex;align-items:center;gap:6px;"></div>
   </div>
   <div class="screen-title" id="stage-title"></div>
   <div class="screen-subtitle" id="stage-subtitle"></div>
   <div class="info-card" id="stage-desc-card">
     <div class="card-text" id="stage-description"></div>
   </div>
+  <div id="stage-attr-container" style="width:100%;max-width:400px;margin-bottom:12px;"></div>
   <button class="btn btn-primary" onclick="startNextMatch()">开始第一场比赛</button>
 </div>
 
@@ -275,21 +340,25 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
     <div class="match-minute" id="match-number-label"></div>
     <div class="match-vs">
       <div class="match-team">
-        <div class="match-team-name" id="pre-home-name"></div>
+        <div class="team-logo" id="pre-home-logo" style="font-size:18px;"></div>
+        <div>
+          <div class="match-team-name" id="pre-home-name"></div>
+          <span id="pre-home-tier" style="font-size:11px;color:#b0c0b0;"></span>
+        </div>
         <div class="match-team-label">主队</div>
       </div>
       <div class="match-vs-text">VS</div>
       <div class="match-team">
-        <div class="match-team-name" id="pre-away-name"></div>
+        <div class="team-logo" id="pre-away-logo" style="font-size:18px;"></div>
+        <div>
+          <div class="match-team-name" id="pre-away-name"></div>
+          <span id="pre-away-tier" style="font-size:11px;color:#b0c0b0;"></span>
+        </div>
         <div class="match-team-label">客队</div>
       </div>
     </div>
   </div>
-  <div class="screen-subtitle" style="font-size:13px;margin-bottom:8px;">📋 选择阵型</div>
-  <div class="tactics-grid" id="formation-select"></div>
-  <div class="screen-subtitle" style="font-size:13px;margin-bottom:8px;">🎯 选择策略</div>
-  <div class="tactics-grid" id="strategy-select"></div>
-  <button class="btn btn-primary" id="start-match-btn" onclick="startMatch()" style="opacity:0.4;pointer-events:none;">⚽ 确定战术，开球！</button>
+  <button class="btn btn-primary" onclick="startMatch()" style="margin-top:8px;">⚽ 开始比赛</button>
 </div>
 
 <!-- ========== MATCH EVENT ========== -->
@@ -300,6 +369,8 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
   </div>
   <div class="match-vs" style="margin-bottom:4px;">
     <span style="font-size:13px;color:#b0c0b0;" id="match-teams-label"></span>
+    <span id="match-status-badges" style="font-size:12px;margin-left:8px;display:inline-flex;gap:4px;"></span>
+    <span id="match-difficulty-badge" style="font-size:11px;margin-left:8px;padding:2px 6px;border-radius:4px;background:rgba(255,255,255,0.05);"></span>
   </div>
   <div class="pitch-container" id="pitch-container">
     <div class="pitch" id="pitch-canvas"></div>
@@ -338,6 +409,7 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
     <div class="card-title">📊 本场数据</div>
     <div id="result-stats-content"></div>
   </div>
+  <div id="result-attr-container" style="width:100%;max-width:400px;margin-bottom:8px;"></div>
   <div class="info-card" id="result-comment-card">
     <div class="card-text" id="result-comment"></div>
   </div>
@@ -365,8 +437,60 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
     <div class="card-label">你的当前评分</div>
     <div class="card-value" id="transfer-rating" style="color:#ffd700;">0.0</div>
   </div>
+  <button class="attr-toggle" onclick="toggleTransferAttrs()">📊 查看能力属性</button>
+  <div id="transfer-attr-container" style="width:100%;max-width:400px;display:none;margin-bottom:8px;"></div>
   <div class="screen-subtitle" style="margin-top:8px;font-size:13px;">选择你的下一站：</div>
   <div class="transfer-list scroll-area" id="transfer-list"></div>
+</div>
+
+<!-- ========== LEAGUE ========== -->
+<div id="league-intro-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="league-intro-player"></div>
+    <div class="stage-info" id="league-intro-team"></div>
+  </div>
+  <div class="screen-title">🏆 联赛开幕</div>
+  <div class="screen-subtitle" id="league-intro-subtitle"></div>
+  <div class="info-card" style="text-align:center;">
+    <div class="card-value" id="league-intro-name" style="font-size:22px;margin-bottom:4px;"></div>
+    <div class="card-text" id="league-intro-desc"></div>
+  </div>
+  <div id="league-intro-attr" style="width:100%;max-width:400px;margin-bottom:12px;"></div>
+  <button class="btn btn-primary" onclick="showLeagueTable()">📊 查看联赛积分榜</button>
+</div>
+
+<div id="league-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="league-player"></div>
+    <div class="stage-info" id="league-round-label"></div>
+  </div>
+  <div class="screen-title" style="font-size:22px;margin-bottom:12px;">🏆 联赛积分榜</div>
+  <div id="league-table-container" style="width:100%;max-width:400px;"></div>
+  <div id="league-next-container" style="width:100%;max-width:400px;margin-top:8px;"></div>
+</div>
+
+<!-- ========== CHAMPIONS LEAGUE ========== -->
+<div id="ucl-screen" class="screen">
+  <div class="top-bar">
+    <div class="player-info" id="ucl-player"></div>
+    <div class="stage-info" id="ucl-round-label"></div>
+  </div>
+  <div class="screen-title" style="font-size:22px;margin-bottom:12px;">🏆 欧洲冠军联赛</div>
+  <div id="ucl-bracket" style="width:100%;max-width:420px;margin-bottom:12px;"></div>
+  <div id="ucl-next-container" style="width:100%;max-width:400px;"></div>
+</div>
+
+<!-- ========== BALLON D'OR CG ========== -->
+<div id="ballon-dor-screen" class="screen">
+
+    <div class="screen-title" style="color:#ffd700;font-size:28px;margin-bottom:8px;">🏆 金球奖</div>
+    <div style="font-size:72px;margin:16px 0;animation:bdGlow 2s ease-in-out infinite alternate;">🏆</div>
+    <div style="font-size:22px;font-weight:700;margin:8px 0;" id="bd-player-name"></div>
+    <div style="color:#b0c0b0;font-size:14px;margin:12px 0;max-width:360px;" id="bd-season-stats"></div>
+    <div id="bd-attr-display" style="width:100%;max-width:360px;margin:12px auto;"></div>
+    <div style="color:#ffd700;font-size:16px;margin:12px;">🌟 世界最佳球员！🌟</div>
+    <button class="btn btn-primary" onclick="continueAfterUcl()">🔄 继续下赛季</button>
+
 </div>
 
 <!-- ========== FINAL RESULT ========== -->
@@ -381,6 +505,7 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
     <div class="result-league" id="final-league"></div>
     <div id="final-desc" style="font-size:14px;color:#b0c0b0;line-height:1.7;margin:12px 0;"></div>
   </div>
+  <div id="final-attr" style="width:100%;max-width:400px;margin-bottom:8px;"></div>
   <div class="result-stats" style="width:100%;max-width:400px;">
     <div class="result-stat">
       <div class="result-stat-value" id="final-pos">前锋</div>
@@ -401,6 +526,7 @@ body{font-family:'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;backgroun
 
 </div>
 
+<!--v=1780070503530-->
 <script>
 // ============================================================
 // DATA
@@ -413,123 +539,158 @@ const POSITIONS = {
   goalkeeper: { name:'守门员', icon:'🧤', intro:'你是门线上的守护神，球队的最后一道防线。反应、勇气、指挥——一个人撑起整条防线。' }
 };
 
-const LEAGUES = {
-  l1:{name:'中甲',color:'#8a9a8a',level:1,logo:'championship'},
-  l2:{name:'中超',color:'#95a5a6',level:2,logo:'csl'},
-  l3:{name:'中超中上游',color:'#2ecc71',level:3,logo:'csl'},
-  l4:{name:'中超顶级',color:'#f39c12',level:4,logo:'csl'},
-  l5:{name:'五大联赛中游',color:'#6c5ce7',level:5,logo:'europe'},
-  l6:{name:'五大联赛劲旅',color:'#e17055',level:6,logo:'europe'},
-  l7:{name:'五大联赛顶级',color:'#d63031',level:7,logo:'europe'},
-  l8:{name:'世界豪门',color:'#ffd700',level:8,logo:'elite'}
-};
 
-const TEAMS = {
-  // Level 1 - 中甲
-  l1:[
-    {n:'重庆铜梁龙',en:'chongqing-tonglianglong',l:'中甲'},
-    {n:'广西平果哈嘹',en:'guangxi-pingguo-haliao',l:'中甲'},
-    {n:'石家庄功夫',en:'shijiazhuang-gongfu',l:'中甲'},
-    {n:'南京城市',en:'nanjing-city',l:'中甲'},
-    {n:'黑龙江冰城',en:'heilongjiang-iceland',l:'中甲'},
-    {n:'延边龙鼎',en:'yanbian-longding',l:'中甲'},
-    {n:'辽宁铁人',en:'liaoning-tieren',l:'中甲'},
-    {n:'上海嘉定汇龙',en:'shanghai-jiading',l:'中甲'},
-    {n:'无锡吴钩',en:'wuxi-wugou',l:'中甲'},
-    {n:'江西庐山',en:'jiangxi-lushan',l:'中甲'}
-  ],
-  // Level 2 - 中超中下游
-  l2:[
-    {n:'青岛海牛',en:'qingdao-hainiu',l:'中超'},
-    {n:'南通支云',en:'nantong-zhiyun',l:'中超'},
-    {n:'深圳新鹏城',en:'shenzhen-peng-city',l:'中超'},
-    {n:'梅州客家',en:'meizhou-hakka',l:'中超'},
-    {n:'沧州雄狮',en:'cangzhou-mighty-lions',l:'中超'},
-    {n:'长春亚泰',en:'changchun-yatai',l:'中超'},
-    {n:'青岛西海岸',en:'qingdao-west-coast',l:'中超'},
-    {n:'河南俱乐部',en:'henan-fc',l:'中超'}
-  ],
-  // Level 3 - 中超中上游
-  l3:[
-    {n:'天津津门虎',en:'tianjin-jinmen-tiger',l:'中超'},
-    {n:'武汉三镇',en:'wuhan-three-towns',l:'中超'},
-    {n:'浙江队',en:'zhejiang-professional',l:'中超'},
-    {n:'成都蓉城',en:'chengdu-rongcheng',l:'中超'},
-    {n:'山东泰山',en:'shandong-taishan',l:'中超'},
-    {n:'上海申花',en:'shanghai-shenhua',l:'中超'},
-    {n:'北京国安',en:'beijing-guoan',l:'中超'},
-    {n:'深圳队',en:'shenzhen-fc',l:'中超'}
-  ],
-  // Level 4 - 中超豪门
-  l4:[
-    {n:'上海海港',en:'shanghai-port',l:'中超'},
-    {n:'山东泰山',en:'shandong-taishan',l:'中超'},
-    {n:'北京国安',en:'beijing-guoan',l:'中超'},
-    {n:'上海申花',en:'shanghai-shenhua',l:'中超'}
-  ],
-  // Level 5 - 五大联赛中游
-  l5:[
-    {n:'尼斯',en:'nice',l:'法甲'},
-    {n:'朗斯',en:'lens',l:'法甲'},
-    {n:'沃尔夫斯堡',en:'wolfsburg',l:'德甲'},
-    {n:'门兴格拉德巴赫',en:'borussia-mg',l:'德甲'},
-    {n:'佛罗伦萨',en:'fiorentina',l:'意甲'},
-    {n:'拉齐奥',en:'lazio',l:'意甲'},
-    {n:'皇家社会',en:'real-sociedad',l:'西甲'},
-    {n:'毕尔巴鄂竞技',en:'athletic-club',l:'西甲'},
-    {n:'阿斯顿维拉',en:'aston-villa',l:'英超'},
-    {n:'布莱顿',en:'brighton',l:'英超'},
-    {n:'富勒姆',en:'fulham',l:'英超'},
-    {n:'塞维利亚',en:'sevilla',l:'西甲'}
-  ],
-  // Level 6 - 五大联赛劲旅
-  l6:[
-    {n:'马赛',en:'marseille',l:'法甲'},
-    {n:'摩纳哥',en:'monaco',l:'法甲'},
-    {n:'RB莱比锡',en:'rb-leipzig',l:'德甲'},
-    {n:'多特蒙德',en:'borussia-dortmund',l:'德甲'},
-    {n:'那不勒斯',en:'napoli',l:'意甲'},
-    {n:'AC米兰',en:'ac-milan',l:'意甲'},
-    {n:'罗马',en:'roma',l:'意甲'},
-    {n:'马德里竞技',en:'atletico-madrid',l:'西甲'},
-    {n:'热刺',en:'tottenham',l:'英超'},
-    {n:'切尔西',en:'chelsea',l:'英超'},
-    {n:'纽卡斯尔联',en:'newcastle',l:'英超'},
-    {n:'亚特兰大',en:'atalanta',l:'意甲'}
-  ],
-  // Level 7 - 五大联赛顶级
-  l7:[
-    {n:'巴黎圣日耳曼',en:'paris-saint-germain',l:'法甲'},
-    {n:'国际米兰',en:'inter-milan',l:'意甲'},
-    {n:'尤文图斯',en:'juventus',l:'意甲'},
-    {n:'巴塞罗那',en:'barcelona',l:'西甲'},
-    {n:'阿森纳',en:'arsenal',l:'英超'},
-    {n:'利物浦',en:'liverpool',l:'英超'},
-    {n:'曼联',en:'manchester-united',l:'英超'},
-    {n:'勒沃库森',en:'bayer-leverkusen',l:'德甲'},
-    {n:'比利亚雷亚尔',en:'villarreal',l:'西甲'},
-    {n:'皇家贝蒂斯',en:'real-betis',l:'西甲'},
-    {n:'西汉姆联',en:'west-ham',l:'英超'},
-    {n:'里昂',en:'lyon',l:'法甲'}
-  ],
-  // Level 8 - 世界顶级豪门
-  l8:[
-    {n:'皇家马德里',en:'real-madrid',l:'西甲'},
-    {n:'曼城',en:'manchester-city',l:'英超'},
-    {n:'拜仁慕尼黑',en:'bayern-munich',l:'德甲'},
-    {n:'巴黎圣日耳曼',en:'paris-saint-germain',l:'法甲'},
-    {n:'巴塞罗那',en:'barcelona',l:'西甲'},
-    {n:'阿森纳',en:'arsenal',l:'英超'},
-    {n:'利物浦',en:'liverpool',l:'英超'},
-    {n:'国际米兰',en:'inter-milan',l:'意甲'}
-  ]
+const LEAGUES = {
+  jia:{id:'jia',name:'中甲',color:'#8a9a8a',tier:1,canUCL:false,
+    teams:[
+      {n:'重庆铜梁龙',en:'chongqing-tonglianglong',l:'中超'},
+      {n:'广西平果哈嘹',en:'guangxi-pingguo-haliao',l:'中甲'},
+      {n:'石家庄功夫',en:'shijiazhuang-gongfu',l:'中甲'},
+      {n:'南京城市',en:'nanjing-city',l:'中甲'},
+      {n:'黑龙江冰城',en:'heilongjiang-iceland',l:'中甲'},
+      {n:'延边龙鼎',en:'yanbian-longding',l:'中甲'},
+      {n:'辽宁铁人',en:'liaoning-tieren',l:'中甲'},
+      {n:'上海嘉定汇龙',en:'shanghai-jiading',l:'中甲'},
+      {n:'无锡吴钩',en:'wuxi-wugou',l:'中甲'},
+      {n:'江西庐山',en:'jiangxi-lushan',l:'中甲'}
+    ]},
+  csl:{id:'csl',name:'中超',color:'#e74c3c',tier:3,canUCL:false,
+    teams:[
+      {n:'上海海港',en:'shanghai-port',l:'中超',tier:4},
+      {n:'山东泰山',en:'shandong-taishan',l:'中超',tier:4},
+      {n:'北京国安',en:'beijing-guoan',l:'中超',tier:3},
+      {n:'上海申花',en:'shanghai-shenhua',l:'中超',tier:4},
+      {n:'成都蓉城',en:'chengdu-rongcheng',l:'中超',tier:4},
+      {n:'天津津门虎',en:'tianjin-jinmen-tiger',l:'中超',tier:3},
+      {n:'浙江队',en:'zhejiang-professional',l:'中超',tier:3},
+      {n:'武汉三镇',en:'wuhan-three-towns',l:'中超',tier:3},
+      {n:'河南俱乐部',en:'henan-fc',l:'中超',tier:2},
+      {n:'长春亚泰',en:'changchun-yatai',l:'中超',tier:2},
+      {n:'青岛海牛',en:'qingdao-hainiu',l:'中超',tier:2},
+      {n:'青岛西海岸',en:'qingdao-west-coast',l:'中超',tier:1},
+      {n:'深圳新鹏城',en:'shenzhen-peng-city',l:'中超',tier:1},
+      {n:'梅州客家',en:'meizhou-hakka',l:'中超',tier:1},
+      {n:'南通支云',en:'nantong-zhiyun',l:'中甲',tier:1},
+      {n:'沧州雄狮',en:'cangzhou-mighty-lions',l:'中超',tier:2}
+    ]},
+  epl:{id:'epl',name:'英超',color:'#6c5ce7',tier:6,canUCL:true,
+    teams:[
+      {n:'曼城',en:'manchester-city',l:'英超',tier:7},
+      {n:'阿森纳',en:'arsenal',l:'英超',tier:7},
+      {n:'利物浦',en:'liverpool',l:'英超',tier:6},
+      {n:'阿斯顿维拉',en:'aston-villa',l:'英超',tier:6},
+      {n:'热刺',en:'tottenham',l:'英超',tier:5},
+      {n:'切尔西',en:'chelsea',l:'英超',tier:5},
+      {n:'纽卡斯尔联',en:'newcastle',l:'英超',tier:5},
+      {n:'曼联',en:'manchester-united',l:'英超',tier:6},
+      {n:'西汉姆联',en:'west-ham',l:'英超',tier:4},
+      {n:'布莱顿',en:'brighton',l:'英超',tier:5},
+      {n:'富勒姆',en:'fulham',l:'英超',tier:5},
+      {n:'伯恩茅斯',en:'bournemouth',l:'英超',tier:5},
+      {n:'布伦特福德',en:'brentford',l:'英超',tier:5},
+      {n:'水晶宫',en:'crystal-palace',l:'英超',tier:4},
+      {n:'埃弗顿',en:'everton',l:'英超',tier:5},
+      {n:'诺丁汉森林',en:'nottingham-forest',l:'英超',tier:4},
+      {n:'狼队',en:'wolverhampton',l:'英超',tier:4},
+      {n:'伊普斯维奇',en:'ipswich-town',l:'英超',tier:4},
+      {n:'莱斯特城',en:'leicester-city',l:'英超',tier:4},
+      {n:'南安普顿',en:'southampton',l:'英超',tier:4}
+    ]},
+  laliga:{id:'laliga',name:'西甲',color:'#e17055',tier:6,canUCL:true,
+    teams:[
+      {n:'皇家马德里',en:'real-madrid',l:'西甲',tier:7},
+      {n:'巴塞罗那',en:'barcelona',l:'西甲',tier:7},
+      {n:'马德里竞技',en:'atletico-madrid',l:'西甲',tier:6},
+      {n:'皇家社会',en:'real-sociedad',l:'西甲',tier:5},
+      {n:'毕尔巴鄂竞技',en:'athletic-club',l:'西甲',tier:5},
+      {n:'塞维利亚',en:'sevilla',l:'西甲',tier:4},
+      {n:'比利亚雷亚尔',en:'villarreal',l:'西甲',tier:6},
+      {n:'皇家贝蒂斯',en:'real-betis',l:'西甲',tier:6},
+      {n:'瓦伦西亚',en:'valencia',l:'西甲',tier:5},
+      {n:'赫罗纳',en:'girona',l:'西甲',tier:4},
+      {n:'奥萨苏纳',en:'osasuna',l:'西甲',tier:4},
+      {n:'塞尔塔',en:'celta-vigo',l:'西甲',tier:5},
+      {n:'赫塔费',en:'getafe',l:'西甲',tier:5},
+      {n:'拉斯帕尔马斯',en:'las-palmas',l:'西甲',tier:4},
+      {n:'阿拉维斯',en:'alaves',l:'西甲',tier:4},
+      {n:'巴列卡诺',en:'rayo-vallecano',l:'西甲',tier:5},
+      {n:'马略卡',en:'mallorca',l:'西甲',tier:4},
+      {n:'西班牙人',en:'espanyol',l:'西甲',tier:5},
+      {n:'莱加内斯',en:'leganes',l:'西甲',tier:4},
+      {n:'巴拉多利德',en:'valladolid',l:'西甲',tier:4}
+    ]},
+  bundesliga:{id:'bundesliga',name:'德甲',color:'#d63031',tier:6,canUCL:true,
+    teams:[
+      {n:'拜仁慕尼黑',en:'bayern-munich',l:'德甲',tier:7},
+      {n:'勒沃库森',en:'bayer-leverkusen',l:'德甲',tier:6},
+      {n:'多特蒙德',en:'borussia-dortmund',l:'德甲',tier:6},
+      {n:'RB莱比锡',en:'rb-leipzig',l:'德甲',tier:6},
+      {n:'沃尔夫斯堡',en:'wolfsburg',l:'德甲',tier:5},
+      {n:'门兴格拉德巴赫',en:'borussia-mg',l:'德甲',tier:5},
+      {n:'法兰克福',en:'eintracht-frankfurt',l:'德甲',tier:5},
+      {n:'斯图加特',en:'stuttgart',l:'德甲',tier:5},
+      {n:'弗赖堡',en:'freiburg',l:'德甲',tier:5},
+      {n:'奥格斯堡',en:'augsburg',l:'德甲',tier:4},
+      {n:'美因茨',en:'mainz',l:'德甲',tier:4},
+      {n:'柏林联合',en:'union-berlin',l:'德甲',tier:4},
+      {n:'云达不莱梅',en:'werder-bremen',l:'德甲',tier:4},
+      {n:'霍芬海姆',en:'hoffenheim',l:'德甲',tier:5},
+      {n:'波鸿',en:'bochum',l:'德甲',tier:4},
+      {n:'圣保利',en:'st-pauli',l:'德甲',tier:4},
+      {n:'海登海姆',en:'heidenheim',l:'德甲',tier:4},
+      {n:'荷尔斯泰因基尔',en:'holstein-kiel',l:'德甲',tier:4}
+    ]},
+  seriea:{id:'seriea',name:'意甲',color:'#6c5ce7',tier:6,canUCL:true,
+    teams:[
+      {n:'国际米兰',en:'inter-milan',l:'意甲',tier:7},
+      {n:'AC米兰',en:'ac-milan',l:'意甲',tier:6},
+      {n:'尤文图斯',en:'juventus',l:'意甲',tier:6},
+      {n:'那不勒斯',en:'napoli',l:'意甲',tier:6},
+      {n:'亚特兰大',en:'atalanta',l:'意甲',tier:6},
+      {n:'罗马',en:'roma',l:'意甲',tier:6},
+      {n:'拉齐奥',en:'lazio',l:'意甲',tier:5},
+      {n:'佛罗伦萨',en:'fiorentina',l:'意甲',tier:5},
+      {n:'博洛尼亚',en:'bologna',l:'意甲',tier:5},
+      {n:'都灵',en:'torino',l:'意甲',tier:5},
+      {n:'乌迪内斯',en:'udinese',l:'意甲',tier:5},
+      {n:'卡利亚里',en:'cagliari',l:'意甲',tier:5},
+      {n:'热那亚',en:'genoa',l:'意甲',tier:4},
+      {n:'莱切',en:'lecce',l:'意甲',tier:4},
+      {n:'恩波利',en:'empoli',l:'意甲',tier:4},
+      {n:'帕尔马',en:'parma',l:'意甲',tier:4},
+      {n:'科莫',en:'como',l:'意甲',tier:4},
+      {n:'维罗纳',en:'hellas-verona',l:'意甲',tier:4},
+      {n:'蒙扎',en:'monza',l:'意甲',tier:4},
+      {n:'威尼斯',en:'venezia',l:'意甲',tier:4}
+    ]},
+  ligue1:{id:'ligue1',name:'法甲',color:'#e17055',tier:5,canUCL:true,
+    teams:[
+      {n:'巴黎圣日耳曼',en:'paris-saint-germain',l:'法甲',tier:6},
+      {n:'马赛',en:'marseille',l:'法甲',tier:5},
+      {n:'摩纳哥',en:'monaco',l:'法甲',tier:5},
+      {n:'里昂',en:'lyon',l:'法甲',tier:5},
+      {n:'尼斯',en:'nice',l:'法甲',tier:4},
+      {n:'朗斯',en:'lens',l:'法甲',tier:5},
+      {n:'里尔',en:'lille',l:'法甲',tier:5},
+      {n:'雷恩',en:'rennes',l:'法甲',tier:4},
+      {n:'斯特拉斯堡',en:'strasbourg',l:'法甲',tier:4},
+      {n:'图卢兹',en:'toulouse',l:'法甲',tier:4},
+      {n:'兰斯',en:'reims',l:'法甲',tier:4},
+      {n:'南特',en:'nantes',l:'法甲',tier:3},
+      {n:'布雷斯特',en:'brest',l:'法甲',tier:4},
+      {n:'昂热',en:'angers',l:'法甲',tier:3},
+      {n:'圣埃蒂安',en:'st-etienne',l:'法甲',tier:3},
+      {n:'欧塞尔',en:'auxerre',l:'法甲',tier:3},
+      {n:'蒙彼利埃',en:'montpellier',l:'法甲',tier:3},
+      {n:'勒阿弗尔',en:'le-havre',l:'法甲',tier:3}
+    ]}
 };
 
 // Opponent teams per stage (youth teams)
 const YOUTH_TEAMS = {
-  u12:[{n:'清水心跳U12',l:'日本青训'},{n:'蔚山现代U12',l:'韩国青训'},{n:'本菲卡U12',l:'葡萄牙青训'},{n:'阿贾克斯U12',l:'荷兰青训'},{n:'萨尔茨堡U12',l:'奥地利青训'}],
-  u15:[{n:'清水心跳U15',l:'日本青训'},{n:'蔚山现代U15',l:'韩国青训'},{n:'本菲卡U15',l:'葡萄牙青训'},{n:'阿贾克斯U15',l:'荷兰青训'},{n:'萨尔茨堡U15',l:'奥地利青训'}],
-  u19:[{n:'清水心跳U19',l:'日本青训'},{n:'蔚山现代U19',l:'韩国青训'},{n:'本菲卡U19',l:'葡萄牙青训'},{n:'阿贾克斯U19',l:'荷兰青训'},{n:'萨尔茨堡U19',l:'奥地利青训'}]
+  u12:[{n:'清水心跳U12',l:'日本青训'},{n:'蔚山现代U12',l:'韩国青训'},{n:'山东鲁能U12',l:'国内梯队'},{n:'浙江绿城U12',l:'国内梯队'},{n:'根宝基地U12',l:'校园足球'},{n:'恒大足校U12',l:'校园足球'},{n:'北京国安U12',l:'国内梯队'},{n:'长春亚泰U12',l:'国内梯队'},{n:'北屯高中',l:'校园足球'},{n:'麓山国际',l:'校园足球'},{n:'清华附中',l:'校园足球'},{n:'牢底二中',l:'校园足球'}],
+  u15:[{n:'清水心跳U15',l:'日本青训'},{n:'蔚山现代U15',l:'韩国青训'},{n:'山东鲁能U15',l:'国内梯队'},{n:'浙江绿城U15',l:'国内梯队'},{n:'根宝基地U15',l:'校园足球'},{n:'恒大足校U15',l:'校园足球'},{n:'北京国安U15',l:'国内梯队'},{n:'长春亚泰U15',l:'国内梯队'},{n:'北屯高中',l:'校园足球'},{n:'麓山国际',l:'校园足球'},{n:'清华附中',l:'校园足球'},{n:'牢底二中',l:'校园足球'}],
+  u19:[{n:'清水心跳U19',l:'日本青训'},{n:'蔚山现代U19',l:'韩国青训'},{n:'山东鲁能U19',l:'国内梯队'},{n:'浙江绿城U19',l:'国内梯队'},{n:'根宝基地U19',l:'校园足球'},{n:'恒大足校U19',l:'校园足球'},{n:'北京国安U19',l:'国内梯队'},{n:'长春亚泰U19',l:'国内梯队'},{n:'北屯高中',l:'校园足球'},{n:'麓山国际',l:'校园足球'},{n:'清华附中',l:'校园足球'},{n:'牢底二中',l:'校园足球'}]
 };
 
 // ============================================================
@@ -543,49 +704,55 @@ function getEvents(pos, stageIndex) {
       {
         desc:'你接到边路低平传中，球速很快，后卫正在向你逼近！',
         choices:[
-          {text:'不停球直接推射近角',rating:1.5,scoreChance:0.5,result:'⚽ 射门！皮球贴着草皮飞速窜入近角！GOAL！完美的射门选择！'},
-          {text:'停球后调整再射门',rating:-1,scoreChance:0.1,result:'对方后卫抢先一脚将球破坏，你错失了最佳射门时机。'},
-          {text:'回做给插上的队友',rating:0.5,scoreChance:0.25,result:'队友迎球怒射，可惜被对方门将神勇扑出！'}
+          {text:'不停球直接推射近角',rating:1.5,scoreChance:0.55,result:'⚽ 射门！皮球贴着草皮飞速窜入近角！GOAL！完美的射门选择！'},
+          {text:'停球后调整再射门',rating:-1,scoreChance:0,result:'对方后卫抢先一脚将球破坏，你错失了最佳射门时机。'},
+          {text:'回做给插上的队友',rating:0.5,scoreChance:0.15,result:'队友迎球怒射，可惜被对方门将神勇扑出！'},
+        {text:'插花脚射门',rating:1,scoreChance:0.3,result:'插花脚！皮球划出诡异弧线飞入球门！世界级进球!'}
         ]
       },
       {
         desc:'你反越位成功，形成了单刀之势！门将已经出击，全场球迷屏住呼吸！',
         choices:[
-          {text:'冷静推射远角',rating:1.5,scoreChance:0.55,result:'⚽ 皮球划过一道弧线，绕过了门将的手指，稳稳滚入网窝！漂亮的射门！'},
-          {text:'过掉门将后打空门',rating:0.5,scoreChance:0.35,result:'你试图过掉门将，但对方的手指碰到了皮球，球速减缓，后卫回追解围！'},
-          {text:'大力抽射上角',rating:-0.5,scoreChance:0.2,result:'你发力过猛，皮球高高飞出了横梁，错失了一次绝佳机会！'}
+          {text:'冷静推射远角',rating:1.5,scoreChance:0.6,result:'⚽ 皮球划过一道弧线，绕过了门将的手指，稳稳滚入网窝！漂亮的射门！'},
+          {text:'过掉门将后打空门',rating:0.5,scoreChance:0.1,result:'你试图过掉门将，但对方的手指碰到了皮球，球速减缓，后卫回追解围！'},
+          {text:'大力抽射上角',rating:-0.5,scoreChance:0.05,result:'你发力过猛，皮球高高飞出了横梁，错失了一次绝佳机会！'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
         ]
       },
       {
         desc:'你在禁区弧顶接到传球，面前有两名防守球员封堵。',
         choices:[
-          {text:'横向盘带拉开角度后远射',rating:1,scoreChance:0.35,result:'⚽ 你的射门打在防守球员身上发生折射！门将反应不及，球进了！'},
-          {text:'传给左边插上的队友',rating:1,scoreChance:0.4,result:'队友接球后一脚传中，后点包抄的队友头球攻门！可惜稍稍偏出。'},
-          {text:'尝试强行突破两名后卫',rating:-1.5,scoreChance:0.1,result:'你陷入了对方防守球员的包夹，球被断下，对方发动快速反击！'}
+          {text:'横向盘带拉开角度后远射',rating:1,scoreChance:0.5,result:'⚽ 你的射门打在防守球员身上发生折射！门将反应不及，球进了！'},
+          {text:'传给左边插上的队友',rating:1,scoreChance:0.15,result:'队友接球后一脚传中，后点包抄的队友头球攻门！可惜稍稍偏出。'},
+          {text:'尝试强行突破两名后卫',rating:-1.5,scoreChance:0,result:'你陷入了对方防守球员的包夹，球被断下，对方发动快速反击！'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
         ]
       },
       {
         desc:'角球进攻，皮球飞到你的头顶上方！',
         choices:[
-          {text:'全力起跳头球攻门',rating:1.5,scoreChance:0.5,result:'⚽ 狮子甩头！皮球狠狠砸进网窝！门将毫无反应！'},
-          {text:'摆渡到后点',rating:0.5,scoreChance:0.3,result:'后点队友跟上射门，但在对方干扰下打高了。'},
-          {text:'假动作吸引防守',rating:-1,scoreChance:0.05,result:'你虚晃一枪，但没人领会你的意图，球被解围。'}
+          {text:'全力起跳头球攻门',rating:1.5,scoreChance:0.55,result:'⚽ 狮子甩头！皮球狠狠砸进网窝！门将毫无反应！'},
+          {text:'摆渡到后点',rating:0.5,scoreChance:0.12,result:'后点队友跟上射门，但在对方干扰下打高了。'},
+          {text:'假动作吸引防守',rating:-1,scoreChance:0,result:'你虚晃一枪，但没人领会你的意图，球被解围。'},
+        {text:'不看人传球给插上队友',rating:0.5,scoreChance:0.2,result:'你隐蔽的传球撕破防线！队友推射破门!'}
         ]
       },
       {
         desc:'队友后场长传，你要背身倚住后卫接球！',
         choices:[
-          {text:'胸部停球后转身抽射',rating:1,scoreChance:0.35,result:'漂亮的停球转身！射门力量十足，可惜被对方门将飞身扑出！'},
-          {text:'做球给插上的中场队友',rating:0.5,scoreChance:0.3,result:'队友远射造成门将脱手，可惜无人跟进补射。'},
-          {text:'试图挑球过人',rating:-1.5,scoreChance:0.1,result:'挑球过高，被对方后卫卡住身位，球权丢失。'}
+          {text:'胸部停球后转身抽射',rating:1,scoreChance:0.18,result:'漂亮的停球转身！射门力量十足，可惜被对方门将飞身扑出！'},
+          {text:'做球给插上的中场队友',rating:0.5,scoreChance:0.12,result:'队友远射造成门将脱手，可惜无人跟进补射。'},
+          {text:'试图挑球过人',rating:-1.5,scoreChance:0,result:'挑球过高，被对方后卫卡住身位，球权丢失。'},
+        {text:'脚后跟巧妙一磕',rating:1.5,scoreChance:0.25,result:'脚后跟进球！后卫和门将都没想到！天才的即兴发挥!'}
         ]
       },
       {
         desc:'比赛末段，双方体力都有所下降，你在大禁区左侧拿球。',
         choices:[
-          {text:'内切后用右脚射远角',rating:1,scoreChance:0.3,result:'⚽ 你的射门划出美妙弧线，直挂死角！世界波！'},
-          {text:'下底传中',rating:0,scoreChance:0.2,result:'传中被对方后卫挡出底线，角球。'},
-          {text:'回传控球拖延时间',rating:-0.5,scoreChance:0.05,result:'安全但缺乏威胁，对方重新组织好防线。'}
+          {text:'内切后用右脚射远角',rating:1,scoreChance:0.45,result:'⚽ 你的射门划出美妙弧线，直挂死角！世界波！'},
+          {text:'下底传中',rating:0,scoreChance:0.08,result:'传中被对方后卫挡出底线，角球。'},
+          {text:'回传控球拖延时间',rating:-0.5,scoreChance:0,result:'安全但缺乏威胁，对方重新组织好防线。'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
         ]
       },
       // 防守型场景 - 前锋压迫
@@ -594,7 +761,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'高速冲向门将封堵出球',rating:1.5,scoreChance:-0.15,result:'你的压迫迫使门将仓促大脚！球被队友在中场停下，发动二次进攻！'},
           {text:'切断门将与后卫的短传路线',rating:1,scoreChance:-0.1,result:'门将找不到短传路线，只能大脚开到前场！你的卡位非常聪明！'},
-          {text:'散步式压迫留力进攻',rating:-1,scoreChance:-0.2,result:'门将轻松将球传给后卫，对方从后场层层推进，你错过了最佳压迫时机。'}
+          {text:'散步式压迫留力进攻',rating:-1,scoreChance:-0.2,result:'门将轻松将球传给后卫，对方从后场层层推进，你错过了最佳压迫时机。'},
+        {text:'聪明地用身体卡住身位',rating:1,scoreChance:-0.15,result:'你卡住身位让对方无法转身！球被轻松拿下!'}
         ]
       },
       {
@@ -602,7 +770,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'快速回防到边路协助防守',rating:1.5,scoreChance:-0.15,result:'你及时回防形成二防一！对方边后卫被迫回传！教练在场边为你鼓掌！'},
           {text:'回撤到中场切断传球路线',rating:0.5,scoreChance:-0.05,result:'你卡住了中场传球路线，对方只能选择回传，成功延缓了反击速度。'},
-          {text:'留在前场等待反击机会',rating:-1,scoreChance:-0.25,result:'对方在边路形成二打一，轻松突破传中！中路头球攻门，好在门将将球扑出！'}
+          {text:'留在前场等待反击机会',rating:-1,scoreChance:-0.25,result:'对方在边路形成二打一，轻松突破传中！中路头球攻门，好在门将将球扑出！'},
+        {text:'提前移动预判传球路线',rating:1.5,scoreChance:-0.2,result:'你成功预判了传球路线！将球拦截下来!'}
         ]
       },
       {
@@ -610,7 +779,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'盯防对方身材最高的中后卫',rating:1.5,scoreChance:-0.2,result:'你死死贴住对方中后卫，他无法舒服争顶！球被门将稳稳摘下！'},
           {text:'站在前点保护近门柱',rating:0.5,scoreChance:-0.1,result:'对方角球开到中路，好在中后卫头球解围，防守成功！'},
-          {text:'留在禁区外等反击',rating:-1.5,scoreChance:-0.3,result:'对方前点头球后蹭，后点包抄破门！⚽ 你在防守中的失位导致了丢球！'}
+          {text:'留在禁区外等反击',rating:-1.5,scoreChance:-0.3,result:'对方前点头球后蹭，后点包抄破门！⚽ 你在防守中的失位导致了丢球！'},
+        {text:'战术犯规阻止对手',rating:-0.5,scoreChance:-0.3,result:'裁判吹罚犯规但没给牌！成功阻止了反击!'}
         ]
       },
       {
@@ -618,7 +788,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'就地反抢，战术犯规也要阻止反击',rating:1,scoreChance:-0.15,result:'你果断放铲将球破坏出边线！虽然给了界外球，但成功阻止了对方反击！'},
           {text:'快速回追干扰',rating:0.5,scoreChance:-0.1,result:'你拼命回追，在对方出球瞬间进行了干扰，传球偏出！'},
-          {text:'原地叉腰叹气',rating:-2,scoreChance:-0.35,result:'对方轻松通过你的防区，形成前场多打少！⚽ 最终被对方攻入一球！'}
+          {text:'原地叉腰叹气',rating:-2,scoreChance:-0.35,result:'对方轻松通过你的防区，形成前场多打少！⚽ 最终被对方攻入一球！'},
+        {text:'假装射门实际扣球过掉后卫',rating:1,scoreChance:0.15,result:'你巧妙扣过防守球员！射门被门将扑出！'}
         ]
       },
       {
@@ -626,7 +797,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'带领队友集体前压逼抢',rating:1.5,scoreChance:-0.15,result:'你的逼抢带动了全队！对方后卫慌乱中回传门将，差点造成乌龙！'},
           {text:'预判传球路线准备拦截',rating:1,scoreChance:-0.1,result:'你成功预判了传球路线！断球后直接发动进攻！可惜最后射门被扑出。'},
-          {text:'保持阵型节省体力',rating:-0.5,scoreChance:-0.05,result:'对方从容从中场组织进攻，你的防线开始承受压力。'}
+          {text:'保持阵型节省体力',rating:-0.5,scoreChance:-0.05,result:'对方从容从中场组织进攻，你的防线开始承受压力。'},
+        {text:'声东击西眼神传球',rating:0.5,scoreChance:0.1,result:'你的眼神欺骗了所有人！队友接球获得单刀！'}
         ]
       },
       {
@@ -634,7 +806,38 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'快速回撤到禁区前沿堵住空当',rating:1.5,scoreChance:-0.2,result:'你及时出现在关键位置！对方不得不放慢节奏，最终远射偏出！'},
           {text:'上前尝试断球',rating:0.5,scoreChance:-0.1,result:'你上抢被对方一个变向过掉，好在最后射门被门将没收。'},
-          {text:'举手示意队友去防',rating:-1.5,scoreChance:-0.3,result:'没有人去防守！对方在禁区弧顶从容起脚远射！⚽ 皮球直挂死角！'}
+          {text:'举手示意队友去防',rating:-1.5,scoreChance:-0.3,result:'没有人去防守！对方在禁区弧顶从容起脚远射！⚽ 皮球直挂死角！'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
+        ]
+      },
+      // ⚠️ 点球
+      {
+        desc:'球队获得点球！你作为头号点球手站在点球点前，全场目光聚焦在你身上！',
+        choices:[
+          {text:'助跑后大力抽射上角',rating:2,scoreChance:0.65,result:'⚽ 势大力沉的点球！门将虽然判断对方向但无力阻止皮球入网！'},
+          {text:'观察门将移动后推射反角',rating:1.5,scoreChance:0.55,result:'⚽ 你冷静地等门将移动后推射反角！勺子般轻松破门！'},
+          {text:'勺子点球挑射中路',rating:-1,scoreChance:0.15,result:'😱 你的勺子点球被门将站在原地轻松没收...太尴尬了！'},
+        {text:'助跑中突然停顿推射',rating:1.5,scoreChance:0.5,result:'你的节奏变化骗过了门将！轻松罚入!'}
+        ]
+      },
+      // ⚠️ 犯规吃牌
+      {
+        desc:'你在拼抢中被对方过掉，眼看对方要形成反击，你倒地放铲！',
+        choices:[
+          {text:'精准铲到皮球',rating:1.5,scoreChance:-0.15,result:'干净的铲球！你精准地将球铲出边线！裁判示意没有犯规！'},
+          {text:'连人带球一起放倒',rating:-1,scoreChance:-0.25,result:'🟡 裁判出示黄牌！你铲到了对方的脚踝，这是一个危险动作。',card:'yellow'},
+          {text:'身后剪刀脚飞铲',rating:-2.5,scoreChance:-0.45,result:'🔴 裁判直接出示红牌！你被罚出场外！球队不得不十人应战！',card:'red'},
+        {text:'巧妙收脚避免犯规',rating:0.5,scoreChance:-0.1,result:'你及时收脚！裁判示意没有犯规！聪明的防守!'}
+        ]
+      },
+      // ⚠️ 受伤
+      {
+        desc:'你在一次争顶头球中被对方肘击到肋骨，重重摔在地上！',
+        choices:[
+          {text:'咬紧牙关站起来继续比赛',rating:1,scoreChance:0,risky:true,result:'你忍着剧痛站起来！队友为你鼓掌！队医进场简单处理后你继续战斗！'},
+          {text:'倒在场上要求队医进场',rating:0,scoreChance:0,injury:true,result:'队医检查后摇头示意...你无法坚持比赛，被担架抬下场。球队暂时少一人作战。'},
+          {text:'愤怒地找裁判理论',rating:-1,scoreChance:0,result:'裁判没有理会你的抗议，你吃到了一个口头警告。对方继续进攻。'},
+        {text:'在场边治疗后回归',rating:0.5,scoreChance:0,result:'你在场边快速接受了治疗！举手示意回归！犹如战神归来!'}
         ]
       }
     ],
@@ -642,9 +845,10 @@ function getEvents(pos, stageIndex) {
       {
         desc:'你中场拿球，对方两名球员上前逼抢，空间被压缩。',
         choices:[
-          {text:'一脚出球直塞防线身后',rating:1.5,scoreChance:0.45,result:'⚽ 手术刀般的直塞！前锋插上单刀破门！精妙的助攻！'},
-          {text:'横向转移给边路',rating:0.5,scoreChance:0.25,result:'边路球员传中制造了混乱，但对方后卫将球解围。'},
-          {text:'护球转身尝试过人',rating:-1,scoreChance:0.1,result:'被对方夹击断球，中场丢球非常危险！'}
+          {text:'一脚出球直塞防线身后',rating:1.5,scoreChance:0.55,result:'⚽ 手术刀般的直塞！前锋插上单刀破门！精妙的助攻！'},
+          {text:'横向转移给边路',rating:0.5,scoreChance:0.15,result:'边路球员传中制造了混乱，但对方后卫将球解围。'},
+          {text:'护球转身尝试过人',rating:-1,scoreChance:0,result:'被对方夹击断球，中场丢球非常危险！'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
         ]
       },
       {
@@ -652,39 +856,44 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'快速回追卡住传球路线',rating:1.5,scoreChance:-0.1,result:'你成功预判了传球路线，将球拦截下来！一次关键的回防！'},
           {text:'战术犯规延缓进攻',rating:-1,scoreChance:-0.2,result:'你拉倒了对方球员，吃到一张黄牌。但确实延缓了反击。'},
-          {text:'指挥队友布防',rating:0,scoreChance:0,result:'队友按照你的指挥站位，对方最终只能远射，被门将轻松没收。'}
+          {text:'指挥队友布防',rating:0,scoreChance:0,result:'队友按照你的指挥站位，对方最终只能远射，被门将轻松没收。'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
         ]
       },
       {
         desc:'前场任意球机会，距离球门约28米。',
         choices:[
-          {text:'直接射门',rating:1,scoreChance:0.3,result:'⚽ 你的任意球越过人墙，直挂死角！精彩的直接任意球破门！'},
-          {text:'吊入禁区找队友',rating:0.5,scoreChance:0.25,result:'队友争到落点，头球攻门稍稍高出横梁。'},
-          {text:'战术短传',rating:-0.5,scoreChance:0.1,result:'短传配合后射门被挡出，浪费了定位球机会。'}
+          {text:'直接射门',rating:1,scoreChance:0.5,result:'⚽ 你的任意球越过人墙，直挂死角！精彩的直接任意球破门！'},
+          {text:'吊入禁区找队友',rating:0.5,scoreChance:0.15,result:'队友争到落点，头球攻门稍稍高出横梁。'},
+          {text:'战术短传',rating:-0.5,scoreChance:0,result:'短传配合后射门被挡出，浪费了定位球机会。'},
+        {text:'聪明地用身体卡住身位',rating:1,scoreChance:-0.15,result:'你卡住身位让对方无法转身！球被轻松拿下!'}
         ]
       },
       {
         desc:'你在对方禁区前沿控球，对方防线收缩得很紧。',
         choices:[
-          {text:'尝试远射',rating:0.5,scoreChance:0.2,result:'远射势大力沉！对方门将不敢怠慢，双拳击出！'},
-          {text:'挑传禁区内插上的队友',rating:1.5,scoreChance:0.4,result:'⚽ 精妙挑传！队友反越位成功，凌空抽射破门！'},
-          {text:'回传重新组织',rating:0,scoreChance:0.1,result:'回传后重新组织，对方已经全员退防。'}
+          {text:'尝试远射',rating:0.5,scoreChance:0.1,result:'远射势大力沉！对方门将不敢怠慢，双拳击出！'},
+          {text:'挑传禁区内插上的队友',rating:1.5,scoreChance:0.55,result:'⚽ 精妙挑传！队友反越位成功，凌空抽射破门！'},
+          {text:'回传重新组织',rating:0,scoreChance:0,result:'回传后重新组织，对方已经全员退防。'},
+        {text:'提前移动预判传球路线',rating:1.5,scoreChance:-0.2,result:'你成功预判了传球路线！将球拦截下来!'}
         ]
       },
       {
         desc:'边路球员下底传中，你在禁区弧顶无人盯防！',
         choices:[
-          {text:'迎球凌空抽射',rating:1.5,scoreChance:0.45,result:'⚽ 天外飞仙！完美的凌空抽射！皮如炮弹般飞入网窝！'},
-          {text:'停球后再射门',rating:-0.5,scoreChance:0.15,result:'停球稍大，被对方后卫迅速封堵了射门角度。'},
-          {text:'漏给后点队友',rating:0.5,scoreChance:0.3,result:'后点队友准备不足，射门打在了边网上。'}
+          {text:'迎球凌空抽射',rating:1.5,scoreChance:0.55,result:'⚽ 天外飞仙！完美的凌空抽射！皮如炮弹般飞入网窝！'},
+          {text:'停球后再射门',rating:-0.5,scoreChance:0,result:'停球稍大，被对方后卫迅速封堵了射门角度。'},
+          {text:'漏给后点队友',rating:0.5,scoreChance:0.1,result:'后点队友准备不足，射门打在了边网上。'},
+        {text:'急停变向晃开角度',rating:1,scoreChance:0.2,result:'你急停变向甩开防守！起脚射门势大力沉!'}
         ]
       },
       {
         desc:'后场长传找到你，你需要稳稳控制住球权。',
         choices:[
-          {text:'优雅停球后转身推进',rating:1,scoreChance:0.3,result:'完美的停球转身！你甩开防守球员，向前推进！'},
-          {text:'头球摆渡给队友',rating:0.5,scoreChance:0.2,result:'队友接球后组织进攻，最终迫使对方犯规，赢得任意球。'},
-          {text:'直接大范围转移',rating:-0.5,scoreChance:0.15,result:'转移球力量过大，直接飞出了边线。'}
+          {text:'优雅停球后转身推进',rating:1,scoreChance:0.12,result:'完美的停球转身！你甩开防守球员，向前推进！'},
+          {text:'头球摆渡给队友',rating:0.5,scoreChance:0.08,result:'队友接球后组织进攻，最终迫使对方犯规，赢得任意球。'},
+          {text:'直接大范围转移',rating:-0.5,scoreChance:0,result:'转移球力量过大，直接飞出了边线。'},
+        {text:'挑球过人后凌空抽射',rating:1.5,scoreChance:0.3,result:'挑球过人后不等球落地凌空抽射！完美的进球!'}
         ]
       },
       // 防守场景 - 盯人
@@ -693,16 +902,18 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'紧贴防守，不给他转身空间',rating:1.5,scoreChance:-0.15,result:'你像影子一样贴住对方！他无法转身只能回传！成功限制对方核心！'},
           {text:'保持距离，防他突破',rating:0,scoreChance:-0.05,result:'你给了对方太大空间，他从容转身送出直塞！好在后卫及时解围。'},
-          {text:'冒险上抢试图断球',rating:-1,scoreChance:-0.2,result:'你被对方轻松过掉！他带球推进到禁区前沿，远射高出横梁！'}
+          {text:'冒险上抢试图断球',rating:-1,scoreChance:-0.2,result:'你被对方轻松过掉！他带球推进到禁区前沿，远射高出横梁！'},
+        {text:'战术犯规阻止对手',rating:-0.5,scoreChance:-0.3,result:'裁判吹罚犯规但没给牌！成功阻止了反击!'}
         ]
       },
       // 进攻场景 - 插上
       {
         desc:'边路队友传中，后点有空间，你高速插上包抄！',
         choices:[
-          {text:'插到前点头球攻门',rating:1.5,scoreChance:0.4,result:'⚽ 你抢到前点！一个有力的头球将球砸入网窝！精彩的插上破门！'},
-          {text:'减慢速度等球落到脚下',rating:-0.5,scoreChance:0.1,result:'你犹豫了一下，球被对方后卫解围，错过了一次好机会。'},
-          {text:'假装射门漏给后点队友',rating:1,scoreChance:0.35,result:'你巧妙一漏，后点队友跟上射门！可惜角度太小打在了边网上。'}
+          {text:'插到前点头球攻门',rating:1.5,scoreChance:0.5,result:'⚽ 你抢到前点！一个有力的头球将球砸入网窝！精彩的插上破门！'},
+          {text:'减慢速度等球落到脚下',rating:-0.5,scoreChance:0,result:'你犹豫了一下，球被对方后卫解围，错过了一次好机会。'},
+          {text:'假装射门漏给后点队友',rating:1,scoreChance:0.1,result:'你巧妙一漏，后点队友跟上射门！可惜角度太小打在了边网上。'},
+        {text:'插花脚射门',rating:1,scoreChance:0.3,result:'插花脚！皮球划出诡异弧线飞入球门！世界级进球!'}
         ]
       },
       // 防守场景 - 拦截
@@ -711,25 +922,28 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'预判路线突然前压拦截',rating:1.5,scoreChance:-0.15,result:'你突然启动成功拦截了传球！带球推进后送出直塞，前锋射门被扑出！'},
           {text:'靠近接球球员施加压力',rating:0.5,scoreChance:-0.1,result:'你在接球球员身后施压，对方只能回传，延缓了进攻节奏。'},
-          {text:'跟着球跑但没有实际压迫',rating:-1,scoreChance:-0.2,result:'你只是跟着球跑没有实际干扰，对方轻松推进到前场！'}
+          {text:'跟着球跑但没有实际压迫',rating:-1,scoreChance:-0.2,result:'你只是跟着球跑没有实际干扰，对方轻松推进到前场！'},
+        {text:'不看人传球给插上队友',rating:0.5,scoreChance:0.2,result:'你隐蔽的传球撕破防线！队友推射破门!'}
         ]
       },
       // 进攻场景 - 远射
       {
         desc:'皮球在禁区前沿被解围到你脚下，这是一个远射的好机会！',
         choices:[
-          {text:'不停球直接凌空抽射',rating:1.5,scoreChance:0.35,result:'⚽ 天外飞仙！你的凌空抽射如炮弹般飞入球门上角！世界波！'},
-          {text:'停球调整一步再射',rating:0.5,scoreChance:0.2,result:'你停球后起脚射门，球打在防守球员身上折射出底线。'},
-          {text:'横传给位置更好的队友',rating:0.5,scoreChance:0.25,result:'队友接球后晃开角度射门，可惜被门将飞身扑出！'}
+          {text:'不停球直接凌空抽射',rating:1.5,scoreChance:0.5,result:'⚽ 天外飞仙！你的凌空抽射如炮弹般飞入球门上角！世界波！'},
+          {text:'停球调整一步再射',rating:0.5,scoreChance:0.05,result:'你停球后起脚射门，球打在防守球员身上折射出底线。'},
+          {text:'横传给位置更好的队友',rating:0.5,scoreChance:0.12,result:'队友接球后晃开角度射门，可惜被门将飞身扑出！'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
         ]
       },
       // 攻防转换 - 反击
       {
         desc:'你在中场断球成功，对方防线还没回过神！前方有三个队友在跑位！',
         choices:[
-          {text:'一脚精准直塞找前锋',rating:1.5,scoreChance:0.45,result:'⚽ 手术刀般的直塞撕破防线！前锋单刀破门！完美的攻防转换！'},
-          {text:'带球推进吸引防守后分球',rating:1,scoreChance:0.3,result:'你带球吸引了两名防守球员，分球给边路！队友传中制造了威胁！'},
-          {text:'稳妥回传重新组织',rating:-0.5,scoreChance:0.05,result:'你选择了回传，对方已经回防到位，失去了反击的最佳时机。'}
+          {text:'一脚精准直塞找前锋',rating:1.5,scoreChance:0.55,result:'⚽ 手术刀般的直塞撕破防线！前锋单刀破门！完美的攻防转换！'},
+          {text:'带球推进吸引防守后分球',rating:1,scoreChance:0.15,result:'你带球吸引了两名防守球员，分球给边路！队友传中制造了威胁！'},
+          {text:'稳妥回传重新组织',rating:-0.5,scoreChance:0,result:'你选择了回传，对方已经回防到位，失去了反击的最佳时机。'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
         ]
       },
       // 防守场景 - 协防边路
@@ -738,7 +952,38 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'快速补位到边路封堵传中',rating:1.5,scoreChance:-0.15,result:'你及时补位！用身体将对方的传中挡出边线！关键的边路防守！'},
           {text:'回收到禁区增加防守人数',rating:0,scoreChance:-0.1,result:'对方轻松传中，禁区内形成头球攻门，好在偏出球门。'},
-          {text:'站在原地指挥队友去补',rating:-1.5,scoreChance:-0.3,result:'队友来不及补防！对方传中到后点，⚽ 包抄球员推射破门！'}
+          {text:'站在原地指挥队友去补',rating:-1.5,scoreChance:-0.3,result:'队友来不及补防！对方传中到后点，⚽ 包抄球员推射破门！'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
+        ]
+      },
+      // ⚠️ 中场点球
+      {
+        desc:'球队获得点球！你被指定为点球手，全场安静下来等待你的射门！',
+        choices:[
+          {text:'助跑节奏变化后推射左下角',rating:2,scoreChance:0.6,result:'⚽ 门将被你的节奏变化骗过！皮球轻松滚入网窝！冷静的点球！'},
+          {text:'大力抽射中路',rating:1,scoreChance:0.5,result:'⚽ 你的大力抽射直奔中路！门将虽然碰到皮球但无法阻止入网！'},
+          {text:'尝试勺子点球',rating:-1,scoreChance:0.1,result:'😰 你的勺子点球被门将识破，站在原地将球摘下...'},
+        {text:'快速偷袭快速发球',rating:1,scoreChance:0.35,result:'你趁门将还在布置人墙快速射门得分!'}
+        ]
+      },
+      // ⚠️ 中场犯规
+      {
+        desc:'你回防时从背后放倒了对方持球球员，裁判鸣哨跑来！',
+        choices:[
+          {text:'干净利落地铲到皮球',rating:1.5,scoreChance:-0.1,result:'你精准铲到皮球！裁判示意比赛继续！完美的防守！'},
+          {text:'战术拉人阻止反击',rating:-0.5,scoreChance:-0.2,result:'🟡 你拉倒了对方，吃到黄牌。但球队得以回防到位。',card:'yellow'},
+          {text:'背后凶狠铲球',rating:-2,scoreChance:-0.4,result:'🔴 裁判直接出示红牌！你被罚出场！球队陷入人数劣势！',card:'red'},
+        {text:'聪明地用身体卡住身位',rating:1,scoreChance:-0.15,result:'你卡住身位让对方无法转身！球被轻松拿下!'}
+        ]
+      },
+      // ⚠️ 中场受伤
+      {
+        desc:'你在一次拼抢中被对方踩到了脚踝，痛苦地倒在地上！',
+        choices:[
+          {text:'绑紧鞋带继续拼搏',rating:1,scoreChance:0,risky:true,result:'你咬牙站起来！活动了一下脚踝后继续投入比赛！'},
+          {text:'示意队医进场治疗',rating:0,scoreChance:0,injury:true,result:'队医检查后对你摇头...你无法坚持比赛，被搀扶下场。球队少一人作战。'},
+          {text:'躺在场上拖延时间',rating:-1,scoreChance:0,result:'裁判催促你起身，你慢悠悠站起来，对方已经趁机发动进攻！'},
+        {text:'咬牙坚持绝不倒下',rating:1,scoreChance:0,risky:true,result:'你咬紧牙关！眼神中透露着坚定！队友备受鼓舞!'}
         ]
       }
     ],
@@ -748,7 +993,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'卡住内线，逼他走外线',rating:1.5,scoreChance:-0.15,result:'你的站位非常老道！对方只能走外线传中，被中后卫头球解围！'},
           {text:'上前贴身逼抢',rating:0,scoreChance:0,result:'你成功贴上对方，但被他一个转身抹过，好在队友补防及时。'},
-          {text:'直接放铲',rating:-1.5,scoreChance:-0.25,result:'你铲到了对方的脚，裁判出示黄牌！给了对方一个危险位置的任意球。'}
+          {text:'直接放铲',rating:-1.5,scoreChance:-0.25,result:'你铲到了对方的脚，裁判出示黄牌！给了对方一个危险位置的任意球。'},
+        {text:'提前移动预判传球路线',rating:1.5,scoreChance:-0.2,result:'你成功预判了传球路线！将球拦截下来!'}
         ]
       },
       {
@@ -756,7 +1002,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'造越位，集体前压',rating:1.5,scoreChance:-0.2,result:'越位！对方前锋落入越位陷阱！你的防线指挥非常出色！'},
           {text:'快速回追',rating:0.5,scoreChance:-0.1,result:'你的速度不占优势，但在干扰下对方前锋的射门偏出了球门！'},
-          {text:'举手示意对方越位',rating:-1,scoreChance:-0.3,result:'对方没有越位！单刀！好在门将出击将球扑出！好险！'}
+          {text:'举手示意对方越位',rating:-1,scoreChance:-0.3,result:'对方没有越位！单刀！好在门将出击将球扑出！好险！'},
+        {text:'脚后跟巧妙一磕',rating:1.5,scoreChance:0.25,result:'脚后跟进球！后卫和门将都没想到！天才的即兴发挥!'}
         ]
       },
       {
@@ -764,7 +1011,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'紧贴对方最有威胁的前锋',rating:1,scoreChance:-0.15,result:'你的贴防让对方无法舒服地头球，皮球高出横梁！'},
           {text:'冲到前点解围',rating:1.5,scoreChance:-0.2,result:'⚽ 你抢在所有人之前将球顶出底线！关键的解围！'},
-          {text:'只是举手示意',rating:-1.5,scoreChance:-0.35,result:'对方前锋在你身边头球攻门！⚽ 球进了...你的防守漏人了。'}
+          {text:'只是举手示意',rating:-1.5,scoreChance:-0.35,result:'对方前锋在你身边头球攻门！⚽ 球进了...你的防守漏人了。'},
+        {text:'假装射门实际扣球过掉后卫',rating:1,scoreChance:0.15,result:'你巧妙扣过防守球员！射门被门将扑出！'}
         ]
       },
       {
@@ -772,7 +1020,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'绕前防守，切断传球路线',rating:1.5,scoreChance:-0.15,result:'你成功绕前将球断下！从防守到反击的转换！'},
           {text:'在身后顶住，不让他转身',rating:0.5,scoreChance:-0.05,result:'对方无法转身，只能回传。防守成功！'},
-          {text:'试图从身后捅球',rating:-1,scoreChance:-0.2,result:'你捅到了对方的后脚跟，裁判吹罚犯规！给了任意球机会。'}
+          {text:'试图从身后捅球',rating:-1,scoreChance:-0.2,result:'你捅到了对方的后脚跟，裁判吹罚犯规！给了任意球机会。'},
+        {text:'声东击西眼神传球',rating:0.5,scoreChance:0.1,result:'你的眼神欺骗了所有人！队友接球获得单刀！'}
         ]
       },
       {
@@ -780,7 +1029,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'飞身堵枪眼',rating:2,scoreChance:-0.3,result:'你用身体挡出了这脚射门！真正的勇士！球迷为你欢呼！'},
           {text:'观察门将位置后做判断',rating:0.5,scoreChance:-0.1,result:'门将将球没收，你保持了冷静的防守站位。'},
-          {text:'躲球保护自己',rating:-2,scoreChance:-0.45,result:'你侧身躲开，皮球折射入网... ⚽ 教练对你的躲球很不满。'}
+          {text:'躲球保护自己',rating:-2,scoreChance:-0.45,result:'你侧身躲开，皮球折射入网... ⚽ 教练对你的躲球很不满。'},
+        {text:'战术犯规阻止对手',rating:-0.5,scoreChance:-0.3,result:'裁判吹罚犯规但没给牌！成功阻止了反击!'}
         ]
       },
       {
@@ -788,61 +1038,98 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'且战且退，等待队友回防',rating:1,scoreChance:-0.15,result:'你边退边防，为队友赢得了回防时间，最终化解了这次反击！'},
           {text:'上前压迫持球人',rating:0.5,scoreChance:-0.1,result:'你果断上抢，虽然被过掉但也延缓了进攻节奏。'},
-          {text:'冒险放铲',rating:-2,scoreChance:-0.4,result:'你铲空了！对方直接面对门将... ⚽ 球进了。你和教练都很失望。'}
+          {text:'冒险放铲',rating:-2,scoreChance:-0.4,result:'你铲空了！对方直接面对门将... ⚽ 球进了。你和教练都很失望。'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
         ]
       },
       // 进攻场景 - 角球争顶
       {
         desc:'球队获得角球机会，你作为后卫来到对方禁区争顶！',
         choices:[
-          {text:'冲到前点头球后蹭',rating:1.5,scoreChance:0.45,result:'⚽ 你抢到前点！头球后蹭直挂远角！带刀后卫！漂亮的角球破门！'},
-          {text:'在禁区弧顶等待第二落点',rating:0.5,scoreChance:0.2,result:'球被解围到你脚下，你迎球怒射！可惜打在了防守球员身上。'},
-          {text:'在禁区中间争顶但不坚决',rating:-1,scoreChance:0.1,result:'你起跳太慢没争到点，球被轻松解围。'}
+          {text:'冲到前点头球后蹭',rating:1.5,scoreChance:0.5,result:'⚽ 你抢到前点！头球后蹭直挂远角！带刀后卫！漂亮的角球破门！'},
+          {text:'在禁区弧顶等待第二落点',rating:0.5,scoreChance:0.1,result:'球被解围到你脚下，你迎球怒射！可惜打在了防守球员身上。'},
+          {text:'在禁区中间争顶但不坚决',rating:-1,scoreChance:0,result:'你起跳太慢没争到点，球被轻松解围。'},
+        {text:'急停变向晃开角度',rating:1,scoreChance:0.2,result:'你急停变向甩开防守！起脚射门势大力沉!'}
         ]
       },
       // 进攻场景 - 边路插上
       {
         desc:'你作为边后卫插上助攻，在边路拿到球，前方没有防守球员！',
         choices:[
-          {text:'带球下底传中',rating:1,scoreChance:0.3,result:'你的传中质量很高！中路队友头球攻门，可惜被门将神勇扑出！'},
-          {text:'内切后横传禁区前沿',rating:1.5,scoreChance:0.35,result:'⚽ 你内切后将球传给禁区前沿的队友！队友远射变线入网！助攻+1！'},
-          {text:'直接四十五度角传中',rating:-0.5,scoreChance:0.15,result:'传中被对方后卫轻松顶出，浪费了一次进攻机会。'}
+          {text:'带球下底传中',rating:1,scoreChance:0.15,result:'你的传中质量很高！中路队友头球攻门，可惜被门将神勇扑出！'},
+          {text:'内切后横传禁区前沿',rating:1.5,scoreChance:0.5,result:'⚽ 你内切后将球传给禁区前沿的队友！队友远射变线入网！助攻+1！'},
+          {text:'直接四十五度角传中',rating:-0.5,scoreChance:0,result:'传中被对方后卫轻松顶出，浪费了一次进攻机会。'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
         ]
       },
       // 进攻场景 - 带球推进
       {
         desc:'对方全线退防，你后场拿球时身前有大片空当！',
         choices:[
-          {text:'带球推进到中场吸引防守后分球',rating:1.5,scoreChance:0.3,result:'你带球推进了30米！吸引三名防守球员后分球，队友获得射门空间！'},
-          {text:'长传找前锋',rating:0.5,scoreChance:0.2,result:'你的长传精准找到前锋，但他在对抗中没能控制好球。'},
-          {text:'安全传给最近的后卫',rating:-0.5,scoreChance:0.05,result:'你选择了安全传球，但失去了向前推进的机会。'}
+          {text:'带球推进到中场吸引防守后分球',rating:1.5,scoreChance:0.12,result:'你带球推进了30米！吸引三名防守球员后分球，队友获得射门空间！'},
+          {text:'长传找前锋',rating:0.5,scoreChance:0.08,result:'你的长传精准找到前锋，但他在对抗中没能控制好球。'},
+          {text:'安全传给最近的后卫',rating:-0.5,scoreChance:0,result:'你选择了安全传球，但失去了向前推进的机会。'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
         ]
       },
       // 进攻场景 - 远射
       {
         desc:'角球被解围到禁区外，球正好落在你面前！',
         choices:[
-          {text:'迎球大力远射',rating:1.5,scoreChance:0.3,result:'⚽ 你的远射穿过禁区内的人群！门将视线受阻！球进了！石破天惊！'},
-          {text:'停球后再寻找传球机会',rating:0,scoreChance:0.15,result:'你停球观察后将球传给边路，重新组织进攻。'},
-          {text:'直接吊射',rating:-1,scoreChance:0.05,result:'你的吊射高得离谱，直接飞出了底线。'}
+          {text:'迎球大力远射',rating:1.5,scoreChance:0.45,result:'⚽ 你的远射穿过禁区内的人群！门将视线受阻！球进了！石破天惊！'},
+          {text:'停球后再寻找传球机会',rating:0,scoreChance:0,result:'你停球观察后将球传给边路，重新组织进攻。'},
+          {text:'直接吊射',rating:-1,scoreChance:0,result:'你的吊射高得离谱，直接飞出了底线。'},
+        {text:'聪明地用身体卡住身位',rating:1,scoreChance:-0.15,result:'你卡住身位让对方无法转身！球被轻松拿下!'}
         ]
       },
       // 进攻场景 - 断球推进
       {
         desc:'你在中场成功断球，对方防线还没有组织好！',
         choices:[
-          {text:'带球长驱直入杀向禁区',rating:1.5,scoreChance:0.35,result:'⚽ 你带球连过两人！在禁区弧顶起脚远射！皮球直挂死角！一条龙！'},
-          {text:'迅速传给前插的队友',rating:1,scoreChance:0.3,result:'你的传球找到了空当里的队友！队友射门被扑出，但这次进攻非常有威胁！'},
-          {text:'回传门将重新组织',rating:-1,scoreChance:0.05,result:'你回传后对方已经回防到位，失去了一次很好的进攻机会。'}
+          {text:'带球长驱直入杀向禁区',rating:1.5,scoreChance:0.5,result:'⚽ 你带球连过两人！在禁区弧顶起脚远射！皮球直挂死角！一条龙！'},
+          {text:'迅速传给前插的队友',rating:1,scoreChance:0.15,result:'你的传球找到了空当里的队友！队友射门被扑出，但这次进攻非常有威胁！'},
+          {text:'回传门将重新组织',rating:-1,scoreChance:0,result:'你回传后对方已经回防到位，失去了一次很好的进攻机会。'},
+        {text:'提前移动预判传球路线',rating:1.5,scoreChance:-0.2,result:'你成功预判了传球路线！将球拦截下来!'}
         ]
       },
       // 进攻场景 - 任意球进攻
       {
         desc:'前场任意球，全队压上，你也来到对方禁区参与进攻。',
         choices:[
-          {text:'在小禁区争抢前点',rating:1,scoreChance:0.3,result:'你的争顶干扰了门将判断！球落到后点，队友轻松推射破门！助攻+1！'},
-          {text:'在禁区弧顶保护第二落点',rating:0.5,scoreChance:0.2,result:'球被解围到你脚下，你传给队友，但他的远射打偏了。'},
-          {text:'留在中线防止反击',rating:-0.5,scoreChance:0.1,result:'你在中线观望，但球队少了一个进攻点，任意球被轻松解围。'}
+          {text:'在小禁区争抢前点',rating:1,scoreChance:0.15,result:'你的争顶干扰了门将判断！球落到后点，队友轻松推射破门！助攻+1！'},
+          {text:'在禁区弧顶保护第二落点',rating:0.5,scoreChance:0.08,result:'球被解围到你脚下，你传给队友，但他的远射打偏了。'},
+          {text:'留在中线防止反击',rating:-0.5,scoreChance:0,result:'你在中线观望，但球队少了一个进攻点，任意球被轻松解围。'},
+        {text:'战术犯规阻止对手',rating:-0.5,scoreChance:-0.3,result:'裁判吹罚犯规但没给牌！成功阻止了反击!'}
+        ]
+      },
+      // ⚠️ 后卫点球
+      {
+        desc:'球队获得点球！作为队内的点球手之一，你走向点球点！',
+        choices:[
+          {text:'大力抽射门将无法扑救的角度',rating:2,scoreChance:0.55,result:'⚽ 你的点球势大力沉！门将虽然判断对方向但还是无法阻止进球！'},
+          {text:'推射地滚球',rating:1,scoreChance:0.4,result:'⚽ 地滚球从门将腋下穿过！球慢慢滚入网窝！'},
+          {text:'过于追求角度打偏',rating:-1.5,scoreChance:0.05,result:'😱 你太追求角度了！皮球擦着立柱偏出...你错失了黄金机会！'},
+        {text:'暴力抽射中路',rating:1,scoreChance:0.45,result:'势大力沉的中路抽射！门将被球带进网窝!'}
+        ]
+      },
+      // ⚠️ 最后一人防守
+      {
+        desc:'对方前锋突破防线形成半单刀，你是后防最后一人！必须做出决定！',
+        choices:[
+          {text:'卡住身位用身体挤开对手',rating:1.5,scoreChance:-0.2,result:'你巧妙地卡住身位！对方前锋被你挤开，门将轻松将球没收！完美的防守！'},
+          {text:'在禁区边缘战术拉人',rating:-1,scoreChance:-0.3,result:'🟡 你拉倒了对方前锋！裁判出示黄牌！给了任意球，但避免了单刀。',card:'yellow'},
+          {text:'从背后飞铲',rating:-3,scoreChance:-0.5,result:'🔴 裁判直接出示红牌！你是最后一名防守球员，这个铲球葬送了球队！',card:'red'},
+        {text:'挑球过人后凌空抽射',rating:1.5,scoreChance:0.3,result:'挑球过人后不等球落地凌空抽射！完美的进球!'}
+        ]
+      },
+      // ⚠️ 后卫受伤
+      {
+        desc:'你在一次头球解围中被对方前锋撞到头部，一阵眩晕袭来！',
+        choices:[
+          {text:'摇摇头继续专注比赛',rating:1,scoreChance:0,result:'你甩了甩头恢复清醒！继续指挥防线！铁血后卫！'},
+          {text:'倒地示意需要治疗',rating:0,scoreChance:0,injury:true,result:'队医飞奔进场...你头部的伤势无法继续比赛，被替换下场。'},
+          {text:'和对方前锋理论冲突',rating:-1.5,scoreChance:0,result:'你和对方前锋发生口角！裁判各打五十大板给了口头警告！'},
+        {text:'在场边治疗后回归',rating:0.5,scoreChance:0,result:'你在场边快速接受了治疗！举手示意回归！犹如战神归来!'}
         ]
       }
     ],
@@ -852,7 +1139,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'稳稳将球抱住',rating:1.5,scoreChance:-0.2,result:'漂亮的扑救！你将球稳稳抱在怀中，化解了这次远射威胁！'},
           {text:'双拳击出',rating:-0.5,scoreChance:-0.1,result:'球被击出不远，落在对方球员脚下，好在对方远射偏出。'},
-          {text:'托出横梁',rating:0.5,scoreChance:-0.15,result:'你指尖碰了一下皮球，球擦着横梁飞出底线！好险！'}
+          {text:'托出横梁',rating:0.5,scoreChance:-0.15,result:'你指尖碰了一下皮球，球擦着横梁飞出底线！好险！'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
         ]
       },
       {
@@ -860,7 +1148,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'张开身体封堵角度',rating:1.5,scoreChance:-0.25,result:'你展开身体像一堵墙！对方射门打在你身上弹出！精彩的扑救！'},
           {text:'直接扑向对方脚下',rating:0.5,scoreChance:-0.15,result:'你扑到了皮球！虽然给了对方一个角球，但成功化解了单刀！'},
-          {text:'犹豫没有出击',rating:-2,scoreChance:-0.45,result:'⚽ 对方轻松将球推入空门...你的犹豫代价惨重。'}
+          {text:'犹豫没有出击',rating:-2,scoreChance:-0.45,result:'⚽ 对方轻松将球推入空门...你的犹豫代价惨重。'},
+        {text:'插花脚射门',rating:1,scoreChance:0.3,result:'插花脚！皮球划出诡异弧线飞入球门！世界级进球!'}
         ]
       },
       {
@@ -868,7 +1157,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'出击将球摘下',rating:1.5,scoreChance:-0.2,result:'你高高跃起，在人群中把球摘下！霸气十足！'},
           {text:'一拳将球击出禁区',rating:0.5,scoreChance:-0.1,result:'你将球击出禁区，队友接球发动反击！'},
-          {text:'守住门线',rating:-1,scoreChance:-0.3,result:'对方球员头球攻门！好在你反应迅速将球扑出！但太被动了！'}
+          {text:'守住门线',rating:-1,scoreChance:-0.3,result:'对方球员头球攻门！好在你反应迅速将球扑出！但太被动了！'},
+        {text:'不看人传球给插上队友',rating:0.5,scoreChance:0.2,result:'你隐蔽的传球撕破防线！队友推射破门!'}
         ]
       },
       {
@@ -876,15 +1166,17 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'提前研究过对方罚球习惯，扑向预定方向',rating:2,scoreChance:-0.3,result:'🛑 你扑出了点球！你猜对了方向！英雄！'},
           {text:'等待对方射门后再做出反应',rating:0.5,scoreChance:-0.15,result:'对方射门角度太刁，你指尖碰到了但没能阻止皮球入网。'},
-          {text:'在门线上跳舞干扰对方',rating:-1,scoreChance:-0.2,result:'⚽ 对方没有被干扰，将球稳稳罚进。'}
+          {text:'在门线上跳舞干扰对方',rating:-1,scoreChance:-0.2,result:'⚽ 对方没有被干扰，将球稳稳罚进。'},
+        {text:'助跑中突然停顿推射',rating:1.5,scoreChance:0.5,result:'你的节奏变化骗过了门将！轻松罚入!'}
         ]
       },
       {
         desc:'后卫回传给你，对方前锋在逼抢你的出球。',
         choices:[
           {text:'大脚开出',rating:0,scoreChance:0,result:'大脚开到前场，重新组织进攻。稳妥的选择。'},
-          {text:'短传给边后卫发动快速反击',rating:1.5,scoreChance:0.3,result:'⚽ 你的精准短传发动了反击！边后卫传中助攻队友破门！'},
-          {text:'试图盘带过掉对方前锋',rating:-2,scoreChance:-0.3,result:'⚽ 你被对方前锋断球打空门！致命失误！'}
+          {text:'短传给边后卫发动快速反击',rating:1.5,scoreChance:0.5,result:'⚽ 你的精准短传发动了反击！边后卫传中助攻队友破门！'},
+          {text:'试图盘带过掉对方前锋',rating:-2,scoreChance:-0.3,result:'⚽ 你被对方前锋断球打空门！致命失误！'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
         ]
       },
       {
@@ -892,16 +1184,18 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'果断出击封堵角度',rating:1.5,scoreChance:-0.2,result:'你及时出击，在对方射门前封堵了角度！射门打在你身上弹出！'},
           {text:'集中注意力等待射门',rating:0,scoreChance:-0.1,result:'对方射门角度很刁，你飞身扑出！精彩的扑救！'},
-          {text:'提前移动准备扑远角',rating:-1,scoreChance:-0.25,result:'⚽ 对方轻巧地推射近角，你被骗过了方向。'}
+          {text:'提前移动准备扑远角',rating:-1,scoreChance:-0.25,result:'⚽ 对方轻巧地推射近角，你被骗过了方向。'},
+        {text:'脚后跟巧妙一磕',rating:1.5,scoreChance:0.25,result:'脚后跟进球！后卫和门将都没想到！天才的即兴发挥!'}
         ]
       },
       // 发球反击
       {
         desc:'你扑住了对方的远射，获得球权，对方还在回防中！',
         choices:[
-          {text:'手抛球快速发动反击',rating:1.5,scoreChance:0.35,result:'⚽ 你的手抛球精准找到中场队友！队友直塞助攻前锋破门！完美的反击发起！'},
-          {text:'大脚开向前场',rating:0,scoreChance:0.15,result:'大脚开到前场，队友争到落点但没能形成射门。'},
-          {text:'控球稳一下节奏',rating:-0.5,scoreChance:0.05,result:'你放慢了节奏，对方已经回防到位，错失反击良机。'}
+          {text:'手抛球快速发动反击',rating:1.5,scoreChance:0.55,result:'⚽ 你的手抛球精准找到中场队友！队友直塞助攻前锋破门！完美的反击发起！'},
+          {text:'大脚开向前场',rating:0,scoreChance:0.08,result:'大脚开到前场，队友争到落点但没能形成射门。'},
+          {text:'控球稳一下节奏',rating:-0.5,scoreChance:0,result:'你放慢了节奏，对方已经回防到位，错失反击良机。'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
         ]
       },
       // 指挥防线
@@ -910,16 +1204,18 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'大声呼喊指挥人墙和盯人',rating:1.5,scoreChance:-0.2,result:'你的人墙站位完美！对方任意球打在人墙上弹回！你稳稳将球没收！'},
           {text:'集中注意力准备扑救',rating:0.5,scoreChance:-0.1,result:'对方任意球直奔死角！你飞身将球扑出！精彩的扑救！'},
-          {text:'没有指挥全靠队友自觉',rating:-1,scoreChance:-0.25,result:'人墙站位出现漏洞！对方任意球穿过缝隙！⚽ 球进了！你的指挥失误！'}
+          {text:'没有指挥全靠队友自觉',rating:-1,scoreChance:-0.25,result:'人墙站位出现漏洞！对方任意球穿过缝隙！⚽ 球进了！你的指挥失误！'},
+        {text:'聪明地用身体卡住身位',rating:1,scoreChance:-0.15,result:'你卡住身位让对方无法转身！球被轻松拿下!'}
         ]
       },
       // 出球选择
       {
         desc:'后卫回传给你，对方两名前锋正在向你逼近施压！',
         choices:[
-          {text:'假动作扣过上抢前锋后传球',rating:1,scoreChance:0.2,result:'你冷静地扣过了上抢的前锋！传给空当里的后卫！球迷为你的胆识欢呼！'},
+          {text:'假动作扣过上抢前锋后传球',rating:1,scoreChance:0.12,result:'你冷静地扣过了上抢的前锋！传给空当里的后卫！球迷为你的胆识欢呼！'},
           {text:'大脚解围出边线',rating:0,scoreChance:-0.05,result:'安全第一！大脚将球踢出边线，防线重新组织。'},
-          {text:'匆忙开大脚结果踢疵',rating:-1.5,scoreChance:-0.2,result:'你的大脚踢疵了！球落在对方前锋脚下！⚽ 对方直接吊射空门得分！'}
+          {text:'匆忙开大脚结果踢疵',rating:-1.5,scoreChance:-0.2,result:'你的大脚踢疵了！球落在对方前锋脚下！⚽ 对方直接吊射空门得分！'},
+        {text:'假装射门实际扣球过掉后卫',rating:1,scoreChance:0.15,result:'你巧妙扣过防守球员！射门被门将扑出！'}
         ]
       },
       // 统领后防
@@ -928,7 +1224,8 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'大声提醒队友保持阵型和距离',rating:1.5,scoreChance:-0.15,result:'你及时的提醒让防线恢复了组织！对方很难找到防线缺口！'},
           {text:'拍手鼓励队友',rating:0.5,scoreChance:-0.05,result:'队友在你的鼓励下稳定了情绪，防守更加专注。'},
-          {text:'沉默不语专注自己的扑救',rating:-1,scoreChance:-0.2,result:'防线的漏洞没有修复！对方通过精妙配合撕破防线！⚽ 球进了！'}
+          {text:'沉默不语专注自己的扑救',rating:-1,scoreChance:-0.2,result:'防线的漏洞没有修复！对方通过精妙配合撕破防线！⚽ 球进了！'},
+        {text:'提前移动预判传球路线',rating:1.5,scoreChance:-0.2,result:'你成功预判了传球路线！将球拦截下来!'}
         ]
       },
       // 出击截球
@@ -937,16 +1234,68 @@ function getEvents(pos, stageIndex) {
         choices:[
           {text:'果断冲出禁区头球解围',rating:1.5,scoreChance:-0.2,result:'你像清道夫一样冲出禁区！头球将球顶给队友！完美化解身后威胁！'},
           {text:'在禁区边缘等待判断落点',rating:0,scoreChance:-0.1,result:'对方前锋率先拿到球，好在你的封堵角度让他只能选择传中。'},
-          {text:'留在门线不出去',rating:-1.5,scoreChance:-0.3,result:'对方前锋轻松停球过掉你！⚽ 推射空门得分！你的犹豫代价惨重！'}
+          {text:'留在门线不出去',rating:-1.5,scoreChance:-0.3,result:'对方前锋轻松停球过掉你！⚽ 推射空门得分！你的犹豫代价惨重！'},
+        {text:'声东击西眼神传球',rating:0.5,scoreChance:0.1,result:'你的眼神欺骗了所有人！队友接球获得单刀！'}
         ]
       },
       // 长传助攻
       {
         desc:'对方全线压上进攻，球被你的后卫解围，你需要重新组织出球。',
         choices:[
-          {text:'观察后直接长传找前锋',rating:1.5,scoreChance:0.3,result:'⚽ 你的长传精准找到前锋！他停球后过掉门将破门！门将助攻！'},
-          {text:'短传给边后卫稳稳推进',rating:0,scoreChance:0.1,result:'边后卫带球推进，经过一系列传递后最终获得一次远射机会。'},
-          {text:'大脚开到中场争顶',rating:-0.5,scoreChance:0.05,result:'球被对方控制，你的球队又开始了新一轮的防守。'}
+          {text:'观察后直接长传找前锋',rating:1.5,scoreChance:0.5,result:'⚽ 你的长传精准找到前锋！他停球后过掉门将破门！门将助攻！'},
+          {text:'短传给边后卫稳稳推进',rating:0,scoreChance:0,result:'边后卫带球推进，经过一系列传递后最终获得一次远射机会。'},
+          {text:'大脚开到中场争顶',rating:-0.5,scoreChance:0,result:'球被对方控制，你的球队又开始了新一轮的防守。'},
+        {text:'战术犯规阻止对手',rating:-0.5,scoreChance:-0.3,result:'裁判吹罚犯规但没给牌！成功阻止了反击!'}
+        ]
+      },
+      // ⚠️ 门将受伤
+      {
+        desc:'你出击扑救时与对方前锋膝盖相撞，你痛苦地拍打地面！',
+        choices:[
+          {text:'活动一下关节坚持比赛',rating:1.5,scoreChance:-0.1,risky:true,result:'你活动了一下被撞的肩膀，咬牙继续比赛！全场球迷为你鼓掌！'},
+          {text:'示意队医进场',rating:0,scoreChance:-0.15,injury:true,result:'队医检查后摇头...你无法继续比赛，被替补门将换下。'},
+          {text:'愤怒地指责对方危险动作',rating:-1.5,scoreChance:-0.25,result:'你分心与裁判争论！对方趁机补射！⚽ 球进了！你的注意力不集中导致了丢球！'},
+        {text:'咬牙坚持绝不倒下',rating:1,scoreChance:0,risky:true,result:'你咬紧牙关！眼神中透露着坚定！队友备受鼓舞!'}
+        ]
+      },
+      // ⚠️ 门将延误时间
+      {
+        desc:'比赛进入尾声，你们一球领先。对方大举压上，你需要控制比赛节奏。',
+        choices:[
+          {text:'稳稳抱住球，稍作停顿再开出',rating:1,scoreChance:-0.1,result:'你聪明地控制了比赛节奏！消耗了宝贵的时间！'},
+          {text:'快速手抛球发动反击',rating:1.5,scoreChance:0.3,result:'⚽ 你的快速手抛球发动了反击！前场形成多打少！队友单刀破门锁定胜局！'},
+          {text:'夸张地拖延时间',rating:-1,scoreChance:-0.2,result:'🟡 裁判认为你拖延时间，出示黄牌警告！',card:'yellow'},
+        {text:'声东击西指挥队友包夹',rating:1,scoreChance:-0.15,result:'你的指挥让对手陷入包夹！成功断球!'}
+        ]
+      },
+      {
+        desc:'突发！有对方球迷用激光笔照射你的眼睛！',
+        choices:[
+          {text:'向裁判投诉并调整站位',rating:1,scoreChance:-0.1,result:'裁判警告了安保！你调整了站位后继续专注比赛!'},
+          {text:'用手遮挡光线集中注意力',rating:0.5,scoreChance:-0.05,result:'你用手遮挡了一下！没有受到太大影响！稳稳接住射门!'},
+          {text:'被激光干扰视线导致脱手',rating:-1.5,scoreChance:-0.25,result:'激光晃了你的眼！皮球从你手中滑脱！对方补射破门!'},
+          {text:'假装受伤倒地让比赛暂停处理',rating:0,scoreChance:-0.15,result:'比赛暂停！安保处理了激光笔问题，你成功阻止了对方进攻势头。'},
+        {text:'冒险造越位',rating:0.5,scoreChance:-0.2,result:'越位！对方落入陷阱！你成功指挥了防线!'}
+        ]
+      },
+      {
+        desc:'突发！后卫回传力量太小！对方前锋高速插上！',
+        choices:[
+          {text:'果断出击抢先一步将球解围',rating:1.5,scoreChance:-0.2,result:'你如离弦之箭冲出禁区！在对方触球前大脚解围!'},
+          {text:'大喊干扰对方',rating:0,scoreChance:-0.1,result:'对方前锋在你的干扰下射门偏出！虚惊一场!'},
+          {text:'犹豫不决没有出击',rating:-2,scoreChance:-0.4,result:'你犹豫了一下！对方前锋抢先捅射！球从你身边滚入球门!'},
+          {text:'故意放倒对方前锋战术犯规',rating:-1,scoreChance:-0.35,result:'你拉倒了对方前锋，吃了黄牌但避免了丢球!'},
+        {text:'急停变向晃开角度',rating:1,scoreChance:0.2,result:'你急停变向甩开防守！起脚射门势大力沉!'}
+        ]
+      },
+      {
+        desc:'突发！球门网出现破洞，比赛暂停修复！',
+        choices:[
+          {text:'帮忙一起修复球网保持节奏',rating:1,scoreChance:-0.05,result:'你帮忙拉紧球网！修复后迅速进入比赛状态!'},
+          {text:'在场边活动身体保持热度',rating:0.5,scoreChance:-0.05,result:'比赛恢复后你迅速进入状态！扑出对方一次有威胁射门!'},
+          {text:'被中断影响了状态',rating:-1,scoreChance:-0.15,result:'比赛恢复后你还没热起来！开球门球出现失误!'},
+          {text:'趁机观察对方热身时的射门习惯',rating:1,scoreChance:-0.1,result:'你观察到对方前锋的射门习惯！比赛中成功预判扑出了射门!'},
+        {text:'凶狠铲球但先碰到球',rating:1,scoreChance:-0.25,result:'精彩的铲球！干净利落将球破坏!'}
         ]
       }
     ]
@@ -960,6 +1309,8 @@ function getEvents(pos, stageIndex) {
 // ============================================================
 
 const G = {
+  playerName: '',
+  playerNumber: '10',
   position: null,
   stage: 0, // 0=U12, 1=U15, 2=U19
   match: 0, // 0,1,2 within stage
@@ -994,8 +1345,43 @@ const G = {
     goals: 0, assists: 0, shots: 0, passes: 0,
     tackles: 0, interceptions: 0, saves: 0, dribbles: 0
   },
+  matchCards: { yellow: 0, red: 0 },
+  playerCards: { yellow: 0, red: 0 },
+  hasYellow: false, // second yellow = red
+  seasonYellows: 0, // accumulated this league season
+  suspended: false, // 1-match ban
+  isInjured: false,
+  injuryCooldown: 0,
   matchTacticsBonus: 0,
+  // Opponent tier tracking for difficulty
+  opponentTier: 5,
+  matchDifficultyMod: 0,
+  // Player attributes (12 skills, 0-99)
+  attributes: {},
+  attrExp: {},
+  // League mode
+  league: null,
+  careerStage: 'youth', // 'youth'|'csl'|'europe'
+  leagueId: null,
+  _seasonOffers: null,
+  // Champions League
+  ucl: null,
 };
+
+const ATTRS = [
+  { key:'finishing', name:'射门', icon:'🎯', desc:'射门精度与终结能力' },
+  { key:'dribbling', name:'盘带', icon:'💨', desc:'控球与过人技巧' },
+  { key:'passing',  name:'传球', icon:'📊', desc:'传球准确性与视野' },
+  { key:'pace',     name:'速度', icon:'⚡', desc:'奔跑速度与爆发力' },
+  { key:'tackling', name:'抢断', icon:'🛡️', desc:'拦截与夺回球权' },
+  { key:'interception', name:'拦截', icon:'✋', desc:'预判与阻断传球' },
+  { key:'heading',  name:'头球', icon:'🦅', desc:'争顶与头球能力' },
+  { key:'handling', name:'扑救', icon:'🧤', desc:'门将扑救技术' },
+  { key:'reflexes', name:'反应', icon:'🎯', desc:'门将反应速度' },
+  { key:'rushing',  name:'出击', icon:'🏃', desc:'门将出击与封堵' },
+  { key:'stamina',  name:'体能', icon:'💪', desc:'耐力与持续作战' },
+  { key:'strength', name:'力量', icon:'🏋️', desc:'身体素质与对抗' }
+];
 
 const STAGES = [
   { id:'u12', name:'U12青训阶段', desc:'你的足球生涯从U12青训营开始。在这里，你将与来自全国各地的同龄人一起训练比赛，奠定基础。', team:'中国少年青训营' },
@@ -1097,51 +1483,15 @@ function animateBall(targetX, targetY, isGoal) {
 // ============================================================
 // TACTICS RENDERING
 // ============================================================
-function renderTactics() {
-  G.tactic = { formation: null, strategy: null };
-  const btn = document.getElementById('start-match-btn');
-  btn.style.opacity = '0.4';
-  btn.style.pointerEvents = 'none';
-
-  // Formations
-  const fContainer = document.getElementById('formation-select');
-  fContainer.innerHTML = '';
-  FORMATIONS.forEach(f => {
-    const card = document.createElement('div');
-    card.className = 'tactic-card';
-    card.innerHTML = '<div class="tactic-name">' + f.name + '</div><div class="tactic-desc">' + f.desc + '</div><div class="tactic-effect">' + f.effect + '</div>';
-    card.onclick = () => {
-      fContainer.querySelectorAll('.tactic-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      G.tactic.formation = f.id;
-      checkTacticsReady();
-    };
-    fContainer.appendChild(card);
-  });
-
-  // Strategies
-  const sContainer = document.getElementById('strategy-select');
-  sContainer.innerHTML = '';
-  STRATEGIES.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'tactic-card';
-    card.innerHTML = '<div class="tactic-name">' + s.name + '</div><div class="tactic-desc">' + s.desc + '</div><div class="tactic-effect">' + s.s + '</div>';
-    card.onclick = () => {
-      sContainer.querySelectorAll('.tactic-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      G.tactic.strategy = s.id;
-      checkTacticsReady();
-    };
-    sContainer.appendChild(card);
-  });
+function setPreMatchLogos(home, away) {
+  const hl = document.getElementById('pre-home-logo');
+  const al = document.getElementById('pre-away-logo');
+  if(hl) { const h = getTeamLogoByName(home); hl.style.backgroundImage = h !== '⚽' ? 'url('+h+')' : 'none'; hl.textContent = h === '⚽' ? '⚽' : ''; }
+  if(al) { const a = getTeamLogoByName(away); al.style.backgroundImage = a !== '⚽' ? 'url('+a+')' : 'none'; al.textContent = a === '⚽' ? '⚽' : ''; }
 }
 
-function checkTacticsReady() {
-  if(G.tactic.formation && G.tactic.strategy) {
-    const btn = document.getElementById('start-match-btn');
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-  }
+function renderTactics() {
+  G.tactic = { formation: '433', strategy: 'possession' };
 }
 
 // ============================================================
@@ -1180,6 +1530,17 @@ function showMatchStats() {
     }
   });
 
+  // Add card stats
+  if(G.matchCards.yellow > 0 || G.matchCards.red > 0) {
+    html += '<div class="stat-row" style="border-top:1px solid rgba(255,255,255,0.1);padding-top:6px;margin-top:4px;"><span><span class="stat-icon">🃏</span>犯规</span>';
+    if(G.matchCards.yellow > 0) html += '<span class="stat-value" style="color:#ffd700;">🟡' + G.matchCards.yellow + '</span>';
+    if(G.matchCards.red > 0) html += '<span class="stat-value" style="color:#e74c3c;margin-left:6px;">🔴' + G.matchCards.red + '</span>';
+    html += '</div>';
+  }
+  if(G.isInjured) {
+    html += '<div class="stat-row"><span><span class="stat-icon">🤕</span>受伤</span><span class="stat-value" style="color:#e74c3c;">本场伤退</span></div>';
+  }
+
   if(html) {
     content.innerHTML = html;
     card.style.display = 'block';
@@ -1203,6 +1564,8 @@ function showScreen(id) {
 
 function startGame() {
   G.position = null;
+  G.playerName = '';
+  G.playerNumber = '10';
   G.stage = 0;
   G.match = 0;
   G.matchRatings = [];
@@ -1212,6 +1575,49 @@ function startGame() {
   G.currentTeam = '中国少年青训营';
   G.perfectMatches = 0;
   G.endedAsStay = false;
+  G.attributes = {};
+  G.attrExp = {};
+  G.league = null;
+  G.careerStage = 'youth';
+  G.leagueId = null;
+  G._seasonOffers = null;
+  G.ucl = null;
+  G.matchCards = { yellow: 0, red: 0 };
+  G.playerCards = { yellow: 0, red: 0 };
+  G.hasYellow = false;
+  G.seasonYellows = 0;
+  G.suspended = false;
+  G.isInjured = false;
+  G.injuryCooldown = 0;
+  G.seasonEnded = false;
+  G.seasonEndedRound = 0;
+  G.tactic = { formation: '433', strategy: 'possession' };
+
+  // Populate number dropdown (1-99)
+  const sel = document.getElementById('player-number-select');
+  sel.innerHTML = '';
+  for(let i = 1; i <= 99; i++) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = i;
+    if(i === 10) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  // Clear name input
+  document.getElementById('player-name-input').value = '';
+
+  showScreen('register-screen');
+}
+
+function confirmPlayerInfo() {
+  const name = document.getElementById('player-name-input').value.trim();
+  if(!name) {
+    document.getElementById('player-name-input').style.borderColor = '#e74c3c';
+    document.getElementById('player-name-input').placeholder = '请输入你的名字！';
+    return;
+  }
+  G.playerName = name;
+  G.playerNumber = document.getElementById('player-number-select').value;
   showScreen('position-screen');
   document.querySelectorAll('.pos-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('confirm-pos-btn').style.opacity='0.4';
@@ -1226,18 +1632,42 @@ function selectPosition(pos) {
   document.getElementById('confirm-pos-btn').style.pointerEvents='auto';
 }
 
+function initAttributes() {
+  const a = {};
+  const pos = G.position;
+  ATTRS.forEach(attr => {
+    // Wide random range: 20-80, big variance makes each career unique
+    const base = Math.floor(Math.random() * 61) + 20;
+    // Position core attributes get a bonus
+    let bonus = 0;
+    if(pos === 'forward' && ['finishing','dribbling','pace'].includes(attr.key)) bonus = 10;
+    if(pos === 'midfielder' && ['passing','interception','stamina'].includes(attr.key)) bonus = 10;
+    if(pos === 'defender' && ['tackling','heading','strength'].includes(attr.key)) bonus = 10;
+    if(pos === 'goalkeeper' && ['handling','reflexes','rushing'].includes(attr.key)) bonus = 10;
+    a[attr.key] = Math.min(99, Math.max(1, base + bonus));
+  });
+  G.attributes = a;
+  G.attrExp = {};
+  ATTRS.forEach(attr => { G.attrExp[attr.key] = 0; });
+}
+
 function confirmPosition() {
   if(!G.position) return;
+  initAttributes();
   showStageIntro();
 }
 
 function showStageIntro() {
+  G.seasonEnded = false;
   const s = STAGES[G.stage];
   document.getElementById('stage-player-name').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
-  document.getElementById('stage-current-team').textContent = '🏠 ' + G.currentTeam;
+  const teamLogo = getTeamLogoByName(G.currentTeam);
+  const logoHtml = teamLogo !== '⚽' ? '<div class="team-logo" style="background-image:url('+teamLogo+');background-size:contain;background-position:center;background-repeat:no-repeat;width:24px;height:24px;border-radius:4px;flex-shrink:0;font-size:0;"></div>' : '<span>🏠</span>';
+  document.getElementById('stage-current-team').innerHTML = logoHtml + ' ' + G.currentTeam;
   document.getElementById('stage-title').textContent = '第' + (G.stage+1) + '阶段：' + s.name;
   document.getElementById('stage-subtitle').textContent = '3场比赛决定你的未来';
   document.getElementById('stage-description').textContent = s.desc + '\n\n你现在效力于：' + G.currentTeam;
+  renderAttrPanel('stage-attr-container', false);
   showScreen('stage-intro-screen');
 }
 
@@ -1250,14 +1680,17 @@ function startNextMatch() {
   G.halftimeChosen = false;
   G.events = [];
 
-  // Set opponent
+  // Set opponent — random from pool, strength based on label
   const stageKey = STAGES[G.stage].id;
   const pool = YOUTH_TEAMS[stageKey];
-  G.opponent = pool[G.match % pool.length];
+  G.opponent = pool[Math.floor(Math.random() * pool.length)];
+  // 校园足球 = weak (tier 2), 国内梯队 = medium (tier 4), foreign youth = hard (tier 5)
+  const tierMap = { '校园足球': 2, '国内梯队': 4 };
+  G.opponentTier = tierMap[G.opponent.l] || 5;
 
   // Load events
   const allEvents = getEvents(G.position, G.stage);
-  G.events = [...allEvents].sort(()=>Math.random()-0.5).slice(0, 5);
+  G.events = [...allEvents].sort(()=>Math.random()-0.5).slice(0, 6);
   G.eventIndex = 0;
 
   showMatchPre();
@@ -1269,7 +1702,11 @@ function showMatchPre() {
   document.getElementById('match-pre-stage').textContent = s.name;
   document.getElementById('match-number-label').textContent = '第 ' + (G.match+1) + ' / 3 场比赛';
   document.getElementById('pre-home-name').textContent = G.currentTeam;
+  document.getElementById('pre-home-tier').textContent = getTeamTierLabel(G.currentTeam);
   document.getElementById('pre-away-name').textContent = G.opponent.n;
+  const tierEmoji = G.opponentTier >= 5 ? '🔴' : G.opponentTier >= 4 ? '⚪' : '🟢';
+  document.getElementById('pre-away-tier').textContent = G.opponent.l ? tierEmoji + G.opponent.l : getTeamTierLabel(G.opponent.n);
+  setPreMatchLogos(G.currentTeam, G.opponent.n);
   renderTactics();
   showScreen('match-pre-screen');
 }
@@ -1278,12 +1715,27 @@ function startMatch() {
   G.score = {home:0, away:0};
   G.currentRatingMod = 0;
   G.currentMatchEvents = 0;
+  G._attrChanges = [];
+  G.matchCards = { yellow: 0, red: 0 };
+  G.hasYellow = false;
+  G.isInjured = false;
+  G.injuryCooldown = Math.max(0, (G.injuryCooldown || 0) - 1);
   // Reset match stats
   G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
   // Calculate tactic bonuses
   const f = FORMATIONS.find(f => f.id === G.tactic.formation);
   const s = STRATEGIES.find(s => s.id === G.tactic.strategy);
   G.matchTacticsBonus = (f ? f.atkBonus : 0) + (s ? (s.mods.atk ? s.mods.atk - 1 : 0) : 0);
+  // Calculate tier-based difficulty modifier
+  G.matchDifficultyMod = getMatchTierMod();
+  // Set difficulty badge
+  const diff = G.matchDifficultyMod || 0;
+  const db = document.getElementById('match-difficulty-badge');
+  if(db) {
+    if(diff < -0.05) db.textContent = '🔴强敌';
+    else if(diff > 0.05) db.textContent = '🟢弱旅';
+    else db.textContent = '⚪同级';
+  }
   showMatchEvent();
 }
 
@@ -1306,6 +1758,15 @@ function showMatchEvent() {
   document.getElementById('match-player-pos').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
   document.getElementById('match-score-label').textContent = G.score.home + ' : ' + G.score.away;
   document.getElementById('match-teams-label').textContent = G.currentTeam + ' vs ' + G.opponent.n;
+
+  // Update card/injury badges
+  let badges = '';
+  if(G.matchCards.yellow > 0) badges += '<span style="color:#ffd700;">🟡' + G.matchCards.yellow + '</span>';
+  if(G.matchCards.red > 0) badges += '<span style="color:#e74c3c;">🔴' + G.matchCards.red + '</span>';
+  if(G.hasYellow) badges += '<span style="color:#ffa500;font-size:11px;">身背黄牌⚠️</span>';
+  if(G.isInjured) badges += '<span style="color:#e74c3c;">🤕</span>';
+  else if(G.injuryCooldown > 0) badges += '<span style="color:#e67e22;">🤕</span>';
+  document.getElementById('match-status-badges').innerHTML = badges;
   document.getElementById('event-minute').textContent = (15 + G.eventIndex * 15) + "'";
   document.getElementById('event-description').textContent = evt.desc;
 
@@ -1321,7 +1782,7 @@ function showMatchEvent() {
   evt.choices.forEach((c, i) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
-    btn.textContent = ['A','B','C'][i] + '. ' + c.text;
+    btn.textContent = ['A','B','C','D'][i] + '. ' + c.text;
     btn.onclick = () => makeChoice(i);
     container.appendChild(btn);
   });
@@ -1339,41 +1800,55 @@ function makeChoice(index) {
   // Disable all buttons
   document.querySelectorAll('.choice-btn').forEach(b=>b.style.pointerEvents='none');
 
-  // Determine if goal happens, with tactic bonus
+  // Determine outcomes with tactic + attribute + tier difficulty bonus
   const tacticAtkBonus = G.matchTacticsBonus || 0;
-  const adjustedChance = choice.scoreChance * (choice.scoreChance > 0 ? (1 + tacticAtkBonus) : 1);
+  const attrBonus = getAttrBonus(choice);
+  const tierMod = G.matchDifficultyMod || 0;
+  const adjustedChance = choice.scoreChance > 0 ? choice.scoreChance * (1 + tacticAtkBonus) * (1 + attrBonus) * (1 + tierMod) : choice.scoreChance;
   const rand = Math.random();
   const goalScored = rand < adjustedChance;
-  let conceded = false;
+  let conceded = false, missed = false, danger = false;
 
   if(goalScored) {
+    // ⚽ GOAL!
     G.score.home++;
     G.currentRatingMod += choice.rating + 1 + tacticAtkBonus;
     G.matchStats.goals++;
     G.matchStats.shots++;
-    // Ball animation toward goal
     animateBall(50 + (Math.random()*20-10), 8, true);
-  } else {
-    if(choice.scoreChance < -0.1) {
-      const concedeChance = Math.abs(choice.scoreChance);
-      if(Math.random() < concedeChance * 0.5) {
-        G.score.away++;
-        G.currentRatingMod += choice.rating - 1;
-        conceded = true;
-        animateBall(50 + (Math.random()*20-10), 92, false);
-      } else {
-        G.currentRatingMod += choice.rating;
-        // Defensive action succeeded
-        G.matchStats.tackles += choice.scoreChance < -0.1 ? 1 : 0;
-        animateBall(40 + Math.random()*20, 40 + Math.random()*20, false);
-      }
+  } else if(choice.scoreChance > 0) {
+    // ❌ Shot attempted but missed/saved
+    G.matchStats.shots++;
+    G.currentRatingMod += choice.rating;
+    missed = true;
+    animateBall(30 + Math.random()*40, 12 + Math.random()*15, false);
+  } else if(choice.scoreChance < -0.1) {
+    // 🛡️ Defensive action - three tiers (tier mod increases risk vs stronger opponents)
+    const risk = Math.abs(choice.scoreChance) * (1 - (G.matchDifficultyMod || 0));
+    const roll = Math.random();
+    if(roll < risk * 0.5) {
+      // 😱 Concede
+      G.score.away++;
+      G.currentRatingMod += choice.rating - 1;
+      conceded = true;
+      animateBall(50 + (Math.random()*20-10), 92, false);
+    } else if(roll < risk * 0.8) {
+      // 😰 Defensive lapse - opponent creates danger
+      G.currentRatingMod += choice.rating - 0.5;
+      danger = true;
+      animateBall(35 + Math.random()*30, 80 + Math.random()*10, false);
     } else {
+      // 👍 Defensive success
       G.currentRatingMod += choice.rating;
-      // Neutral play - pass/dribble
-      G.matchStats.passes += choice.rating > 0 ? 1 : 0;
-      G.matchStats.dribbles += choice.rating > 0 && G.position === 'forward' ? 1 : 0;
-      animateBall(30 + Math.random()*40, 30 + Math.random()*40, false);
+      G.matchStats.tackles++;
+      animateBall(40 + Math.random()*20, 40 + Math.random()*20, false);
     }
+  } else {
+    // Neutral play - pass/dribble
+    G.currentRatingMod += choice.rating;
+    G.matchStats.passes += choice.rating > 0 ? 1 : 0;
+    G.matchStats.dribbles += choice.rating > 0 && G.position === 'forward' ? 1 : 0;
+    animateBall(30 + Math.random()*40, 30 + Math.random()*40, false);
   }
 
   // Track position-specific stats
@@ -1387,31 +1862,105 @@ function makeChoice(index) {
 
   G.currentMatchEvents++;
 
-  // Show outcome
+  // 🟡🔴 Card handling
+  let cardShown = null;
+  if(choice.card === 'yellow') {
+    if(G.hasYellow) {
+      // Second yellow = red!
+      cardShown = '🔴';
+      G.matchCards.red++;
+      G.playerCards.red++;
+      G.currentRatingMod -= 2;
+      G.currentOutcome = true; // prevent further choices
+    } else {
+      cardShown = '🟡';
+      G.matchCards.yellow++;
+      G.playerCards.yellow++;
+      G.seasonYellows++;
+      G.hasYellow = true;
+      G.currentRatingMod -= 0.5;
+    }
+  } else if(choice.card === 'red') {
+    cardShown = '🔴';
+    G.matchCards.red++;
+    G.playerCards.red++;
+    G.currentRatingMod -= 2;
+    G.currentOutcome = true; // prevent further choices
+  }
+
+  // 🤕 Injury handling
+  if(choice.injury) {
+    G.isInjured = true;
+    G.injuryCooldown = 2; // miss rest of match + 1 more
+  }
+
+  // ⚠️ Season-ending injury risk (from 坚持比赛 choices)
+  if(choice.risky && !G.seasonEnded && Math.random() < 0.25) {
+    G.seasonEnded = true;
+    G.seasonEndedRound = G.league ? G.league.currentRound : -1;
+    G.isInjured = true;
+    G.injuryCooldown = 99;
+    G.currentRatingMod -= 3;
+    G.currentOutcome = true;
+  }
+
+  // Show outcome with appropriate icon
   const container = document.getElementById('outcome-container');
   container.style.display = 'block';
   container.innerHTML = '';
   const box = document.createElement('div');
-  const isPositive = choice.rating >= 1;
-  const isNegative = choice.rating < -0.5;
-  box.className = 'outcome-box ' + (isPositive ? 'outcome-positive' : isNegative ? 'outcome-negative' : 'outcome-neutral');
-  box.innerHTML = '<div class="outcome-icon">' + (goalScored ? '⚽' : isPositive ? '👍' : isNegative ? '😟' : '🤷') +
-    '</div><div class="outcome-text">' + choice.result + '</div>';
+  let icon, outcomeClass;
+  if(cardShown === '🔴')    { icon = '🔴'; outcomeClass = 'outcome-negative'; }
+  else if(goalScored)      { icon = '⚽'; outcomeClass = 'outcome-positive'; }
+  else if(conceded)   { icon = '😱'; outcomeClass = 'outcome-negative'; }
+  else if(danger)     { icon = '😰'; outcomeClass = 'outcome-negative'; }
+  else if(missed)     { icon = '❌'; outcomeClass = 'outcome-neutral'; }
+  else if(choice.rating >= 1) { icon = '👍'; outcomeClass = 'outcome-positive'; }
+  else if(choice.rating < -0.5) { icon = '😟'; outcomeClass = 'outcome-negative'; }
+  else                { icon = '🤷'; outcomeClass = 'outcome-neutral'; }
+
+  // Build result text with card/injury badges
+  let extraBadge = '';
+  const isSecondYellow = G.matchCards.red > 0 && choice.card === 'yellow';
+  if(cardShown === '🔴') extraBadge += '<span style="display:inline-block;padding:2px 10px;border-radius:4px;background:rgba(231,76,60,0.2);color:#e74c3c;font-weight:700;font-size:13px;margin-top:6px;">🔴 ' + (isSecondYellow ? '两黄变一红！罚出场外！' : '红牌！罚出场外！') + '</span>';
+  else if(cardShown === '🟡') extraBadge += '<span style="display:inline-block;padding:2px 10px;border-radius:4px;background:rgba(255,215,0,0.15);color:#ffd700;font-weight:700;font-size:13px;margin-top:6px;">🟡 黄牌警告</span>';
+  if(choice.injury) extraBadge += '<span style="display:inline-block;padding:2px 10px;border-radius:4px;background:rgba(231,76,60,0.2);color:#e74c3c;font-weight:700;font-size:13px;margin-top:4px;">🤕 受伤离场</span>';
+  if(G.seasonEnded) extraBadge += '<span style="display:inline-block;padding:3px 12px;border-radius:4px;background:rgba(231,76,60,0.3);color:#ff4444;font-weight:700;font-size:14px;margin-top:6px;border:1px solid #ff4444;">💔 赛季报销！</span>';
+
+  box.className = 'outcome-box ' + outcomeClass;
+  box.innerHTML = '<div class="outcome-icon">' + icon +
+    '</div><div class="outcome-text">' + choice.result + '</div>' +
+    (extraBadge ? '<div style="text-align:center;margin-top:8px;">' + extraBadge + '</div>' : '');
   container.appendChild(box);
 
   // Update score display
   document.getElementById('match-score-label').textContent = G.score.home + ' : ' + G.score.away;
 
-  // Next event button
+  // Next event button — injury or red card ends the match
   setTimeout(() => {
     const nextBtn = document.createElement('button');
     nextBtn.className = 'btn btn-primary';
-    nextBtn.textContent = '继续比赛 →';
-    nextBtn.onclick = () => {
-      G.eventIndex++;
-      G.currentOutcome = null;
-      showMatchEvent();
-    };
+    const isRed = cardShown === '🔴';
+    if(choice.injury) {
+      nextBtn.textContent = '🤕 受伤离场';
+      nextBtn.onclick = showMatchResult;
+    } else if(G.seasonEnded) {
+      nextBtn.textContent = '💔 赛季报销';
+      nextBtn.onclick = showMatchResult;
+    } else if(isRed) {
+      nextBtn.textContent = '🔴 罚出场外';
+      nextBtn.onclick = showMatchResult;
+    } else {
+      // Check if yellow card warning should be shown
+      let btnText = '继续比赛 →';
+      if(G.hasYellow) btnText = '🟡 继续比赛 (身背黄牌)';
+      nextBtn.textContent = btnText;
+      nextBtn.onclick = () => {
+        G.eventIndex++;
+        G.currentOutcome = null;
+        showMatchEvent();
+      };
+    }
     container.appendChild(nextBtn);
   }, 600);
 }
@@ -1484,8 +2033,22 @@ function showMatchResult() {
   if(G.matchStats.goals > 0 && G.matchStats.goals >= 2) G.playerStats.motmCount++;
   if(G.score.away === 0 && (G.position === 'defender' || G.position === 'goalkeeper')) G.playerStats.cleanSheets++;
 
+  // Red card → suspension for next league match
+  if(G.matchCards.red > 0) {
+    G.suspended = true;
+  }
+  // Accumulated 3 season yellows → suspension
+  if(G.seasonYellows >= 3 && !G.suspended) {
+    G.suspended = true;
+    G.seasonYellows = 0;
+  }
+
+  // Attribute growth based on match stats
+  applyAttributeGrowth();
+
   // Show match stats
   showMatchStats();
+  renderAttrPanel('result-attr-container', true);
 
   document.getElementById('result-title').textContent = win ? '🎉 比赛胜利！' : draw ? '🤝 平局' : '😔 比赛失利';
   document.getElementById('result-score').textContent = G.score.home + ' : ' + G.score.away;
@@ -1520,21 +2083,53 @@ function showMatchResult() {
 
   const nextContainer = document.getElementById('result-next-container');
   nextContainer.innerHTML = '';
-  const matchesInStage = G.matchRatings.length % 3;
 
-  if(matchesInStage === 0 && G.matchRatings.length > 0) {
-    // Stage complete (3 matches played)
+  if(G.ucl && G.ucl.userAlive) {
+    // UCL match end
+    onUCLMatchEnd();
+    renderAttrPanel('result-attr-container', true);
+
     const btn = document.createElement('button');
     btn.className = 'btn btn-primary';
-    btn.textContent = '📊 查看阶段总结';
-    btn.onclick = showStageSummary;
+    btn.textContent = '📊 查看欧冠晋级图';
+    btn.onclick = showUCLBracket;
+    nextContainer.appendChild(btn);
+  } else if(G.league) {
+    // League mode - update table and go back to standings
+    onLeagueMatchEnd();
+    renderAttrPanel('result-attr-container', true);
+
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = G.league.seasonOver ? '🏁 查看赛季总结' : '📊 查看联赛积分榜';
+    btn.onclick = G.league.seasonOver ? showLeagueEnd : showLeagueTable;
     nextContainer.appendChild(btn);
   } else {
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-primary';
-    btn.textContent = '⚽ 下一场比赛';
-    btn.onclick = startNextMatch;
-    nextContainer.appendChild(btn);
+    // Youth career mode
+    if(G.seasonEnded) {
+      // Season-ending injury — skip remaining matches
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-primary';
+      btn.textContent = '💔 赛季报销，查看阶段总结';
+      btn.onclick = showStageSummary;
+      nextContainer.appendChild(btn);
+    } else {
+      const matchesInStage = G.matchRatings.length % 3;
+
+      if(matchesInStage === 0 && G.matchRatings.length > 0) {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-primary';
+        btn.textContent = '📊 查看阶段总结';
+        btn.onclick = showStageSummary;
+        nextContainer.appendChild(btn);
+      } else {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-primary';
+        btn.textContent = '⚽ 下一场比赛';
+        btn.onclick = startNextMatch;
+        nextContainer.appendChild(btn);
+      }
+    }
   }
 
   showScreen('match-result-screen');
@@ -1616,6 +2211,14 @@ function getTeamLogo(team) {
   return 'images/teams/' + team.en + '.svg';
 }
 
+function getTeamLogoByName(teamName) {
+  for(const key of Object.keys(LEAGUES)) {
+    const t = LEAGUES[key].teams.find(t => t.n === teamName);
+    if(t && t.en) return 'images/teams/' + t.en + '.svg';
+  }
+  return '⚽';
+}
+
 function showTransferMarket() {
   const stageAvg = G.stageRatings[G.stage];
   document.getElementById('transfer-rating').textContent = stageAvg.toFixed(1);
@@ -1661,86 +2264,81 @@ function generateOffers(rating, stage) {
     team: stayName,
     league: stage === 2 ? '🏁 结束青训生涯' : '📋 继续留队',
     leagueColor: '#8a9a8a',
-    desc: stayDesc,
+    desc: G.seasonEnded ? '因赛季报销，只能留队康复' : stayDesc,
     chance: '',
     isStay: true,
     logo: ''
   });
 
-  // Determine number of offers based on rating
-  // rating 1-10, higher = more offers and better teams
-  let offerCount, tierMin, tierMax;
+  // Season-ending injury: only 留队 is available
+  if(G.seasonEnded) return basePool;
 
-  if(stage === 0) { // After U12
-    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=1; }
-    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=1; }
-    else if(rating < 7)   { offerCount=3; tierMin=1; tierMax=2; }
-    else if(rating < 8.5) { offerCount=4; tierMin=2; tierMax=3; }
-    else                  { offerCount=5; tierMin=2; tierMax=4; }
-  } else if(stage === 1) { // After U15
-    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=2; }
-    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=2; }
-    else if(rating < 7)   { offerCount=3; tierMin=2; tierMax=3; }
-    else if(rating < 8.5) { offerCount=4; tierMin=3; tierMax=5; }
-    else                  { offerCount=5; tierMin=4; tierMax=6; }
-  } else { // After U19 - final career decision
-    if(rating < 4)     { offerCount=1; tierMin=1; tierMax=1; }
-    else if(rating < 5.5) { offerCount=2; tierMin=1; tierMax=2; }
-    else if(rating < 7)   { offerCount=3; tierMin=2; tierMax=4; }
-    else if(rating < 8.5) { offerCount=4; tierMin=3; tierMax=6; }
-    else                  { offerCount=5; tierMin=5; tierMax=8; }
-  }
+  if(stage < 2) {
+    // U12: only 中甲; U15: 中甲 + 中超
+    let pool;
+    if(stage === 0) {
+      pool = [...LEAGUES.jia.teams];
+    } else {
+      pool = [...LEAGUES.jia.teams, ...LEAGUES.csl.teams];
+    }
+    const count = rating < 5 ? 2 : rating < 7 ? 3 : rating < 8.5 ? 4 : 5;
+    pool.sort(() => Math.random() - 0.5);
+    const selected = pool.slice(0, count);
+    const roles = ['青年队试训', '青年队签约', '预备队机会', '一线队机会'];
 
-  // Collect eligible teams
-  const pool = [];
-  for(let lvl = tierMin; lvl <= tierMax; lvl++) {
-    const key = 'l' + lvl;
-    if(TEAMS[key]) {
-      TEAMS[key].forEach(t => {
-        const exist = pool.some(p => p.n === t.n);
-        if(!exist) pool.push(t);
+    selected.forEach((t, i) => {
+      const leagueData = t.l === '中甲' ? LEAGUES.jia : LEAGUES.csl;
+      basePool.push({
+        team: t.n, en: t.en || '',
+        league: leagueData.name,
+        leagueColor: leagueData.color,
+        desc: roles[Math.min(i, roles.length - 1)],
+        chance: (60 + Math.floor(Math.random() * 30) + '%'),
+        isStay: false,
+        logo: 'images/teams/' + (t.en || '') + '.svg'
       });
-    }
-  }
-
-  // Shuffle and pick
-  pool.sort(() => Math.random() - 0.5);
-  const selected = pool.slice(0, offerCount);
-  const leagueMap = {
-    1:'中甲',2:'中超',3:'中超中上游',4:'中超顶级',
-    5:'五大联赛中游',6:'五大联赛劲旅',7:'五大联赛顶级',8:'世界豪门'
-  };
-  const leagueColorMap = {
-    1:'#8a9a8a',2:'#95a5a6',3:'#2ecc71',4:'#f39c12',
-    5:'#6c5ce7',6:'#e17055',7:'#d63031',8:'#ffd700'
-  };
-
-  // For U19 final stage, add role description
-  const roleDesc = stage === 2
-    ? ['替补合同', '轮换球员', '主力球员', '核心球员', '球队领袖']
-    : ['青年队试训', '青年队签约', '预备队机会', '一线队机会'];
-
-  selected.forEach((t, i) => {
-    let tLevel = tierMin;
-    for(let lvl = tierMin; lvl <= tierMax; lvl++) {
-      if(TEAMS['l'+lvl] && TEAMS['l'+lvl].some(x => x.n === t.n)) {
-        tLevel = lvl; break;
-      }
-    }
-    const roleIdx = Math.min(i, roleDesc.length-1);
-    basePool.push({
-      team: t.n,
-      en: t.en || '',
-      league: leagueMap[tLevel] || t.l,
-      leagueColor: leagueColorMap[tLevel] || '#8a9a8a',
-      desc: stage === 2 ? roleDesc[roleIdx] : roleDesc[roleIdx],
-      chance: stage === 2 ? '' : (60 + Math.floor(Math.random() * 30) + '%'),
-      isStay: false,
-      logo: 'images/teams/' + (t.en || '') + '.svg'
     });
-  });
-
+  } else {
+    // Stage 2 (U19 -> pro): ONLY 中甲 + 中超, NO direct Europe
+    const jiaTeams = [...LEAGUES.jia.teams];
+    const cslTeams = [...LEAGUES.csl.teams];
+    let selected = [];
+    if(rating < 5) {
+      jiaTeams.sort(() => Math.random() - 0.5);
+      selected = jiaTeams.slice(0, 3).map(t => ({ ...t, leagueId: 'jia' }));
+    } else if(rating < 6.5) {
+      jiaTeams.sort(() => Math.random() - 0.5);
+      cslTeams.sort(() => Math.random() - 0.5);
+      selected = [...jiaTeams.slice(0, 1), ...cslTeams.slice(0, 2)].map(t => ({ ...t, leagueId: t.l === '中甲' ? 'jia' : 'csl' }));
+    } else if(rating < 8) {
+      cslTeams.sort(() => Math.random() - 0.5);
+      selected = cslTeams.slice(0, 3).map(t => ({ ...t, leagueId: 'csl' }));
+    } else {
+      cslTeams.sort(() => Math.random() - 0.5);
+      selected = cslTeams.slice(0, 4).map(t => ({ ...t, leagueId: 'csl' }));
+    }
+    const roles = ['替补合同', '轮换球员', '主力球员', '核心球员', '球队领袖'];
+    selected.forEach((t, i) => {
+      const leagueData = LEAGUES[t.leagueId || 'csl'];
+      basePool.push({
+        team: t.n, en: t.en || '',
+        league: leagueData.name,
+        leagueColor: leagueData.color,
+        desc: roles[Math.min(i, roles.length - 1)],
+        chance: '',
+        isStay: false,
+        logo: 'images/teams/' + (t.en || '') + '.svg'
+      });
+    });
+  }
   return basePool;
+}
+
+function findTeamLeague(teamName) {
+  for(const key of Object.keys(LEAGUES)) {
+    if(LEAGUES[key].teams.some(t => t.n === teamName)) return key;
+  }
+  return 'csl';
 }
 
 function acceptTransfer(index) {
@@ -1762,6 +2360,7 @@ function acceptTransfer(index) {
       return;
     }
     showNotification('📋 你选择留在 ' + teamName + ' 继续训练！');
+    G.currentTeam = teamName;
     G.stage++;
     G.teamHistory.push(teamName);
     if(G.stage >= 3) {
@@ -1779,19 +2378,207 @@ function acceptTransfer(index) {
 
   G.stage++;
   if(G.stage >= 3) {
-    showFinalResult();
+    // Enter league mode after pro signing
+    const targetLeague = findTeamLeague(teamName);
+    G.careerStage = LEAGUES[targetLeague].canUCL ? 'europe' : 'csl';
+    initLeague(targetLeague);
   } else {
     showStageIntro();
   }
 }
 
-function showFinalResult() {
-  // Calculate career avg
-  const total = G.matchRatings.reduce((a,b)=>a+b, 0);
-  const avg = Math.round(total / G.matchRatings.length * 10) / 10;
-  const best = Math.round(Math.max(...G.matchRatings) * 10) / 10;
+// ============================================================
+// SEASON-END TRANSFER SYSTEM
+// ============================================================
 
-  // Determine final team based on weighted ratings
+function generateSeasonOffers(rating, leagueId) {
+  const offers = [];
+  const isChina = !leagueId || !LEAGUES[leagueId] || !LEAGUES[leagueId].canUCL;
+
+  // Always include "留队" option
+  offers.push({
+    team: G.currentTeam,
+    league: '📋 留队',
+    leagueColor: '#8a9a8a',
+    desc: '继续为当前球队效力',
+    chance: '',
+    isStay: true,
+    logo: getTeamLogoByName(G.currentTeam)
+  });
+
+  if(isChina) {
+    const jiaTeams = [...LEAGUES.jia.teams];
+    const cslTeams = [...LEAGUES.csl.teams];
+    let pool = [];
+
+    if(rating < 6) {
+      jiaTeams.sort(() => Math.random() - 0.5);
+      pool = jiaTeams.slice(0, 2).map(t => ({ ...t, from: 'jia' }));
+    } else if(rating < 7.5) {
+      cslTeams.sort(() => Math.random() - 0.5);
+      pool = cslTeams.slice(0, 3).filter(t => t.n !== G.currentTeam).map(t => ({ ...t, from: 'csl' }));
+    } else {
+      // High rating: CSL + EUROPE offers appear!
+      cslTeams.sort(() => Math.random() - 0.5);
+      pool = cslTeams.slice(0, 2).filter(t => t.n !== G.currentTeam).map(t => ({ ...t, from: 'csl' }));
+      // Add European teams
+      const euroIds = ['epl','laliga','bundesliga','seriea','ligue1'];
+      euroIds.sort(() => Math.random() - 0.5);
+      euroIds.slice(0, 2).forEach(lid => {
+        const l = LEAGUES[lid];
+        const t = l.teams[Math.floor(Math.random() * l.teams.length)];
+        pool.push({ ...t, from: lid });
+      });
+    }
+
+    pool.forEach(t => {
+      const lData = LEAGUES[t.from] || LEAGUES.csl;
+      offers.push({
+        team: t.n, en: t.en || '',
+        league: lData.name,
+        leagueColor: lData.color,
+        desc: lData.canUCL ? '⚽ 进军欧洲！' : (t.from === 'csl' ? '中超球队' : '中甲球队'),
+        chance: '',
+        isStay: false,
+        logo: 'images/teams/' + (t.en || '') + '.svg'
+      });
+    });
+
+    if(rating >= 6 && rating < 7.5) {
+      offers.push({
+        team: '⭐ 欧洲梦想',
+        league: '💭 需要更高评分',
+        leagueColor: '#ffd700',
+        desc: '评分 7.5+ 才能吸引欧洲球队关注！',
+        chance: '',
+        isStay: false,
+        isDisabled: true,
+        logo: ''
+      });
+    }
+  } else {
+    // Already in Europe - intra-European transfers
+    const euroIds = ['epl','laliga','bundesliga','seriea','ligue1'];
+    let pool = [];
+    euroIds.forEach(lid => {
+      if(rating >= 8 || (lid !== leagueId && rating >= 6.5)) {
+        LEAGUES[lid].teams.forEach(t => {
+          if(t.n !== G.currentTeam) pool.push({ ...t, from: lid });
+        });
+      }
+    });
+    pool.sort(() => Math.random() - 0.5);
+    const count = rating < 6.5 ? 1 : rating < 8 ? 2 : 3;
+    pool.slice(0, count).forEach(t => {
+      const lData = LEAGUES[t.from];
+      offers.push({
+        team: t.n, en: t.en || '',
+        league: lData.name,
+        leagueColor: lData.color,
+        desc: lData.tier >= 6 ? '顶级联赛' : '欧洲联赛',
+        chance: '',
+        isStay: false,
+        logo: 'images/teams/' + (t.en || '') + '.svg'
+      });
+    });
+  }
+  return offers;
+}
+
+function showSeasonTransferMarket() {
+  const seasonRating = G.matchRatings.length > 0
+    ? Math.round(G.matchRatings.reduce((a,b)=>a+b,0) / G.matchRatings.length * 10) / 10
+    : 0;
+
+  document.getElementById('transfer-rating').textContent = seasonRating.toFixed(1);
+  document.getElementById('transfer-subtitle').textContent = '赛季结束，你的表现吸引了新的关注！';
+
+  const offers = generateSeasonOffers(seasonRating, G.leagueId);
+  G._seasonOffers = offers;
+  const list = document.getElementById('transfer-list');
+  list.innerHTML = '';
+
+  offers.forEach((offer, idx) => {
+    const div = document.createElement('div');
+    div.className = 'transfer-item';
+    if(offer.isDisabled) {
+      div.style.opacity = '0.5';
+      div.style.cursor = 'default';
+      div.style.borderStyle = 'dashed';
+    }
+    const leagueColor = offer.leagueColor || '#8a9a8a';
+    const logoHtml = offer.isStay
+      ? (offer.logo && offer.logo !== '⚽'
+        ? '<div class="team-logo" style="background-image:url(' + offer.logo + ');background-size:contain;background-position:center;background-repeat:no-repeat;width:40px;height:40px;border-radius:8px;flex-shrink:0;font-size:0;" onerror="this.style.fontSize=\'24px\';this.style.backgroundImage=\'none\';this.textContent=\'📋\'"></div>'
+        : '<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">📋</div>')
+      : '<div class="team-logo" style="background-image:url(' + offer.logo + ');background-size:contain;background-position:center;background-repeat:no-repeat;width:40px;height:40px;border-radius:8px;flex-shrink:0;font-size:0;" onerror="this.style.fontSize=\'24px\';this.style.backgroundImage=\'none\';this.textContent=\'⚽\'"></div>';
+
+    div.innerHTML = '<div style="display:flex;align-items:center;gap:12px;">' + logoHtml +
+      '<div style="flex:1;"><div class="league-tag" style="background:' + leagueColor + '20;color:' + leagueColor + ';border:1px solid ' + leagueColor + '40;">' +
+      offer.league + '</div><div class="team-name">' + offer.team + '</div>' +
+      '<div class="team-info">' + (offer.desc || '') + '</div></div></div>';
+    if(!offer.isDisabled) {
+      div.onclick = () => acceptSeasonTransfer(idx);
+    }
+    list.appendChild(div);
+  });
+
+  showScreen('transfer-screen');
+}
+
+function acceptSeasonTransfer(index) {
+  const offers = G._seasonOffers;
+  if(!offers || !offers[index]) return;
+  const offer = offers[index];
+
+  if(offer.isStay) {
+    showNotification('📋 你选择留在 ' + G.currentTeam + '！');
+    G._seasonOffers = null;
+    startNewSeason();
+    return;
+  }
+
+  // Find target league
+  let targetLeague = null;
+  for(const key of Object.keys(LEAGUES)) {
+    if(LEAGUES[key].teams.some(t => t.n === offer.team)) {
+      targetLeague = key; break;
+    }
+  }
+  if(!targetLeague) { startNewSeason(); return; }
+
+  G.currentTeam = offer.team;
+  G.teamHistory.push(offer.team);
+  G.careerStage = LEAGUES[targetLeague].canUCL ? 'europe' : 'csl';
+  G._seasonOffers = null;
+
+  showNotification('✅ 你已转会至 ' + offer.team + '！');
+  G.ucl = null;
+
+  // Show intro for new league
+  const leagueData = LEAGUES[targetLeague];
+  document.getElementById('match-pre-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('match-pre-stage').textContent = leagueData.name;
+  document.getElementById('match-number-label').textContent = '新球队！';
+  document.getElementById('pre-home-name').textContent = G.currentTeam;
+  document.getElementById('pre-home-tier').textContent = getTeamTierLabel(G.currentTeam);
+  document.getElementById('pre-away-name').textContent = '';
+  document.getElementById('pre-away-tier').textContent = '';
+  setPreMatchLogos(G.currentTeam, '');
+  renderTactics();
+  showScreen('match-pre-screen');
+
+  // Small delay then init new league
+  setTimeout(() => {
+    initLeague(targetLeague);
+  }, 800);
+}
+
+// ============================================================
+// FINAL RESULT (youth career end only)
+// ============================================================
+
+function showFinalResult() {
   const u12r = G.stageRatings[0] || 0;
   const u15r = G.stageRatings[1] || 0;
   const u19r = G.stageRatings[2] || 0;
@@ -1806,43 +2593,47 @@ function showFinalResult() {
     finalIcon = '📋';
     finalDesc = '你选择了留在青训营担任教练，将自己的经验传授给下一代年轻球员。虽然没能登上职业赛场，但你为中国足球的未来播下了种子。';
   } else if(weighted >= 9) {
-    const t = pickRandom(TEAMS.l8);
+    const pool = [...LEAGUES.epl.teams, ...LEAGUES.laliga.teams, ...LEAGUES.bundesliga.teams];
+    const t = pickRandom(pool);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '🏆';
     finalDesc = '世界级球星！你以绝对的实力征服了世界足坛，加盟了顶级豪门！你的名字将载入足球史册！';
   } else if(weighted >= 8) {
-    const t = pickRandom(TEAMS.l7);
+    const pool = [...LEAGUES.epl.teams, ...LEAGUES.laliga.teams, ...LEAGUES.bundesliga.teams, ...LEAGUES.seriea.teams, ...LEAGUES.ligue1.teams];
+    const t = pickRandom(pool);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '🌟';
     finalDesc = '超级球星！你引起了欧洲顶级俱乐部的关注，成功登陆五大联赛豪门！前途无量！';
   } else if(weighted >= 7) {
-    const t = pickRandom([...TEAMS.l6, ...TEAMS.l5]);
+    const pool = [...LEAGUES.epl.teams, ...LEAGUES.laliga.teams, ...LEAGUES.bundesliga.teams, ...LEAGUES.seriea.teams, ...LEAGUES.ligue1.teams];
+    const t = pickRandom(pool);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '⭐';
     finalDesc = '优秀的球员！你在欧洲五大联赛找到了自己的位置，继续努力可以更进一步！';
   } else if(weighted >= 6.5) {
-    const t = pickRandom([...TEAMS.l5, ...TEAMS.l4]);
+    const pool = [...LEAGUES.epl.teams, ...LEAGUES.laliga.teams, ...LEAGUES.bundesliga.teams, ...LEAGUES.seriea.teams, ...LEAGUES.ligue1.teams, ...LEAGUES.csl.teams];
+    const t = pickRandom(pool);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '💪';
     finalDesc = '实力派球员！你成为了中超豪门/五大联赛的一员，是一支不可忽视的力量。';
   } else if(weighted >= 6) {
-    const t = pickRandom(TEAMS.l3);
+    const t = pickRandom(LEAGUES.csl.teams);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '👍';
     finalDesc = '中超主力！你成为了中超中上游球队的主力球员，过着安稳的职业生涯。';
   } else if(weighted >= 5) {
-    const t = pickRandom(TEAMS.l2);
+    const t = pickRandom(LEAGUES.csl.teams);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '🙂';
     finalDesc = '职业球员！你加盟了中超球队，虽然在保级区挣扎，但你实现职业梦想。';
   } else {
-    const t = pickRandom(TEAMS.l1);
+    const t = pickRandom(LEAGUES.jia.teams);
     finalTeam = t.n;
     finalLeague = t.l;
     finalIcon = '😅';
@@ -1869,6 +2660,8 @@ function showFinalResult() {
   if(ps.dribbles > 0) statLines.push('💨' + ps.dribbles + '过人');
   if(ps.cleanSheets > 0) statLines.push('🧹' + ps.cleanSheets + '零封');
   if(ps.motmCount > 0) statLines.push('🌟' + ps.motmCount + '次最佳');
+  if(G.playerCards.yellow > 0) statLines.push('🟡' + G.playerCards.yellow + '黄');
+  if(G.playerCards.red > 0) statLines.push('🔴' + G.playerCards.red + '红');
 
   const statDisplay = document.createElement('div');
   statDisplay.style.cssText = 'text-align:center;margin:8px 0;font-size:13px;color:#b0c0b0;width:100%;max-width:400px;';
@@ -1913,6 +2706,61 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function findTeamTier(name) {
+  for(const key of Object.keys(LEAGUES)) {
+    const team = LEAGUES[key].teams.find(t => t.n === name);
+    if(team) return team.tier || LEAGUES[key].tier;
+  }
+  return 3; // default to CSL tier
+}
+
+function getMatchTierMod() {
+  let userTier = 3;
+  if(G.ucl) {
+    const t = G.ucl.teams.find(t => t.name === G.currentTeam);
+    if(t) userTier = t.tier || 6;
+  } else if(G.leagueId && LEAGUES[G.leagueId]) {
+    userTier = LEAGUES[G.leagueId].tier;
+    // Use per-team tier if available (all leagues)
+    const myTeam = LEAGUES[G.leagueId].teams.find(t => t.n === G.currentTeam);
+    if(myTeam && myTeam.tier) userTier = myTeam.tier;
+  }
+  const oppTier = G.opponentTier || 5;
+  return Math.min(0.2, Math.max(-0.2, (userTier - oppTier) * 0.03));
+}
+
+function getTeamTierLabel(teamName) {
+  for(const key of Object.keys(LEAGUES)) {
+    const t = LEAGUES[key].teams.find(t => t.n === teamName);
+    if(t) {
+      const l = LEAGUES[key];
+      if(l.id === 'jia') return '⚪中甲';
+      if(l.id === 'csl') {
+        if(t.tier >= 4) return '🟠中超强';
+        if(t.tier >= 3) return '🟢中超';
+        if(t.tier >= 2) return '🔵中游';
+        return '⚪弱旅';
+      }
+      if(l.canUCL) {
+        if(t.tier >= 7) return '🔴欧洲顶级';
+        if(t.tier >= 6) return '🟠欧洲强队';
+        if(t.tier >= 5) return '🟢欧洲中游';
+        if(t.tier >= 4) return '🔵欧洲中下';
+        return '⚪欧洲弱旅';
+      }
+      if(l.tier >= 6) return '🔴欧洲';
+      return '🟣欧洲';
+    }
+  }
+  return '';
+}
+
+function getLeagueTeams(leagueId) {
+  const league = LEAGUES[leagueId];
+  if(!league) return [];
+  return [...league.teams];
+}
+
 function showNotification(text) {
   const div = document.createElement('div');
   div.className = 'notification';
@@ -1940,7 +2788,937 @@ function launchConfetti() {
 }
 
 // ============================================================
-// KEYBOARD SUPPORT
+// ATTRIBUTE SYSTEM
+// ============================================================
+
+function getAttrKeysForChoice(choice) {
+  // Map choice type to relevant attributes
+  if(choice.scoreChance > 0.3) return ['finishing', 'dribbling']; // goal chance
+  if(choice.scoreChance > 0) return ['finishing', 'dribbling', 'pace']; // attacking
+  if(choice.scoreChance < -0.15) return ['tackling', 'interception', 'heading']; // defensive
+  if(choice.scoreChance < 0) return ['interception', 'tackling']; // mild defensive
+  if(choice.rating > 0) return ['passing', 'dribbling']; // positive neutral
+  return ['stamina', 'strength']; // negative neutral
+}
+
+function getAttrBonus(choice) {
+  const keys = getAttrKeysForChoice(choice);
+  let sum = 0;
+  keys.forEach(k => { sum += G.attributes[k] || 50; });
+  const avg = sum / keys.length;
+  // Notable impact: 50 = 0%, 80 = +15%, 20 = -15%
+  let bonus = (avg - 50) / 200;
+  // Injury penalty: -15% attribute effectiveness
+  if(G.isInjured || G.injuryCooldown > 0) bonus -= 0.15;
+  // Yellow card: -10% for rest of match (plays more cautiously)
+  if(G.hasYellow) bonus -= 0.10;
+  return bonus;
+}
+
+function applyAttributeGrowth() {
+  const ms = G.matchStats;
+  const expMap = {
+    finishing: (ms.shots || 0) * 2 + (ms.goals || 0) * 8,
+    passing: (ms.passes || 0) * 2 + (ms.assists || 0) * 6,
+    dribbling: (ms.dribbles || 0) * 3,
+    tackling: (ms.tackles || 0) * 3,
+    interception: (ms.interceptions || 0) * 3,
+    heading: (ms.goals || 0) * 3 + (ms.tackles || 0) * 1,
+    handling: (ms.saves || 0) * 4,
+    reflexes: (ms.saves || 0) * 2,
+    rushing: (G.score.away === 0) ? 5 : 0,
+    pace: (ms.shots || 0) + (ms.dribbles || 0) * 2,
+    stamina: 3 + (ms.passes || 0), // always grows a bit
+    strength: (ms.tackles || 0) * 2 + (ms.interceptions || 0)
+  };
+
+  // Lower-tier team (中甲) boosts attribute growth
+  if(G.leagueId === 'jia') {
+    Object.keys(expMap).forEach(key => { expMap[key] = Math.floor(expMap[key] * 1.3); });
+  }
+
+  let gained = [];
+  Object.keys(expMap).forEach(key => {
+    if(!G.attrExp[key]) G.attrExp[key] = 0;
+    G.attrExp[key] += expMap[key];
+    if(G.attrExp[key] >= 100) {
+      const levels = Math.floor(G.attrExp[key] / 100);
+      G.attrExp[key] -= levels * 100;
+      const old = G.attributes[key] || 50;
+      G.attributes[key] = Math.min(99, Math.max(1, old + levels));
+      gained.push({ key, levels });
+    }
+  });
+
+  // Store for display on result screen
+  G._attrChanges = gained;
+}
+
+// ============================================================
+// ATTRIBUTE UI
+// ============================================================
+
+function renderAttrPanel(containerId, showChanges) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const attrs = G.attributes;
+  if(!attrs || !Object.keys(attrs).length) { container.innerHTML = ''; return; }
+
+  let html = '<div style="margin-bottom:4px;"><span style="font-size:13px;color:#ffd700;font-weight:700;">📊 能力属性</span></div><div class="attr-grid">';
+  ATTRS.forEach(attr => {
+    const val = attrs[attr.key] || 50;
+    const pct = val + '%';
+    const cls = val >= 80 ? 'elite' : val >= 60 ? 'high' : '';
+    let changeHtml = '';
+    if(showChanges && G._attrChanges) {
+      const ch = G._attrChanges.find(c => c.key === attr.key);
+      if(ch) changeHtml = '<span class="attr-change">+'+ch.levels+'</span>';
+    }
+    html += '<div class="attr-row">' +
+      '<span class="attr-icon">' + attr.icon + '</span>' +
+      '<span class="attr-name">' + attr.name + '</span>' +
+      '<div class="attr-bar-wrap"><div class="attr-bar ' + cls + '" style="width:' + pct + '"></div></div>' +
+      '<span class="attr-val">' + val + '</span>' +
+      changeHtml +
+    '</div>';
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+function toggleTransferAttrs() {
+  const c = document.getElementById('transfer-attr-container');
+  if(c.style.display === 'none') {
+    renderAttrPanel('transfer-attr-container', false);
+    c.style.display = 'block';
+  } else {
+    c.style.display = 'none';
+  }
+}
+
+// ============================================================
+// LEAGUE MODE
+// ============================================================
+
+function initLeague(leagueId) {
+  const leagueData = LEAGUES[leagueId];
+  if(!leagueData) return;
+  let teams = [...leagueData.teams];
+  const myTeam = G.currentTeam;
+
+  // Ensure my team is in the list
+  if(!teams.some(t => t.n === myTeam)) {
+    const myTeamObj = { n: myTeam, en: '', l: leagueData.name };
+    for(const key of Object.keys(LEAGUES)) {
+      const found = LEAGUES[key].teams.find(t => t.n === myTeam);
+      if(found) { myTeamObj.en = found.en; myTeamObj.l = found.l; break; }
+    }
+    teams.pop();
+    teams.push(myTeamObj);
+  }
+
+  teams.sort(() => Math.random() - 0.5);
+  const userIdx = teams.findIndex(t => t.n === myTeam);
+  if(userIdx > 0) { const t = teams[0]; teams[0] = teams[userIdx]; teams[userIdx] = t; }
+
+  // Create league table entries
+  const table = teams.map(t => ({
+    name: t.n, en: t.en || '',
+    p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, gd: 0, pts: 0
+  }));
+
+  // Generate single round-robin fixtures (each team plays each other once)
+  const fixtures = [];
+  const n = teams.length;
+  const half = n / 2;
+
+  const fixed1 = [...teams];
+  for(let round = 0; round < n - 1; round++) {
+    const roundMatches = [];
+    for(let i = 0; i < half; i++) {
+      roundMatches.push({ home: fixed1[i].n, away: fixed1[n - 1 - i].n });
+    }
+    fixtures.push(roundMatches);
+    const last = fixed1.pop();
+    fixed1.splice(1, 0, last);
+  }
+
+  G.leagueId = leagueId;
+  G.careerStage = leagueData.canUCL ? 'europe' : 'csl';
+  G.league = {
+    teams: teams.map(t => ({ name: t.n, en: t.en || '' })),
+    table, fixtures,
+    currentRound: 0,
+    totalRounds: n - 1,
+    leagueName: leagueData.name,
+    seasonOver: false
+  };
+
+  showLeagueIntro();
+}
+
+function showLeagueIntro() {
+  const l = G.league;
+  document.getElementById('league-intro-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  const logo = getTeamLogoByName(G.currentTeam);
+  document.getElementById('league-intro-team').innerHTML =
+    (logo !== '⚽' ? '<div class="team-logo" style="background-image:url('+logo+');background-size:contain;background-position:center;background-repeat:no-repeat;width:24px;height:24px;border-radius:4px;flex-shrink:0;font-size:0;display:inline-block;vertical-align:middle;margin-right:6px;"></div>' : '🏠 ')
+    + G.currentTeam;
+  document.getElementById('league-intro-subtitle').textContent = l.leagueName + ' · ' + l.totalRounds + '轮主客场双循环';
+  document.getElementById('league-intro-name').textContent = G.currentTeam;
+  document.getElementById('league-intro-desc').textContent =
+    '你已加盟 ' + G.currentTeam + '，征战 ' + l.leagueName + '！\n' +
+    '联赛共有 ' + l.teams.length + ' 支球队，主客场双循环共 ' + l.totalRounds + ' 轮。\n' +
+    '赛季末排名前列的球队将获得荣誉！';
+  G._attrChanges = [];
+  renderAttrPanel('league-intro-attr', false);
+  showScreen('league-intro-screen');
+}
+
+function showLeagueTable() {
+  const l = G.league;
+  if(!l) return;
+  document.getElementById('league-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('league-round-label').textContent =
+    l.seasonOver ? '🏁 赛季结束' :
+    '第 ' + (l.currentRound + 1) + ' / ' + l.totalRounds + ' 轮';
+
+  const sorted = [...l.table].sort((a, b) =>
+    b.pts !== a.pts ? b.pts - a.pts :
+    (b.gd !== a.gd ? b.gd - a.gd : b.gf - a.gf)
+  );
+
+  let html = '<table class="league-table"><thead><tr>' +
+    '<th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>净</th><th>分</th></tr></thead><tbody>';
+
+  sorted.forEach((row, i) => {
+    const isUser = row.name === G.currentTeam;
+    const posCls = i < 3 ? 'top' : (i >= sorted.length - 3 ? 'bot' : 'mid');
+    const trCls = isUser ? 'user-row' : '';
+    html += '<tr class="' + trCls + '">' +
+      '<td class="league-pos ' + posCls + '">' + (i + 1) + '</td>' +
+      '<td class="league-team-name">' + (isUser ? '⭐' : '') + row.name + '</td>' +
+      '<td>' + row.p + '</td><td>' + row.w + '</td><td>' + row.d + '</td><td>' + row.l + '</td>' +
+      '<td>' + (row.gd > 0 ? '+' : '') + row.gd + '</td>' +
+      '<td style="font-weight:700;color:#ffd700;">' + row.pts + '</td></tr>';
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('league-table-container').innerHTML = html;
+
+  // Next action
+  const nextC = document.getElementById('league-next-container');
+  nextC.innerHTML = '';
+
+  if(l.seasonOver) {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '📋 查看赛季总结';
+    btn.onclick = showLeagueEnd;
+    nextC.appendChild(btn);
+    return;
+  }
+
+  const round = l.fixtures[l.currentRound];
+  const myMatch = round.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
+  const opponent = myMatch ? (myMatch.home === G.currentTeam ? myMatch.away : myMatch.home) : round[0].away;
+  const isHome = myMatch ? myMatch.home === G.currentTeam : false;
+
+  // Show next match
+  const matchDiv = document.createElement('div');
+  matchDiv.className = 'league-matchup';
+  matchDiv.innerHTML =
+    '<div class="lm-team"><div class="lm-name">' + G.currentTeam + '</div><div class="lm-label">主队</div></div>' +
+    '<div class="lm-vs">VS</div>' +
+    '<div class="lm-team"><div class="lm-name">' + opponent + '</div><div class="lm-label">客队</div></div>';
+  nextC.appendChild(matchDiv);
+
+  const btn = document.createElement('button');
+  btn.className = 'btn btn-primary';
+  btn.textContent = '⚽ 开始第 ' + (l.currentRound + 1) + ' 轮比赛';
+  btn.onclick = playLeagueMatch;
+  nextC.appendChild(btn);
+
+  showScreen('league-screen');
+}
+
+function playLeagueMatch() {
+  const l = G.league;
+  const round = l.fixtures[l.currentRound];
+  const myMatch = round.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
+  const opponent = myMatch ? (myMatch.home === G.currentTeam ? myMatch.away : myMatch.home) : round[0].away;
+
+  // Suspension check
+  if(G.suspended) {
+    G.suspended = false;
+    // Auto-simulate: concede a goal, player is out
+    G.score = {home: 0, away: 1};
+    G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
+    G.matchRatings = G.matchRatings || [];
+    G.matchScores = G.matchScores || [];
+    G.currentRatingMod = -3;
+    showNotification('🛑 你因红牌/累计黄牌停赛，本场无法出战！球队 ' + G.currentTeam + ' 0:1 告负。');
+    showMatchResult();
+    return;
+  }
+
+  G.opponent = { n: opponent, l: l.leagueName };
+  G.opponentTier = findTeamTier(opponent);
+  G.score = {home: 0, away: 0};
+  G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
+  G.currentRatingMod = 0;
+  G.currentMatchEvents = 0;
+  G._attrChanges = [];
+  G.matchRatings = G.matchRatings || [];
+  G.matchScores = G.matchScores || [];
+  G.halftimeChosen = false;
+  G.currentOutcome = null;
+  G.matchTacticsBonus = 0.1;
+  G.matchCards = { yellow: 0, red: 0 };
+  G.isInjured = false;
+  G.injuryCooldown = Math.max(0, (G.injuryCooldown || 0) - 1);
+
+  const allEvents = getEvents(G.position, 2);
+  G.events = [...allEvents].sort(() => Math.random() - 0.5).slice(0, 6);
+  G.eventIndex = 0;
+
+  // Set up pre-match screen for league (STAGES[G.stage] is out of bounds)
+  document.getElementById('match-pre-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('match-pre-stage').textContent = l.leagueName;
+  document.getElementById('match-number-label').textContent = '第 ' + (l.currentRound + 1) + ' / ' + l.totalRounds + ' 轮';
+  document.getElementById('pre-home-name').textContent = G.currentTeam;
+  document.getElementById('pre-home-tier').textContent = getTeamTierLabel(G.currentTeam);
+  document.getElementById('pre-away-name').textContent = G.opponent.n;
+  document.getElementById('pre-away-tier').textContent = getTeamTierLabel(G.opponent.n);
+  setPreMatchLogos(G.currentTeam, G.opponent.n);
+  renderTactics();
+  showScreen('match-pre-screen');
+}
+
+// Simulate a match between two AI teams
+function simulateMatch(home, away) {
+  const homeTier = findTeamTier(home);
+  const awayTier = findTeamTier(away);
+  const homeAdvantage = 0.1; // home field advantage
+  const winProb = 0.5 + (homeTier - awayTier) * 0.03 + homeAdvantage;
+  const roll = Math.random();
+  let homeScore, awayScore;
+
+  if(roll < winProb) {
+    // Home win or draw
+    if(Math.random() < 0.25) {
+      // Draw
+      const g = Math.floor(Math.random() * 3);
+      homeScore = g; awayScore = g;
+    } else {
+      homeScore = Math.floor(Math.random() * 3) + 1;
+      awayScore = Math.floor(Math.random() * Math.min(homeScore, 2));
+    }
+  } else {
+    // Away win or draw
+    if(Math.random() < 0.25) {
+      const g = Math.floor(Math.random() * 3);
+      homeScore = g; awayScore = g;
+    } else {
+      awayScore = Math.floor(Math.random() * 3) + 1;
+      homeScore = Math.floor(Math.random() * Math.min(awayScore, 2));
+    }
+  }
+  return { home: homeScore, away: awayScore };
+}
+
+// Override match result to update league table
+function onLeagueMatchEnd() {
+  const l = G.league;
+  if(!l) return;
+  const row = l.table.find(r => r.name === G.currentTeam);
+  if(!row) return;
+  row.p++;
+  if(G.score.home > G.score.away) { row.w++; row.pts += 3; }
+  else if(G.score.home === G.score.away) { row.d++; row.pts += 1; }
+  else { row.l++; }
+  row.gf += G.score.home;
+  row.ga += G.score.away;
+  row.gd = row.gf - row.ga;
+
+  // Update opponent too
+  const oppName = G.opponent.n;
+  const oppRow = l.table.find(r => r.name === oppName);
+  if(oppRow) {
+    oppRow.p++;
+    if(G.score.home < G.score.away) { oppRow.w++; oppRow.pts += 3; }
+    else if(G.score.home === G.score.away) { oppRow.d++; oppRow.pts += 1; }
+    else { oppRow.l++; }
+    oppRow.gf += G.score.away;
+    oppRow.ga += G.score.home;
+    oppRow.gd = oppRow.gf - oppRow.ga;
+  }
+
+  // Simulate other matches in this round
+  const roundFixtures = l.fixtures[l.currentRound];
+  if(roundFixtures) {
+    roundFixtures.forEach(match => {
+      if(match.home === G.currentTeam || match.away === G.currentTeam) return;
+      const result = simulateMatch(match.home, match.away);
+      // Home team
+      const hRow = l.table.find(r => r.name === match.home);
+      if(hRow) {
+        hRow.p++;
+        if(result.home > result.away) { hRow.w++; hRow.pts += 3; }
+        else if(result.home === result.away) { hRow.d++; hRow.pts += 1; }
+        else { hRow.l++; }
+        hRow.gf += result.home;
+        hRow.ga += result.away;
+        hRow.gd = hRow.gf - hRow.ga;
+      }
+      // Away team
+      const aRow = l.table.find(r => r.name === match.away);
+      if(aRow) {
+        aRow.p++;
+        if(result.home < result.away) { aRow.w++; aRow.pts += 3; }
+        else if(result.home === result.away) { aRow.d++; aRow.pts += 1; }
+        else { aRow.l++; }
+        aRow.gf += result.away;
+        aRow.ga += result.home;
+        aRow.gd = aRow.gf - aRow.ga;
+      }
+    });
+  }
+
+  // Auto-clear season-ending injury after 10 rounds in league mode
+  if(G.seasonEnded && G.seasonEndedRound >= 0 && l.currentRound - G.seasonEndedRound >= 10) {
+    G.seasonEnded = false;
+    G.seasonEndedRound = 0;
+    showNotification('💪 经过10轮比赛恢复，你的伤势已痊愈！');
+  }
+
+  l.currentRound++;
+
+  if(l.currentRound >= l.totalRounds) {
+    l.seasonOver = true;
+  }
+}
+
+// Hook into match result flow
+// We modify the "next match / stage summary" button behavior
+// This is handled in showMatchResult's next-container rendering
+
+function showLeagueEnd() {
+  const l = G.league;
+  if(!l) return;
+  const sorted = [...l.table].sort((a, b) =>
+    b.pts !== a.pts ? b.pts - a.pts :
+    (b.gd !== a.gd ? b.gd - a.gd : b.gf - a.gf)
+  );
+  const userPos = sorted.findIndex(r => r.name === G.currentTeam);
+  const isTop3 = userPos < 3;
+  const canUCL = G.leagueId && LEAGUES[G.leagueId] && LEAGUES[G.leagueId].canUCL;
+
+  // Show league table
+  document.getElementById('league-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('league-round-label').textContent = '🏁 赛季结束';
+
+  let html = '<table class="league-table"><thead><tr>' +
+    '<th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>净</th><th>分</th></tr></thead><tbody>';
+
+  sorted.forEach((row, i) => {
+    const isUser = row.name === G.currentTeam;
+    const posCls = i < 3 ? 'top' : (i >= sorted.length - 3 ? 'bot' : 'mid');
+    const trCls = isUser ? 'user-row' : '';
+    html += '<tr class="' + trCls + '">' +
+      '<td class="league-pos ' + posCls + '">' + (i + 1) + '</td>' +
+      '<td class="league-team-name">' + (isUser ? '⭐' : '') + row.name + '</td>' +
+      '<td>' + row.p + '</td><td>' + row.w + '</td><td>' + row.d + '</td><td>' + row.l + '</td>' +
+      '<td>' + (row.gd > 0 ? '+' : '') + row.gd + '</td>' +
+      '<td style="font-weight:700;color:#ffd700;">' + row.pts + '</td></tr>';
+  });
+
+  html += '</tbody></table>';
+
+  // Season summary
+  const seasonRating = G.matchRatings.length > 0
+    ? Math.round(G.matchRatings.reduce((a,b)=>a+b,0) / G.matchRatings.length * 10) / 10
+    : 0;
+
+  let outcomeHtml = '';
+  if(isTop3 && canUCL) {
+    outcomeHtml = '<div style="text-align:center;padding:16px;background:rgba(255,215,0,0.08);border-radius:10px;border:1px solid rgba(255,215,0,0.2);margin:12px 0;">' +
+      '<div style="font-size:16px;color:#ffd700;font-weight:700;">🏆 联赛排名第' + (userPos+1) + '名</div>' +
+      '<div style="font-size:13px;color:#b0c0b0;margin:6px 0;">赛季评分：' + seasonRating.toFixed(1) + '</div>' +
+      '<div style="font-size:13px;color:#b0c0b0;">你的球队获得了下赛季欧洲冠军联赛的参赛资格！</div></div>';
+  } else if(isTop3) {
+    outcomeHtml = '<div style="text-align:center;padding:16px;background:rgba(255,215,0,0.08);border-radius:10px;border:1px solid rgba(255,215,0,0.2);margin:12px 0;">' +
+      '<div style="font-size:16px;color:#ffd700;font-weight:700;">🏆 联赛排名第' + (userPos+1) + '名</div>' +
+      '<div style="font-size:13px;color:#b0c0b0;margin:6px 0;">赛季评分：' + seasonRating.toFixed(1) + '</div>' +
+      '<div style="font-size:13px;color:#888;">你的联赛没有欧冠资格</div></div>';
+  } else {
+    outcomeHtml = '<div style="text-align:center;padding:16px;background:rgba(255,255,255,0.03);border-radius:10px;border:1px solid rgba(255,255,255,0.1);margin:12px 0;">' +
+      '<div style="font-size:16px;color:#b0c0b0;font-weight:700;">📊 联赛排名第' + (userPos+1) + '名</div>' +
+      '<div style="font-size:13px;color:#b0c0b0;margin:6px 0;">赛季评分：' + seasonRating.toFixed(1) + '</div>' +
+      '<div style="font-size:13px;color:#888;">未能获得欧冠资格，来年再战！</div></div>';
+  }
+
+  document.getElementById('league-table-container').innerHTML = html + outcomeHtml;
+
+  // Action buttons
+  const nextC = document.getElementById('league-next-container');
+  nextC.innerHTML = '';
+
+  if(isTop3 && canUCL) {
+    const uclBtn = document.createElement('button');
+    uclBtn.className = 'btn btn-primary';
+    uclBtn.textContent = '🏆 晋级欧冠联赛';
+    uclBtn.onclick = startUCL;
+    nextC.appendChild(uclBtn);
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn btn-secondary';
+    nextBtn.textContent = '⏭ 跳过欧冠，开始下赛季';
+    nextBtn.style.marginTop = '6px';
+    nextBtn.onclick = startNewSeason;
+    nextC.appendChild(nextBtn);
+  } else {
+    // All other cases: show transfer market + continue
+    const transferBtn = document.createElement('button');
+    transferBtn.className = 'btn btn-primary';
+    transferBtn.textContent = '🏷️ 转会市场';
+    transferBtn.onclick = showSeasonTransferMarket;
+    nextC.appendChild(transferBtn);
+
+    const continueBtn = document.createElement('button');
+    continueBtn.className = 'btn btn-secondary';
+    continueBtn.textContent = '🔄 开始下赛季';
+    continueBtn.style.marginTop = '6px';
+    continueBtn.onclick = startNewSeason;
+    nextC.appendChild(continueBtn);
+  }
+
+  showScreen('league-screen');
+}
+
+// ============================================================
+// CHAMPIONS LEAGUE SYSTEM
+// ============================================================
+
+function startUCL() {
+  // Gather teams from European leagues ONLY
+  let pool = [];
+  const euroKeys = ['epl', 'laliga', 'bundesliga', 'seriea', 'ligue1'];
+  euroKeys.forEach(key => {
+    const l = LEAGUES[key];
+    if(l) {
+      l.teams.forEach(t => {
+        if(!pool.some(p => p.name === t.n)) {
+          pool.push({ name: t.n, tier: t.tier || l.tier });
+        }
+      });
+    }
+  });
+  // Remove user's team if in pool
+  pool = pool.filter(t => t.name !== G.currentTeam);
+  // Shuffle
+  pool.sort(() => Math.random() - 0.5);
+  // Pick 15
+  const selected = pool.slice(0, 15);
+  let userTier = G.leagueId && LEAGUES[G.leagueId] ? LEAGUES[G.leagueId].tier : 6;
+  if(G.leagueId && LEAGUES[G.leagueId]) {
+    const userTeam = LEAGUES[G.leagueId].teams.find(t => t.n === G.currentTeam);
+    if(userTeam && userTeam.tier) userTier = userTeam.tier;
+  }
+  selected.push({ name: G.currentTeam, tier: userTier });
+  // Shuffle again for random bracket placement
+  selected.sort(() => Math.random() - 0.5);
+
+  // Generate bracket: 4 rounds
+  const roundNames = ['十六强', '四分之一决赛', '半决赛', '决赛'];
+  const bracket = {
+    R16: [],
+    QF: [],
+    SF: [],
+    F: []
+  };
+
+  // R16: pair up teams
+  for(let i = 0; i < 16; i += 2) {
+    bracket.R16.push({
+      home: selected[i].name,
+      away: selected[i+1].name,
+      homeTier: selected[i].tier,
+      awayTier: selected[i+1].tier,
+      winner: null,
+      score: null,
+      played: false
+    });
+  }
+
+  G.ucl = {
+    teams: selected,
+    bracket: bracket,
+    roundIndex: 0,
+    roundNames: roundNames,
+    userAlive: true,
+    champion: false,
+    bouncedRound: null // track which round user lost
+  };
+
+  showUCLBracket();
+}
+
+function showUCLBracket() {
+  if(!G.ucl) return;
+  const u = G.ucl;
+  const currentRound = u.roundIndex;
+
+  document.getElementById('ucl-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+
+  const roundLabel = u.roundNames[currentRound];
+  const userLost = !u.userAlive;
+  document.getElementById('ucl-round-label').textContent = userLost
+    ? ('止步' + roundLabel)
+    : ('🏆 ' + roundLabel);
+
+  // Build bracket display for all 4 rounds
+  const roundKeys = ['R16', 'QF', 'SF', 'F'];
+  const roundTitles = ['十六强', '四分之一决赛', '半决赛', '决赛'];
+  const roundCol = ['#2ecc71', '#3498db', '#f39c12', '#e74c3c'];
+
+  let bracketHtml = '<div style="display:flex;flex-direction:column;gap:12px;">';
+
+  roundKeys.forEach((rk, ri) => {
+    const matches = u.bracket[rk];
+    if(!matches || matches.length === 0) return;
+    const isPastRound = ri < currentRound && !userLost;
+    const isCurrentRound = ri === currentRound;
+    const isFutureRound = ri > currentRound || (ri >= currentRound && userLost);
+
+    let roundHtml = '<div class="ucl-round">';
+    roundHtml += '<div class="ucl-round-title" style="color:' + roundCol[ri] + ';">' +
+      (isPastRound ? '✅ ' : isCurrentRound ? '▶ ' : '') +
+      roundTitles[ri] + '</div>';
+
+    matches.forEach(m => {
+      if(isFutureRound && !m.played) {
+        // Show placeholder
+        roundHtml += '<div class="ucl-match" style="opacity:0.3;">' +
+          '<span class="ucl-team">???</span>' +
+          '<span class="ucl-vs">VS</span>' +
+          '<span class="ucl-team">???</span></div>';
+        return;
+      }
+
+      const isUserHome = m.home === G.currentTeam;
+      const isUserAway = m.away === G.currentTeam;
+      const hasUser = isUserHome || isUserAway;
+
+      const homeCls = 'ucl-team' +
+        (isUserHome ? ' user' : '') +
+        (m.played && m.winner === m.home ? ' winner' : (m.played && m.winner !== m.home ? ' loser' : ''));
+      const awayCls = 'ucl-team' +
+        (isUserAway ? ' user' : '') +
+        (m.played && m.winner === m.away ? ' winner' : (m.played && m.winner !== m.away ? ' loser' : ''));
+
+      let scoreDisplay = '';
+      if(m.played && m.score) {
+        scoreDisplay = '<span class="ucl-score-tag">' + m.score.home + ':' + m.score.away + '</span>';
+      }
+
+      roundHtml += '<div class="ucl-match"' + (hasUser ? ' style="border-color:rgba(255,215,0,0.3);"' : '') + '>' +
+        '<span class="' + homeCls + '">' + m.home + '</span>' +
+        '<span class="ucl-vs">' + (m.played ? '' : 'VS') + '</span>' +
+        '<span class="' + awayCls + '">' + m.away + '</span>' +
+        scoreDisplay + '</div>';
+    });
+
+    roundHtml += '</div>';
+    bracketHtml += roundHtml;
+  });
+
+  bracketHtml += '</div>';
+  document.getElementById('ucl-bracket').innerHTML = bracketHtml;
+
+  // Action buttons
+  const nextC = document.getElementById('ucl-next-container');
+  nextC.innerHTML = '';
+
+  if(!u.userAlive) {
+    // User lost — show next season button
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '🔄 开始下赛季';
+    btn.onclick = startNewSeason;
+    nextC.appendChild(btn);
+    return;
+  }
+
+  // Check if current round is done
+  const currentMatches = u.bracket[roundKeys[currentRound]];
+  const allPlayed = currentMatches.every(m => m.played);
+  const isChampion = u.champion;
+
+  if(isChampion) {
+    showBallonDorCG();
+    return;
+  }
+
+  if(allPlayed && currentRound < 3) {
+    // Advance to next round
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-primary';
+    btn.textContent = '⚽ 进入' + roundKeys[currentRound + 1];
+    btn.onclick = advanceUCLRound;
+    nextC.appendChild(btn);
+  } else if(allPlayed && currentRound === 3) {
+    // Final is done — check winner
+    const finalMatch = u.bracket.F[0];
+    if(finalMatch.winner === G.currentTeam) {
+      u.champion = true;
+      showBallonDorCG();
+      return;
+    }
+  } else {
+    // Find user's match in current round
+    const userMatch = currentMatches.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
+    if(userMatch && !userMatch.played) {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-primary';
+      btn.textContent = '⚽ 开始比赛';
+      btn.onclick = playUCLMatch;
+      nextC.appendChild(btn);
+    } else if(userMatch && userMatch.played && !allPlayed) {
+      // User played their match, simulate remaining matches
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-primary';
+      btn.textContent = '⏭ 模拟剩余比赛并晋级';
+      btn.onclick = advanceUCLRound;
+      nextC.appendChild(btn);
+    }
+  }
+
+  showScreen('ucl-screen');
+}
+
+function playUCLMatch() {
+  if(!G.ucl) return;
+  const u = G.ucl;
+  const roundKeys = ['R16', 'QF', 'SF', 'F'];
+  const currentMatches = u.bracket[roundKeys[u.roundIndex]];
+  const userMatch = currentMatches.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
+  if(!userMatch) return;
+
+  const opponent = userMatch.home === G.currentTeam ? userMatch.away : userMatch.home;
+
+  // Set up match like league match but with UCL context
+  G.opponent = { n: opponent, l: '欧冠' };
+  G.opponentTier = userMatch.home === G.currentTeam ? userMatch.awayTier : userMatch.homeTier;
+  G.score = {home: 0, away: 0};
+  G.matchStats = {goals:0, assists:0, shots:0, passes:0, tackles:0, interceptions:0, saves:0, dribbles:0};
+  G.currentRatingMod = 0;
+  G.currentMatchEvents = 0;
+  G._attrChanges = [];
+  G.matchRatings = G.matchRatings || [];
+  G.matchScores = G.matchScores || [];
+  G.halftimeChosen = false;
+  G.currentOutcome = null;
+  G.matchTacticsBonus = 0.1;
+  G.matchCards = { yellow: 0, red: 0 };
+  G.isInjured = false;
+  G.injuryCooldown = Math.max(0, (G.injuryCooldown || 0) - 1);
+
+  const allEvents = getEvents(G.position, 2);
+  G.events = [...allEvents].sort(() => Math.random() - 0.5).slice(0, 6);
+  G.eventIndex = 0;
+
+  // Pre-match screen
+  document.getElementById('match-pre-player').textContent = POSITIONS[G.position].icon + ' ' + POSITIONS[G.position].name;
+  document.getElementById('match-pre-stage').textContent = '🏆 欧冠 ' + u.roundNames[u.roundIndex];
+  document.getElementById('match-number-label').textContent = '';
+  document.getElementById('pre-home-name').textContent = G.currentTeam;
+  document.getElementById('pre-home-tier').textContent = getTeamTierLabel(G.currentTeam);
+  document.getElementById('pre-away-name').textContent = G.opponent.n;
+  document.getElementById('pre-away-tier').textContent = getTeamTierLabel(G.opponent.n);
+  setPreMatchLogos(G.currentTeam, G.opponent.n);
+  renderTactics();
+  showScreen('match-pre-screen');
+}
+
+function onUCLMatchEnd() {
+  if(!G.ucl) return;
+  const u = G.ucl;
+  const roundKeys = ['R16', 'QF', 'SF', 'F'];
+  const currentMatches = u.bracket[roundKeys[u.roundIndex]];
+  const userMatch = currentMatches.find(m => m.home === G.currentTeam || m.away === G.currentTeam);
+  if(!userMatch) return;
+
+  const userWon = G.score.home > G.score.away;
+  userMatch.played = true;
+  userMatch.score = { home: G.score.home, away: G.score.away };
+  userMatch.winner = userWon ? G.currentTeam : G.opponent.n;
+
+  if(!userWon) {
+    u.userAlive = false;
+    u.bouncedRound = u.roundIndex;
+  }
+  // Note: round index NOT advanced here. advanceUCLRound() handles it.
+}
+
+function simulateUCLMatch(match) {
+  // Simulate using tier-based probability
+  const homeTier = match.homeTier || findTeamTier(match.home);
+  const awayTier = match.awayTier || findTeamTier(match.away);
+  const winProb = Math.min(0.85, Math.max(0.15, 0.5 + (homeTier - awayTier) * 0.08));
+
+  const rand = Math.random();
+  let homeScore, awayScore;
+  if(rand < winProb) {
+    homeScore = Math.floor(Math.random() * 3) + 1;
+    awayScore = Math.floor(Math.random() * Math.min(2, homeScore));
+    match.winner = match.home;
+  } else {
+    awayScore = Math.floor(Math.random() * 3) + 1;
+    homeScore = Math.floor(Math.random() * Math.min(2, awayScore));
+    match.winner = match.away;
+  }
+  match.score = { home: homeScore, away: awayScore };
+  match.played = true;
+}
+
+function advanceUCLRound() {
+  if(!G.ucl) return;
+  const u = G.ucl;
+  const roundKeys = ['R16', 'QF', 'SF', 'F'];
+
+  // Simulate all unplayed matches in the current round
+  const currentMatches = u.bracket[roundKeys[u.roundIndex]];
+  currentMatches.forEach(m => {
+    if(!m.played) simulateUCLMatch(m);
+  });
+
+  // Collect winners
+  const winners = currentMatches.map(m => {
+    const winnerTier = m.winner === m.home ? (m.homeTier || findTeamTier(m.home)) : (m.awayTier || findTeamTier(m.away));
+    return { name: m.winner, tier: winnerTier };
+  });
+
+  // If this is the final (roundIndex === 3), just show the result
+  if(u.roundIndex === 3) {
+    const finalWinner = winners[0];
+    if(finalWinner.name === G.currentTeam) {
+      u.champion = true;
+    }
+    showUCLBracket();
+    return;
+  }
+
+  // Generate next round matchups
+  const nextRound = roundKeys[u.roundIndex + 1];
+  winners.sort(() => Math.random() - 0.5);
+
+  for(let i = 0; i < winners.length; i += 2) {
+    u.bracket[nextRound].push({
+      home: winners[i].name,
+      away: winners[i+1].name,
+      homeTier: winners[i].tier,
+      awayTier: winners[i+1].tier,
+      winner: null,
+      score: null,
+      played: false
+    });
+  }
+
+  u.roundIndex++;
+  showUCLBracket();
+}
+
+// ============================================================
+// BALLON D'OR CG
+// ============================================================
+
+function showBallonDorCG() {
+  const displayName = G.playerName || '你';
+  document.getElementById('bd-player-name').textContent = '⭐ ' + displayName + ' ⭐';
+
+  // Season stats
+  const ps = G.playerStats;
+  const statLines = [];
+  statLines.push('出场 ' + ps.appearances + ' 场');
+  if(ps.goals > 0) statLines.push('⚽' + ps.goals + ' 球');
+  if(ps.assists > 0) statLines.push('👟' + ps.assists + ' 助攻');
+  if(ps.saves > 0) statLines.push('🧤' + ps.saves + ' 扑救');
+  if(ps.motmCount > 0) statLines.push('🌟' + ps.motmCount + ' 次最佳');
+  const avgRating = G.matchRatings.length > 0
+    ? (G.matchRatings.reduce((a,b)=>a+b,0) / G.matchRatings.length).toFixed(1)
+    : '—';
+  statLines.push('场均评分 ' + avgRating);
+
+  document.getElementById('bd-season-stats').innerHTML = statLines.join(' | ');
+
+  // Attributes
+  renderAttrPanel('bd-attr-display', false);
+
+  // Heavy confetti
+  launchConfetti();
+
+  // Update button to continue career instead of game over
+  const btn = document.querySelector('#ballon-dor-screen .btn-primary');
+  if(btn) {
+    btn.textContent = '🔄 继续下赛季';
+    btn.onclick = continueAfterUcl;
+  }
+
+  showScreen('ballon-dor-screen');
+}
+
+function continueAfterUcl() {
+  G.ucl = null;
+  startNewSeason();
+}
+
+// ============================================================
+// NEW SEASON
+// ============================================================
+
+function startNewSeason() {
+  G.seasonEnded = false;
+  if(!G.league) return;
+  const l = G.league;
+
+  // Reset table
+  l.table.forEach(row => {
+    row.p = 0; row.w = 0; row.d = 0; row.l = 0;
+    row.gf = 0; row.ga = 0; row.gd = 0; row.pts = 0;
+  });
+
+  // Regenerate fixtures
+  const teams = l.table.map(t => ({ n: t.name, en: t.en || '' }));
+  const fixtures = [];
+  const n = teams.length;
+  const half = n / 2;
+  const fixed = [...teams];
+
+  for(let round = 0; round < n - 1; round++) {
+    const roundMatches = [];
+    for(let i = 0; i < half; i++) {
+      const home = fixed[i];
+      const away = fixed[n - 1 - i];
+      roundMatches.push({ home: home.n, away: away.n });
+    }
+    fixtures.push(roundMatches);
+    const last = fixed.pop();
+    fixed.splice(1, 0, last);
+  }
+
+  l.fixtures = fixtures;
+  l.currentRound = 0;
+  l.seasonOver = false;
+
+  // Clear UCL
+  G.ucl = null;
+  // Reset season card tracking
+  G.seasonYellows = 0;
+  G.suspended = false;
+
+  showLeagueTable();
+}
 // ============================================================
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Enter') {

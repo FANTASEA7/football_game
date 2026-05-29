@@ -4,3 +4,6 @@
 # 系统文件
 Thumbs.db
 .DS_Store
+
+# Claude Code
+.claude/
